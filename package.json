@@ -2,7 +2,7 @@
   "name": "pong",
   "version": "1.0.0",
   "description": "A server based game",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"

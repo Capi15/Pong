@@ -23,6 +23,6 @@ io.on('connection', (socket) => {
     });
 });
 
-socket.on('startGame', () => {
-    io.emit('startGame');
-});
+// socket.on('startGame', () => {
+//     io.emit('startGame');
+// });
