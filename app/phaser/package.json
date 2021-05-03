@@ -1,19 +1,19 @@
 {
-  "_from": "phaser@3.54.0",
+  "_from": "phaser",
   "_id": "phaser@3.54.0",
   "_inBundle": false,
   "_integrity": "sha512-/1XVI6J2siS0OGwJez7vLbRjars1zb//EvJdYMVyd3wNTUf5DHrvYUj1f6TsEISr4vjnbrNtS66QIuPbGU8x6A==",
   "_location": "/phaser",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "tag",
     "registry": true,
-    "raw": "phaser@3.54.0",
+    "raw": "phaser",
     "name": "phaser",
     "escapedName": "phaser",
-    "rawSpec": "3.54.0",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "3.54.0"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/phaser/-/phaser-3.54.0.tgz",
   "_shasum": "46b191e46059aab2a9a57f78525c60b595767eee",
-  "_spec": "phaser@3.54.0",
-  "_where": "C:\\Users\\Bruno Ribeiro\\Desktop\\Pong",
+  "_spec": "phaser",
+  "_where": "C:\\Users\\Bruno Ribeiro\\Desktop\\Pong\\app",
   "author": {
     "name": "Richard Davey",
     "email": "rich@photonstorm.com",
