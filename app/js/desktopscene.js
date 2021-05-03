@@ -1,6 +1,6 @@
-class WorldScene extends Phaser.Scene {
+class DesktopScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'WorldScene' });
+        super({ key: 'DesktopScene' });
     }
 
     create() {

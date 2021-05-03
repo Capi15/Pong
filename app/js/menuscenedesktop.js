@@ -1,6 +1,6 @@
-class MenuScene extends Phaser.Scene {
+class MenuSceneDesktop extends Phaser.Scene {
     constructor() {
-        super({ key: 'MenuScene' });
+        super({ key: 'MenuSceneDesktop' });
     }
 
     create() {
@@ -17,7 +17,7 @@ class MenuScene extends Phaser.Scene {
         this.buttonJogar.once(
             'pointerdown',
             function (pointer) {
-                this.scene.start('WorldScene');
+                this.scene.start('DesktopScene');
             },
             this
         );

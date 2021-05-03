@@ -12,6 +12,6 @@ class BootScene extends Phaser.Scene {
     create() {
         // -- inicia uma nova Scene
         //this.scene.start('MenuScene');
-        this.scene.start('MenuScene');
+        this.scene.start('MenuSceneDesktop');
     }
 }
