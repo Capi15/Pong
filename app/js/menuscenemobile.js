@@ -17,7 +17,7 @@ class MenuSceneMobile extends Phaser.Scene {
         this.buttonJogar.once(
             'pointerdown',
             function (pointer) {
-                this.scene.start('WorldScene');
+                this.scene.start('MobileScene');
             },
             this
         );

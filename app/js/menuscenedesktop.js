@@ -4,6 +4,7 @@ class MenuSceneDesktop extends Phaser.Scene {
     }
 
     create() {
+        document.getElementById('game').classList.add('gameWindow');
         this.buttonJogar = this.add
             .image(
                 this.game.canvas.width / 2,
