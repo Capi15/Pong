@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pong</title>
+    <link rel="stylesheet" href="/tabler/css/tabler.min.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
     html,
@@ -23,18 +24,22 @@
     }
   </style>
 </head>
-<body>
-    <h1>This is the Server based project</h1>
+<body class="CustomBackground">
+    <h1 class="text-center">Pong</h1>
     <div id="game"></div>
     <script src="/phaser/dist/phaser.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/app.js" charset="utf-8"></script>
     <script src="/js/bootscene.js"></script>
-    <script src="/js/worldscene.js"></script>
-    <script src="/js/gameover.js"></script>
-    <script src="/js/menuscene.js"></script>
+    <script src="/js/desktopscene.js"></script>
+    <script src="/js/mobilescene.js"></script>
+    <script src="/js/gameoverdesktop.js"></script>
+    <script src="/js/gameovermobile.js"></script>
+    <script src="/js/menuscenedesktop.js"></script>
+    <script src="/js/menuscenemobile.js"></script>
     <script src="/js/instructionsscene.js"></script>
     <script src="/js/game.js"></script>
+    <script src="/tabler/js/tabler.min.js"></script>
 </body>
 
 </html>
