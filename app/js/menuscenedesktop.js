@@ -1,26 +1,26 @@
 class MenuSceneDesktop extends Phaser.Scene {
+    noPlayers;
+    waitPlayers;
+    playerCount;
+
     constructor() {
         super({ key: 'MenuSceneDesktop' });
     }
 
     create() {
         document.getElementById('game').classList.add('gameWindow');
-        this.buttonJogar = this.add
-            .image(
-                this.game.canvas.width / 2,
-                this.game.canvas.height / 2,
-                'startButtonImg'
-            )
-            .setScale(0.3)
-            .setInteractive({ useHandCursor: true });
 
-        //click no butão jogar
-        this.buttonJogar.once(
-            'pointerdown',
-            function (pointer) {
-                this.scene.start('DesktopScene');
-            },
-            this
-        );
+        this.waitPlayers = this.add.text(10, 10, 'A aguardar jogadores...');
+        this.noPlayers = 0;
+        this.playerCount = this.add.text(250, 10, this.noPlayers + '/6');
+    }
+    update() {
+        this.noPlayers = data.userCount;
+        this.playerCount.text = this.noPlayers + '/6'
+
+        if (data.userCount >= 6) {
+            this.scene.start('DesktopScene');
+        }
+        
     }
 }
