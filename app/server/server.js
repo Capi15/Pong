@@ -6,6 +6,7 @@ let connectCounter = 0;
 let data;
 
 const publicPath = path.join(__dirname, '/../');
+console.log(publicPath);
 
 const port = process.env.PORT || 3000;
 
