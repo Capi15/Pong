@@ -2,6 +2,8 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+let connectCounter = 0;
+let data;
 
 const publicPath = path.join(__dirname, '/../');
 
@@ -16,13 +18,23 @@ server.listen(port, () => {
     console.log(`Server is up on port ${port}.`);
 });
 
-io.on('connection', (socket) => {
+io.on('connection', function (socket) {
     console.log('A user just connected.');
-    socket.on('disconnect', () => {
+    connectCounter++;
+    console.log(connectCounter);
+    socket.emit('userCount', connectCounter)
+    socket.on('disconnect', function() {
+        connectCounter--;
         console.log('A user has disconnected.');
     });
 });
 
+
+data = {
+    userCount: connectCounter,
+};
+
+    
 // socket.on('startGame', () => {
 //     io.emit('startGame');
 // });
