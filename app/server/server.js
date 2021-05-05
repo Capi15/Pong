@@ -5,18 +5,27 @@ const socketIO = require('socket.io');
 let connectCounter = 0;
 let data;
 
-const publicPath = path.join(__dirname, '/../');
-
-const port = process.env.PORT || 3000;
+//const publicPath = path.join(__dirname, '/../');
 
 let app = express();
-let server = http.createServer(app);
-let io = socketIO(server);
+const port = process.env.PORT || 3000;
+app.use(express.static('public'));
+let server = require('http').server(app);
+let io = require('socket.io')(https);
+//let server = http.createServer(app);
+//let io = socketIO(server);
 
-app.use(express.static(publicPath));
+app.get('/', (res, res) => res.sendFile(__dirname + 'index.html'));
+
 server.listen(port, () => {
-    console.log(`Server is up on port ${port}.`);
+    console.log(`Servior na porta ${port}.`);
 });
+
+
+
+
+
+
 
 io.on('connection', function (socket) {
     console.log('A user just connected.');
