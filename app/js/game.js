@@ -8,7 +8,7 @@ console.log(isMobile);
 
 let isDesktopPlatform = true;
 
-if (!isMobile) {
+if (isMobile) {
     isDesktopPlatform = true;
 
     gameWidth = 1000;
@@ -34,6 +34,9 @@ const config = {
     parent: 'game',
     width: gameWidth,
     heigth: gameHeight,
+    dom: {
+        createContainer: true
+    },
     scale: {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,

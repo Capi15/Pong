@@ -2,6 +2,8 @@ class MenuSceneDesktop extends Phaser.Scene {
     noPlayers;
     waitPlayers;
     playerCount;
+    gamingList = [2];
+    waitingList = [4];
 
     constructor() {
         super({ key: 'MenuSceneDesktop' });
@@ -18,7 +20,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.noPlayers = data.userCount;
         this.playerCount.text = this.noPlayers + '/6'
 
-        if (data.userCount >= 6) {
+        if (data.userCount >= 7) {
             this.scene.start('DesktopScene');
         }
         
