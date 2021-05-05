@@ -24,6 +24,7 @@ class MenuSceneMobile extends Phaser.Scene {
             name.value = "";
         }
     });
+        
         //document.write("<input type=\"text\" name=\"username\" id=\"utext\">");
     }
 }
