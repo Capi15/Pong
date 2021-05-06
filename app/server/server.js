@@ -23,19 +23,13 @@ io.on('connection', function (socket) {
     console.log('A user just connected.');
     connectCounter++;
     console.log(connectCounter);
-    socket.emit('userCount', connectCounter)
-    socket.on('disconnect', function() {
+    socket.emit('userCount', connectCounter);
+    socket.on('disconnect', function () {
         connectCounter--;
         console.log('A user has disconnected.');
     });
 });
 
-
 data = {
     userCount: connectCounter,
 };
-
-    
-// socket.on('startGame', () => {
-//     io.emit('startGame');
-// });
