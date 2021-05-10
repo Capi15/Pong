@@ -17,3 +17,21 @@
     font-size: 20px;
     width: 400px;
 }
+
+.deskBack{
+    margin: 10px auto;
+    padding: 10;
+    width: 95%;
+    height: 90%;
+}
+
+.mobileBack{
+    margin: 0px auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.PongTitle{
+    
+}

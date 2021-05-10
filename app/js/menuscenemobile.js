@@ -1,6 +1,7 @@
 var playerInfo;
 class MenuSceneMobile extends Phaser.Scene {
     gameDiv = document.getElementById('game');
+    currPlayerName = "";
     constructor() {
         super({ key: 'MenuSceneMobile' });
     }
@@ -11,8 +12,7 @@ class MenuSceneMobile extends Phaser.Scene {
         this.FN.setAttribute('type', 'text');
         this.FN.setAttribute('name', 'FullName');
         this.FN.setAttribute('placeholder', 'Full Name');
-        this.FN.classList.add('form-control-lg');
-        this.FN.classList.add('mb-2');
+        this.FN.classList.add('form-control-lg', 'mb-2');
         this.FN.style.width = 400 + 'px';
         this.tag = document.createElement('div');
         this.tag.appendChild(this.FN);
@@ -21,9 +21,8 @@ class MenuSceneMobile extends Phaser.Scene {
             'left: ' + this.widthPos + 'px; top:' + this.heightPos + 'px;';
         this.tag.style.position = 'absolute';
         this.div = this.gameDiv.getElementsByTagName('div');
-        console.log(this.gameDiv.getElementsByTagName('div'));
         this.div[0].style.zIndex = 1;
-        this.div[0].append(this.tag);
+        this.div[0].appendChild(this.tag);
     }
 
     create() {
@@ -40,18 +39,41 @@ class MenuSceneMobile extends Phaser.Scene {
             )
             .setOrigin(0.5);
 
-        this.returnKey = this.input.keyboard.addKey(
-            Phaser.Input.Keyboard.KeyCodes.ENTER
-        );
+        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        
 
         this.returnKey.on('down', (event) => {
             this.name = this.FN;
             if (this.name.value != '') {
                 this.message.setText(this.name.value);
+                this.currPlayerName = this.name.value;
                 this.name.value = '';
                 this.hasChangedName = true;
             }
         });
+
+        this.buttonJogar = this.add
+            .image(
+                this.game.canvas.width / 2,
+                this.game.canvas.height / 2 + 300,
+                'acceptButtonImg'
+            )
+            .setScale(0.3)
+            .setInteractive({ useHandCursor: true });
+
+        //click no butão jogar
+        this.buttonJogar.once(
+            'pointerdown',
+            function (pointer) {
+                this.FN.remove();
+                this.tag.remove();
+                this.div[0].remove();
+                console.log(this.currPlayerName);
+                this.scene.start('MobileScene');
+            },
+            this
+        );
+    
 
         // playerInfo = {
         //     playerId = null,
