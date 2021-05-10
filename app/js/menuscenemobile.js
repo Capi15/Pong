@@ -53,10 +53,10 @@ class MenuSceneMobile extends Phaser.Scene {
             }
         });
 
-        // playerInfo = {
-        //     playerId = null,
-        //     playerName = this.name,
-        //     hasChangedName = this.hasChangedName
-        // }
+        playerInfo = {
+            playerId = null,
+            playerName = this.name,
+            hasChangedName = this.hasChangedName
+        }
     }
 }
