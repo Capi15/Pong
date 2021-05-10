@@ -1,6 +1,11 @@
 let socket = io();
 var data;
 
+data = {
+    userCount: 0,
+    androidPlayerID: 0,
+
+};
 
 socket.on('connect', () => {});
 socket.on('userCount', (connectCounter) => {
@@ -15,11 +20,6 @@ socket.on('userCount', (connectCounter) => {
     }
 });
 
-data = {
-    userCount: 0,
-    androidPlayerID: 0,
-
-};
 
 // socket.on('room_message', function (data) {
 //     socket.emit(playerInfo);

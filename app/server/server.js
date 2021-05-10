@@ -30,8 +30,14 @@ io.on('connection', function (socket) {
         connectCounter--;
         console.log('A user has disconnected.');
     });
+
+    socket.on('teste', teste);
 });
 
 data = {
     userCount: connectCounter,
 };
+
+function teste(data) {
+    console.log(data);
+}
