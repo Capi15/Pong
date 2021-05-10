@@ -53,10 +53,22 @@ class MenuSceneMobile extends Phaser.Scene {
             }
         });
 
+<<<<<<< HEAD
         // playerInfo = {
         //     playerId = null,
         //     playerName = this.name,
         //     hasChangedName = this.hasChangedName
         // }
+=======
+    this.returnKey.on("down", event => {
+        let name = this.nameInput.getChildByName("name");
+        if(name.value != "") {
+            this.message.setText(name.value);
+            name.value = "";
+        }
+    });
+        
+        //document.write("<input type=\"text\" name=\"username\" id=\"utext\">");
+>>>>>>> main
     }
 }
