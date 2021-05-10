@@ -1,4 +1,10 @@
-var playerInfo;
+var socket;
+
+playerList = [];
+var obj = {
+    playerList: playerList, 
+}
+
 class MenuSceneMobile extends Phaser.Scene {
     gameDiv = document.getElementById('game');
     constructor() {
@@ -27,6 +33,8 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
+        socket = io.connect('http://localhost:3000');
+        
         this.message = this.add
             .text(
                 this.sys.game.canvas.width / 2,
@@ -51,24 +59,9 @@ class MenuSceneMobile extends Phaser.Scene {
                 this.name.value = '';
                 this.hasChangedName = true;
             }
+            playerList.add(new Player(data.androidPlayerID, this.name));
+            
         });
-
-<<<<<<< HEAD
-        // playerInfo = {
-        //     playerId = null,
-        //     playerName = this.name,
-        //     hasChangedName = this.hasChangedName
-        // }
-=======
-    this.returnKey.on("down", event => {
-        let name = this.nameInput.getChildByName("name");
-        if(name.value != "") {
-            this.message.setText(name.value);
-            name.value = "";
-        }
-    });
-        
-        //document.write("<input type=\"text\" name=\"username\" id=\"utext\">");
->>>>>>> main
+      
     }
 }

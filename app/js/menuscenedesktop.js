@@ -3,6 +3,7 @@ class MenuSceneDesktop extends Phaser.Scene {
     waitPlayers;
     playerCount;
     gamingList = [2];
+    gamingListFunction;
     waitingList = [4];
 
     constructor() {
@@ -15,6 +16,9 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.waitPlayers = this.add.text(10, 10, 'A aguardar jogadores...');
         this.noPlayers = 0;
         this.playerCount = this.add.text(250, 10, this.noPlayers + '/6');
+        this.stringAndroid = this.add.text(130, 150, 'Acesso android');
+        this.add.sprite(200,300,"QrAndroid");
+
     }
     update() {
         this.noPlayers = data.userCount;
@@ -25,4 +29,13 @@ class MenuSceneDesktop extends Phaser.Scene {
         }
         
     }
-}
+
+    mostraListaPlayers() {
+        for (let i = 0; i < array.length; index++) {
+            const element = array[index];
+            
+        }
+    }
+        
+    }
+   
