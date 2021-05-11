@@ -23,7 +23,7 @@ if (!isMobile) {
 
     gameWidth = 1000;
     gameHeight = 600;
-    sceneArray = [BootScene, MenuSceneDesktop, DesktopScene, GameOverDesktop];
+    sceneArray = [BootScene, MenuSceneDesktop, DesktopScene, GameOverDesktop, BlockGame];
 } else {
     gameDiv.classList.add('mobileBack');
     isDesktopPlatform = false;

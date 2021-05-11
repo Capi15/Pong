@@ -51,9 +51,6 @@ class MenuSceneMobile extends Phaser.Scene {
                 this.hasChangedName = true;
             }
 
-            //criação do objecto player
-            data.playerList.push(new Player(data.androidPlayerID, SocketAnd.id, this.name.value));
-
             var info = {
                 nome: this.name.value,
                 isDesktop: false,
@@ -63,16 +60,6 @@ class MenuSceneMobile extends Phaser.Scene {
             
         this.name.value = '';
         });
-
-        //verificar se este objecto envia a informação do cliente para o servidor
-        testeServer = {
-            id: data.androidPlayerID,
-            adress: socket.id,
-            nome: this.name,
-        }
-
-        //enviar o testeServer pela função emit
-        socket.emit('teste', testeServer);
 
         this.buttonJogar = this.add
             .image(

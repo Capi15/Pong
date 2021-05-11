@@ -1,4 +1,5 @@
 class BootScene extends Phaser.Scene {
+    kick = false;
     constructor() {
         super({ key: 'BootScene' });
     }
@@ -16,12 +17,20 @@ class BootScene extends Phaser.Scene {
     create() {
         // -- inicia uma nova Scene
         //this.scene.start('MenuScene');
-        if (globalVariable.isDesktop) {
-            this.scene.start('MenuSceneDesktop');
-            console.log('Desktop');
-        } else {
-            this.scene.start('MenuSceneMobile');
-            console.log('Mobile');
-        }
+        socket.on('valida', valida =>{
+            console.log("adeus");
+            this.scene.start('BlockGame');
+            this.kick = true;
+        });
+
+            if (globalVariable.isDesktop) {
+                if (!this.kick) {
+                this.scene.start('MenuSceneDesktop');
+                console.log('Desktop');
+                }
+            } else {
+                this.scene.start('MenuSceneMobile');
+                console.log('Mobile');
+            }
     }
 }
