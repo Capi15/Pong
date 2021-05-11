@@ -52,7 +52,15 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.initialTime = 90;
             // this.timedEvent.pause = true;
         }
-        this.playerCount.text = this.noPlayers < 1 ? 0 + '/6' : this.noPlayers -1 + '/6'
+        this.playerCount.text = this.noPlayers < 1 ? 0 + '/6' : this.noPlayers - 1 + '/6'
+        
+        data.playerList.forEach(element => {
+            this.print = this.add
+        .text(
+            10,
+            this.sys.game.canvas.height - element * 100,
+            'socket: ' + element.id + ' \n nome:' + element.name + ' \n address:' + element.adress)
+        });
     }
 
     formatTime(seconds){

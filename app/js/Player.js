@@ -1,13 +1,13 @@
-class Player extends Phaser {
+class Player {
     id;
     //endereço que liga o cliente ao servidor
     adress;
     name;
     active;
-        constructor(x, a, n){
-            this.id = x;
-            this.adress = a;
-            this.name = n;
+        constructor(id, adress, name){
+            this.id = id;
+            this.adress = adress;
+            this.name = name;
             this.active = false;
         }
 

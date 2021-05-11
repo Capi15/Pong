@@ -1,8 +1,4 @@
 var SocketAnd;
-playerList = [];
-var obj = {
-    playerList: playerList, 
-}
 
 var testeServer = {
     id: null,
@@ -37,7 +33,8 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
-        SocketAnd = io.connect('https://warm-citadel-14378.herokuapp.com/');
+        // SocketAnd = io.connect('https://warm-citadel-14378.herokuapp.com/');
+        SocketAnd = io.connect('https://giant-otter-36.loca.lt/');
 
         this.message = this.add
             .text(
@@ -60,17 +57,15 @@ class MenuSceneMobile extends Phaser.Scene {
             if (this.name.value != '') {
                 this.message.setText(this.name.value);
                 this.currPlayerName = this.name.value;
-                this.name.value = '';
                 this.hasChangedName = true;
             }
 
             //criação do objecto player
-            playerList.add(new Player(data.androidPlayerID, SocketAnd.id, this.name));
-            this.print = this.add
-            .text(
-                10,
-                this.sys.game.canvas.height - 150,
-                'socket: ' + SocketAnd.id + ' \n nome:' + this.name)
+            data.playerList.push(new Player(data.androidPlayerID, SocketAnd.id, this.name.value));
+            
+            
+            
+        this.name.value = '';
         });
 
         //verificar se este objecto envia a informação do cliente para o servidor

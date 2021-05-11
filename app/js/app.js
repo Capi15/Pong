@@ -1,5 +1,6 @@
 var socket = io();
 var data;
+playerList = [6];
 
 socket.on('connect', () => {});
 socket.on('userCount', (connectCounter) => {
@@ -13,14 +14,9 @@ data = {
     userCount: 0,
     newPlayer: false,
     androidPlayerID: 0,
+    playerList: playerList, 
 };
 
-if (data.userCount <1){
-    androidPlayerID = 0;
-}else
-{
-    data.androidPlayerID = data.userCount -1;
-}
 
 
 // socket.on('room_message', function (data) {
