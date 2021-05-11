@@ -37,7 +37,7 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
-        SocketAnd = io.connect('http://localhost:3000');
+        SocketAnd = io.connect('https://warm-citadel-14378.herokuapp.com/');
 
         this.message = this.add
             .text(
