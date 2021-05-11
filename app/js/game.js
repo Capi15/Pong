@@ -2,6 +2,14 @@ let IS_TOUCH = false;
 let gameWidth;
 let gameHeight;
 let sceneArray;
+let gameBody = document.getElementsByTagName('body')[0];
+let gameDiv = document.getElementById('game');
+let title = document.createElement('h1');
+gameBody.prepend(title);
+title.classList.add('text-center', 'mt-3');
+ 
+
+console.log(title);
 
 let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 console.log(isMobile);
@@ -9,12 +17,15 @@ console.log(isMobile);
 let isDesktopPlatform = true;
 
 if (!isMobile) {
+    gameDiv.classList.add('deskBack');
+    title.textContent += 'Pong'
     isDesktopPlatform = true;
 
     gameWidth = 1000;
     gameHeight = 600;
     sceneArray = [BootScene, MenuSceneDesktop, DesktopScene, GameOverDesktop];
 } else {
+    gameDiv.classList.add('mobileBack');
     isDesktopPlatform = false;
 
     gameWidth = 500;

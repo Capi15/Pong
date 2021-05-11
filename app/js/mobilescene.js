@@ -3,5 +3,12 @@ class MobileScene extends Phaser.Scene {
         super({ key: 'MobileScene' });
     }
 
-    create() {}
+    create() {
+        let scaleY = this.cameras.main.height / backgroundImage.height;
+        const backgroundImage = this.add.image(
+            this.sys.game.canvas.width / 2,
+            this.sys.game.canvas.height / 2,
+            'mBackImg'
+        );
+    }
 }
