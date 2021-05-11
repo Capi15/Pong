@@ -20,7 +20,7 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         this.waitPlayers = this.add.text(10, 10, 'A aguardar jogadores...');
         this.noPlayers = 0;
-        this.playerCount = this.add.text(250, 10, this.noPlayers - 1 + '/6');
+        this.playerCount = this.add.text(250, 10, '0/6');
 
         
 
@@ -52,6 +52,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.initialTime = 90;
             // this.timedEvent.pause = true;
         }
+        this.playerCount.text = this.noPlayers < 1 ? 0 + '/6' : this.noPlayers -1 + '/6'
     }
 
     formatTime(seconds){
@@ -70,7 +71,6 @@ class MenuSceneDesktop extends Phaser.Scene {
     {
         this.initialTime -= 1; // One second
         this.timmerText.setText('O jogo iniciará em ' + this.formatTime(this.initialTime) + ' segundos');
-        this.playerCount.text = this.noPlayers + '/6'
     }
 
     mostraListaPlayers() {
