@@ -24,7 +24,6 @@ server.listen(port, () => {
 data = {
     newPlayer: false,
     androidPlayerID: 0,
-    
 };
 
 io.on('connection', function (socket) {
