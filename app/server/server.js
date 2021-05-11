@@ -38,6 +38,6 @@ data = {
     userCount: connectCounter,
 };
 
-function teste(data) {
+(data) =>{
     console.log(data);
 }

@@ -63,7 +63,20 @@ class MenuSceneMobile extends Phaser.Scene {
                 this.name.value = '';
                 this.hasChangedName = true;
             }
+
+            //criação do objecto player
+            playerList.add(new Player(data.androidPlayerID, socket.id, this.name));
         });
+
+        //verificar se este objecto envia a informação do cliente para o servidor
+        testeServer = {
+            id: data.androidPlayerID,
+            adress: socket.id,
+            nome: this.name,
+        }
+
+        //enviar o testeServer pela função emit
+        socket.emit('teste', testeServer);
 
         this.buttonJogar = this.add
             .image(
@@ -88,23 +101,10 @@ class MenuSceneMobile extends Phaser.Scene {
         );
     }
 
-    update(){
 
 
-            //criação do objecto player
-            playerList.add(new Player(data.androidPlayerID, socket.id, this.name));
-            
-            
-            //verificar se este objecto envia a informação do cliente para o servidor
-            testeServer = {
-                id: data.androidPlayerID,
-                adress: socket.id,
-                nome: this.name,
-            }
 
-            //enviar o testeServer pela função emit
-            socket.emit('teste', testeServer);
-        });
+        
       
-    }
+    
 }
