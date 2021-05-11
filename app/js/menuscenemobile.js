@@ -1,4 +1,4 @@
-
+var SocketAnd;
 playerList = [];
 var obj = {
     playerList: playerList, 
@@ -37,7 +37,7 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
-        socket = io.connect('http://localhost:3000');
+        SocketAnd = io.connect('http://localhost:3000');
 
         this.message = this.add
             .text(
@@ -65,7 +65,12 @@ class MenuSceneMobile extends Phaser.Scene {
             }
 
             //criação do objecto player
-            playerList.add(new Player(data.androidPlayerID, socket.id, this.name));
+            playerList.add(new Player(data.androidPlayerID, SocketAnd.id, this.name));
+            this.print = this.add
+            .text(
+                10,
+                this.sys.game.canvas.height - 150,
+                'socket: ' + SocketAnd.id + ' \n nome:' + this.name)
         });
 
         //verificar se este objecto envia a informação do cliente para o servidor
