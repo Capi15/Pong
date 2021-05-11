@@ -1,11 +1,3 @@
-var SocketAnd;
-
-var testeServer = {
-    id: null,
-    adress: null,
-    nome: null,
-}
-
 class MenuSceneMobile extends Phaser.Scene {
     gameDiv = document.getElementById('game');
     currPlayerName = "";
@@ -34,7 +26,6 @@ class MenuSceneMobile extends Phaser.Scene {
 
     create() {
         // SocketAnd = io.connect('https://warm-citadel-14378.herokuapp.com/');
-        SocketAnd = io.connect('https://giant-otter-36.loca.lt/');
 
         this.message = this.add
             .text(
@@ -62,8 +53,13 @@ class MenuSceneMobile extends Phaser.Scene {
 
             //criação do objecto player
             data.playerList.push(new Player(data.androidPlayerID, SocketAnd.id, this.name.value));
-            
-            
+
+            var info = {
+                nome: this.name.value,
+                isDesktop: false,
+                play: false,
+            }
+            socket.emit('novoPlayer', info);
             
         this.name.value = '';
         });

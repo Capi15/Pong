@@ -1,6 +1,6 @@
 var socket = io();
 var data;
-playerList = [6];
+
 
 socket.on('connect', () => {});
 socket.on('userCount', (connectCounter) => {
@@ -9,13 +9,6 @@ socket.on('userCount', (connectCounter) => {
     console.log(data.userCount);
     data.newPlayer = true;
 });
-
-data = {
-    userCount: 0,
-    newPlayer: false,
-    androidPlayerID: 0,
-    playerList: playerList, 
-};
 
 
 

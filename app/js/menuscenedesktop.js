@@ -33,27 +33,31 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.stringAndroid = this.add.text(130, 150, 'Acesso android');
         this.add.sprite(200,300,"QrAndroid");
 
-    }
-    update() {
-
         socket.on('userCount', (connectCounter) => {
             this.noPlayers = connectCounter;
         });
 
+        var info = {
+            nome: "desktop",
+            isDesktop: true,
+            play: false,
+        }
+        socket.emit('novoPlayer', info);
+    }
+    update() {
         if (this.initialTime <= 0 && this.noPlayers >= 3) {
             this.scene.start('DesktopScene');
             
         }else if (this.noPlayers >= 7) {
             this.scene.start('DesktopScene');
-
         }
-        
+
         while (this.initialTime < 0) {
             this.initialTime = 90;
             // this.timedEvent.pause = true;
         }
+
         this.playerCount.text = this.noPlayers < 1 ? 0 + '/6' : this.noPlayers - 1 + '/6'
-        
         data.playerList.forEach(element => {
             this.print = this.add
         .text(
@@ -62,8 +66,8 @@ class MenuSceneDesktop extends Phaser.Scene {
             'socket: ' + element.id + ' \n nome:' + element.name + ' \n address:' + element.adress)
         });
     }
-
-    formatTime(seconds){
+    
+        formatTime(seconds){
         
         let minutes = Math.floor(seconds/60);
         
@@ -79,13 +83,6 @@ class MenuSceneDesktop extends Phaser.Scene {
     {
         this.initialTime -= 1; // One second
         this.timmerText.setText('O jogo iniciará em ' + this.formatTime(this.initialTime) + ' segundos');
-    }
-
-    mostraListaPlayers() {
-        for (let i = 0; i < array.length; index++) {
-            const element = array[index];
-            
-        }
     }
         
     }
