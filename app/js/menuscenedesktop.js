@@ -16,30 +16,38 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         this.waitPlayers = this.add.text(10, 10, 'A aguardar jogadores...');
         this.noPlayers = 0;
-        this.playerCount = this.add.text(250, 10, this.noPlayers + '/6');
+        this.playerCount = this.add.text(250, 10, this.noPlayers - 1 + '/6');
 
         
 
-        this.initialTime = 30;
+        this.initialTime = 90;
 
         this.timmerText = this.add.text(500, 100, 'O jogo iniciará em ' + this.formatTime(this.initialTime) + ' segundos');
         
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+        
+        
+        
 
     }
     update() {
-        if (data.newPlayer == true) {
-            data.newPlayer = false
-            this.noPlayers = data.userCount -1;
-        }
 
-        if (this.initialTime <= 0 && data.userCount >= 3) {
+        socket.on('userCount', (connectCounter) => {
+            this.noPlayers = connectCounter;
+        });
+
+        if (this.initialTime <= 0 && this.noPlayers >= 3) {
             this.scene.start('DesktopScene');
             
-        }else if (data.userCount >= 7) {
+        }else if (this.noPlayers >= 7) {
             this.scene.start('DesktopScene');
+
         }
         
+        while (this.initialTime < 0) {
+            this.initialTime = 90;
+            // this.timedEvent.pause = true;
+        }
     }
 
     formatTime(seconds){

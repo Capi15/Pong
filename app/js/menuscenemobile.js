@@ -81,4 +81,8 @@ class MenuSceneMobile extends Phaser.Scene {
         //     hasChangedName = this.hasChangedName
         // }
     }
+
+    update(){
+
+    }
 }

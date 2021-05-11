@@ -1,4 +1,4 @@
-let socket = io();
+var socket = io();
 var data;
 
 socket.on('connect', () => {});
