@@ -3,6 +3,7 @@ class MenuSceneDesktop extends Phaser.Scene {
     waitPlayers;
     playerCount;
     gamingList = [2];
+    gamingListFunction;
     waitingList = [4];
     
     timedEvent;
@@ -29,8 +30,8 @@ class MenuSceneDesktop extends Phaser.Scene {
         
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
         
-        
-        
+        this.stringAndroid = this.add.text(130, 150, 'Acesso android');
+        this.add.sprite(200,300,"QrAndroid");
 
     }
     update() {
@@ -72,4 +73,12 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.playerCount.text = this.noPlayers + '/6'
     }
 
-}
+    mostraListaPlayers() {
+        for (let i = 0; i < array.length; index++) {
+            const element = array[index];
+            
+        }
+    }
+        
+    }
+   

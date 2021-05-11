@@ -2,6 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const { Socket } = require('dgram');
 let connectCounter = 0;
 let data;
 
@@ -20,16 +21,23 @@ server.listen(port, () => {
 });
 
 io.on('connection', function (socket) {
-    console.log('A user just connected.');
     connectCounter++;
     console.log(connectCounter);
+    console.log('Player logado com o id ' + connectCounter + ' tem o adress ' + socket.id);
+    console.log(socket);
     socket.emit('userCount', connectCounter);
     socket.on('disconnect', function () {
         connectCounter--;
         console.log('A user has disconnected.');
     });
+
+    socket.on('teste', teste);
 });
 
 data = {
     userCount: connectCounter,
 };
+
+function teste(data) {
+    console.log(data);
+}

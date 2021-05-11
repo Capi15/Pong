@@ -1,4 +1,15 @@
-var playerInfo;
+
+playerList = [];
+var obj = {
+    playerList: playerList, 
+}
+
+var testeServer = {
+    id,
+    adress,
+    nome,
+}
+
 class MenuSceneMobile extends Phaser.Scene {
     gameDiv = document.getElementById('game');
     currPlayerName = "";
@@ -26,6 +37,8 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
+        socket = io.connect('http://localhost:3000');
+
         this.message = this.add
             .text(
                 this.sys.game.canvas.width / 2,
@@ -73,16 +86,25 @@ class MenuSceneMobile extends Phaser.Scene {
             },
             this
         );
-    
-
-        // playerInfo = {
-        //     playerId = null,
-        //     playerName = this.name,
-        //     hasChangedName = this.hasChangedName
-        // }
     }
 
     update(){
 
+
+            //criação do objecto player
+            playerList.add(new Player(data.androidPlayerID, socket.id, this.name));
+            
+            
+            //verificar se este objecto envia a informação do cliente para o servidor
+            testeServer = {
+                id: data.androidPlayerID,
+                adress: socket.id,
+                nome: this.name,
+            }
+
+            //enviar o testeServer pela função emit
+            socket.emit('teste', testeServer);
+        });
+      
     }
 }

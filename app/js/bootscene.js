@@ -10,6 +10,7 @@ class BootScene extends Phaser.Scene {
         this.load.image('acceptButtonImg', '/assets/images/acceptButton.png');
         this.load.image('ballImg', '/assets/images/ball.png');
         this.load.image('mBackImg', '/assets/images/mobileBackground.png');
+        this.load.image('QrAndroid', '/assets/images/QrAndroid.png');
     }
 
     create() {
