@@ -5,9 +5,9 @@ var obj = {
 }
 
 var testeServer = {
-    id,
-    adress,
-    nome,
+    id: null,
+    adress: null,
+    nome: null,
 }
 
 class MenuSceneMobile extends Phaser.Scene {

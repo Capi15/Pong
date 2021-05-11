@@ -1,12 +1,6 @@
 var socket = io();
 var data;
 
-data = {
-    userCount: 0,
-    androidPlayerID: 0,
-
-};
-
 socket.on('connect', () => {});
 socket.on('userCount', (connectCounter) => {
     data.userCount = connectCounter;
@@ -18,13 +12,14 @@ socket.on('userCount', (connectCounter) => {
 data = {
     userCount: 0,
     newPlayer: false,
+    androidPlayerID: 0,
 };
 
-if (userCount <1){
+if (data.userCount <1){
     androidPlayerID = 0;
 }else
 {
-    androidPlayerID = userCount -1;
+    data.androidPlayerID = data.userCount -1;
 }
 
 

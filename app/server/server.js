@@ -31,7 +31,7 @@ io.on('connection', function (socket) {
         console.log('A user has disconnected.');
     });
 
-    socket.on('teste', teste);
+    //socket.on('teste', teste);
 });
 
 data = {
