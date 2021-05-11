@@ -32,6 +32,8 @@ io.on('connection', function (socket) {
     console.log('Player logado com o id ' + connectCounter + ' tem o adress ' + socket.id);
     console.log(socket);
     socket.emit('userCount', connectCounter);
+    
+    //recebe info do Player e do Ecra Principal e cria um objecto na lista playerList
     socket.on('novoPlayer', function (info) {
         playerList.push({
             ...info,
