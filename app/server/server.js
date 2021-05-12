@@ -75,7 +75,7 @@ io.on('connection', function (socket) {
                         infoJogadores.num = connectCounter;
                         removePlayer2(element2);
                         console.log("Verifica lista de player list  depois do pop \n" + playerList);
-                        console.log("Verifica info depois do pop \n" + info)
+                        //console.log("Verifica info depois do pop \n" + info)
                     }
                 });
             }
