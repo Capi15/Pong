@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
         }else if (!info.isDesktop) {
             limiteJogadores ++;
             idJogador++
-            if (limiteJogadores > 6) {
+            if (limiteJogadores < 7 && limiteJogadores > 0) {
                 dataJogadores.listaJogadores = {
                     id: idJogador,
                     nome: info.nome, 
