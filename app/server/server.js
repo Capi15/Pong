@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
                 }
                 console.log("Jogador numero: " + limiteJogadores + ". Socket ID " + socket.id);
                 console.log(dataEcra.socket);
-                dataEcra.socket.id.emit("mostraJogadores", dataJogadores);
+                dataEcra.socket.emit("mostraJogadores", "a tua prima");
             }else{
                 console.log("Numero de jogadores chegou ao limite");
             }
