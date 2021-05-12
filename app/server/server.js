@@ -7,12 +7,9 @@ let idJogador = 0;
 let limiteJogadores = 0;
 var data;
 playerList = [];
-listaJogadores = [];
 ecraPrincipal = null;
-ecraPrincipalValida = false;
-// let nome = 0;
-// let isDesktop = 0;
-// let socket = 0;
+isEcraPrincipal = false;
+SocketList = [];
 
 const publicPath = path.join(__dirname, '/../');
 console.log(publicPath);
@@ -35,55 +32,54 @@ dataEcra = {
 };
 
 dataJogadores = {
-    listaJogadores,
+    listaJogadores: [],
 };
 
+
+
 io.on('connection', function (socket) {
-    //recebe info do Player e do Ecra Principal e cria um objecto na lista playerList
+    SocketList.push(socket);
     socket.on('novoPlayer', function (info) {
-        if (!ecraPrincipalValida) {
+        if (!isEcraPrincipal) {
             if (info.isDesktop) {
                 dataEcra.nome = info.nome;
                 dataEcra.isDesktop = true;
-                dataEcra.socket = socket;
-                ecraPrincipalValida = true;
-                console.log("Ecra criado. Socket ID " + socket.id);
+                dataEcra.socket = socket.id;
+                isEcraPrincipal = true;
+                ecraPrincipal = socket;
             }
         }else if (!info.isDesktop) {
             limiteJogadores ++;
-            
-            if (limiteJogadores < 7 && limiteJogadores > 0) {
+            if (limiteJogadores <= 7) {
                 idJogador++;
-                dataJogadores.listaJogadores = {
+                dataJogadores.listaJogadores.push({
                     id: idJogador,
-                    nome: info.nome, 
-                    isDesktop: info.isDesktop, 
+                    nome: info.nome,
+                    isDesktop: info.isDesktop,
                     play: info.play,
-                    socket: socket
-                }
-                console.log("Jogador numero: " + limiteJogadores + ". Socket ID " + socket.id);
-                console.log(dataEcra.socket);
-                dataEcra.socket.emit("mostraJogadores", "a tua prima");
-            }else{
+                    socket: socket.id
+                });
+                SocketList.push({socket: socket, id: idJogador})
+                ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
+            } else {
                 console.log("Numero de jogadores chegou ao limite");
+                return;    
             }
         }else if(info.isDesktop){
-            console.log("Adeus noob");
-            socket.emit('valida', ecraPrincipalValida);
+            socket.emit('valida', isEcraPrincipal);
         }
     })
         
     socket.on('disconnect', function () {
         console.log("flag -> Disconectado");
         dataJogadores.listaJogadores.forEach(element => {
-            if (element.socket.id == socket.id) {
+            if (element.socket == socket.id) {
                 removePlayer(element);
                 console.log("removeu jogador");
-                dataEcra.socket.emit("mostraJogadores", dataJogadores);
+                ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
                 limiteJogadores--;
             }
         });
-        
     })
     })
 

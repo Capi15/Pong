@@ -10,6 +10,7 @@ class MenuSceneDesktop extends Phaser.Scene {
 
     timer;
     total = 0;
+    noConn = 1;
 
     constructor() {
         super({ key: 'MenuSceneDesktop' });
@@ -39,15 +40,18 @@ class MenuSceneDesktop extends Phaser.Scene {
         socket.emit('novoPlayer', info);
 
         // ------------------------------  Receção info players atuais / Numero Total e Nomes  ------------------------------
-        socket.on('mostraJogadores', dataJogadores => {
-            this.noPlayers = dataJogadores.listaJogadores.length;
+        socket.on('mostraJogadores', listaJogadores => {
+            console.log(listaJogadores);
+            this.noPlayers = listaJogadores.length;
             this.stringLista = this.add.text(450, 200, '***  Lista de Jogadores  ***');
             var y = 250;
-            for (let i = 0; i < dataJogadores.listaJogadores.length; i++) {
-                this.stringListaNomes.setText(450, y, i+1 + "  ->  ");
-                this.stringListaNomes.setText(460, y, "       " + dataJogadores.listaJogadores[i].nome);
+            let id = 0
+            for (let i = 0; i < listaJogadores.length; i++) {
+                this.stringListaNomes = this.add.text(450, y, (i + 1) + "  ->  " + listaJogadores[i].nome);
                 y += 20;
+                id = i;
             }
+            this.stringListaNomes.setText((id + 1) + "  ->  " + listaJogadores[id].nome);
         });
     }
     // ------------------------------  Update  ------------------------------
