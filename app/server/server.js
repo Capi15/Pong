@@ -10,6 +10,9 @@ playerList = [];
 listaJogadores = [];
 ecraPrincipal = null;
 ecraPrincipalValida = false;
+// let nome = 0;
+// let isDesktop = 0;
+// let socket = 0;
 
 const publicPath = path.join(__dirname, '/../');
 console.log(publicPath);
@@ -26,9 +29,9 @@ server.listen(port, () => {
 });
 
 dataEcra = {
-    nome = this || 0,
-    isDesktop = this || 0,
-    socket = this || 0,
+    nome : null,
+    isDesktop : null,
+    socket : null,
 };
 
 dataJogadores = {
