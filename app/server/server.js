@@ -81,7 +81,7 @@ io.on('connection', function (socket) {
             }
         });
         console.log('Cliente desconectado. Até breve!');
-        console.log("Verifica lista de player list  depois do pop " + playerList.length());
+        console.log("Verifica lista de player list  depois do pop " + playerList.length);
     });
 });
 
