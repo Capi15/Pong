@@ -74,13 +74,14 @@ io.on('connection', function (socket) {
                         connectCounter--; 
                         infoJogadores.num = connectCounter;
                         removePlayer2(element2);
-                        console.log("Verifica lista de player list  depois do pop \n" + playerList);
+                        console.log("Verifica element depois do pop" + element);
                         //console.log("Verifica info depois do pop \n" + info)
                     }
                 });
             }
         });
         console.log('Cliente desconectado. Até breve!');
+        console.log("Verifica lista de player list  depois do pop " + playerList);
     });
 });
 
