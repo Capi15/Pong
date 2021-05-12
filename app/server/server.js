@@ -70,10 +70,10 @@ io.on('connection', function (socket) {
                     console.log("teste if");
                     console.log(element2.id + " -> " + element.id);
                     if (element2.id === element.id) {
-                        element.pop();
+                        removePlayer1(element);
                         connectCounter--; 
                         infoJogadores.num = connectCounter;
-                        element2.pop();
+                        removePlayer2(element2);
                         console.log("Verifica lista de player list  depois do pop \n" + playerList);
                         console.log("Verifica info depois do pop \n" + info)
                     }
@@ -83,5 +83,22 @@ io.on('connection', function (socket) {
         console.log('Cliente desconectado. Até breve!');
     });
 });
+
+//apaga player
+function removePlayer1(obj) {
+    let index = playerList.indexOf(obj);
+
+    if (index > -1) {
+        playerList.splice(index, 1);
+    }
+}
+
+function removePlayer2(obj) {
+    let index = infoJogadores.playerListNames.indexOf(obj);
+
+    if (index > -1) {
+        playerList.splice(index, 1);
+    }
+}
 
 
