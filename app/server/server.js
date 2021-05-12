@@ -26,9 +26,9 @@ server.listen(port, () => {
 });
 
 dataEcra = {
-    nome,
-    isDesktop,
-    socket,
+    nome = null,
+    isDesktop = null,
+    socket = null,
 };
 
 dataJogadores = {
