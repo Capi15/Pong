@@ -33,25 +33,22 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         // ------------------------------ Var com info do Ecra principal + Emit para servidor  ------------------------------
         var info = {
-            nome: "desktop",
+            nome: "EcraPrincipal",
             isDesktop: true,
-            play: false,
         }
         socket.emit('novoPlayer', info);
 
         // ------------------------------  Receção info players atuais / Numero Total e Nomes  ------------------------------
-        socket.on('novoJogador', infoJogadores => {
-            this.noPlayers = infoJogadores.num;
-            this.stringLista = this.add.text(150, 200, 'Lista de Jogadores');
+        socket.on('mostraJogadores', dataJogadores => {
+            this.noPlayers = dataJogadores.listaJogadores.length;
+            this.stringLista = this.add.text(450, 200, '***  Lista de Jogadores  ***');
             var y = 250;
-            for (let i = 0; i < infoJogadores.playerListNames.length; i++) {
-                this.gamingList[i]= infoJogadores.playerListNames[i];
-                this.stringListaNomes = this.add.text(450, y, this.gamingList[i].id + "  ->  ");
-                this.stringListaNomes = this.add.text(460, y, "       " + this.gamingList[i].nome);
-                y += 30;
+            for (let i = 0; i < dataJogadores.listaJogadores.length; i++) {
+                this.stringListaNomes.setText(450, y, i+1 + "  ->  ");
+                this.stringListaNomes.setText(460, y, "       " + dataJogadores.listaJogadores[i].nome);
+                y += 20;
             }
         });
-        
     }
     // ------------------------------  Update  ------------------------------
     update() {

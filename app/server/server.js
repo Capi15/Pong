@@ -3,10 +3,11 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const { Socket } = require('dgram');
-let connectCounter = 0;
+let idJogador = 0;
+let limiteJogadores = 0;
 var data;
 playerList = [];
-playerListNames = [];
+listaJogadores = [];
 ecraPrincipal = null;
 ecraPrincipalValida = false;
 
@@ -24,82 +25,67 @@ server.listen(port, () => {
     console.log(`Server is up on port ${port}.`);
 });
 
-data = {
-    newPlayer: false,
-    androidPlayerID: 0,
+dataEcra = {
+    nome,
+    isDesktop,
+    socket,
 };
 
-infoJogadores = {
-    num: 0,
-    playerListNames,
+dataJogadores = {
+    listaJogadores,
 };
 
 io.on('connection', function (socket) {
     //recebe info do Player e do Ecra Principal e cria um objecto na lista playerList
     socket.on('novoPlayer', function (info) {
-        playerList.push({
-            id: connectCounter,
-            ...info,
-            socket,
-        })
-        console.log('Nome do Player ' + info.nome);
-        console.log('Player criado com o id ' + connectCounter + ' tem o adress ' + socket.id);
-
-        if(!info.isDesktop){ 
-            console.log(connectCounter);
-            infoJogadores.num = connectCounter;
-            infoJogadores.playerListNames.push({nome: info.nome, id: connectCounter});
-            console.log("Envia dados do player para Ecra");
-            ecraPrincipal.emit('novoJogador', infoJogadores);
-            connectCounter++;
-        }else if(!ecraPrincipalValida){
-            ecraPrincipal = socket;
-            ecraPrincipalValida = true;
-            console.log("Ecra principal ativado");
-            connectCounter++;
-        }else if (info.isDesktop && ecraPrincipalValida){
+        if (!ecraPrincipalValida) {
+            if (info.isDesktop) {
+                dataEcra.nome = info.nome;
+                dataEcra.isDesktop = true;
+                dataEcra.socket = socket;
+                ecraPrincipalValida = true;
+                console.log("Ecra criado. Socket ID " + socket.id);
+            }
+        }else if (!info.isDesktop) {
+            limiteJogadores ++;
+            idJogador++
+            if (limiteJogadores > 6) {
+                dataJogadores.listaJogadores = {
+                    id: idJogador,
+                    nome: info.nome, 
+                    isDesktop: info.isDesktop, 
+                    play: info.play,
+                    socket: socket
+                }
+                console.log("Joagaro numero: " + limiteJogadores + ". Socket ID " + socket.id);
+                dataEcra.socket.emit("mostraJogadores", dataJogadores); 
+            }else{
+                console.log("Numero de jogadores chegou ao limite");
+            }
+        }else if(info.isDesktop){
             console.log("Adeus noob");
             socket.emit('valida', ecraPrincipalValida);
-        }        
+        }
     })
-    
+        
     socket.on('disconnect', function () {
-       playerList.forEach(element => {
-            if (element.socket.id === socket.id) {
-                infoJogadores.playerListNames.forEach(element2 => {
-                    console.log("teste if");
-                    console.log(element2.id + " -> " + element.id);
-                    if (element2.id === element.id) {
-                        removePlayer1(element);
-                        connectCounter--; 
-                        infoJogadores.num = connectCounter;
-                        removePlayer2(element2);
-                        console.log("Verifica element depois do pop" + element);
-                        //console.log("Verifica info depois do pop \n" + info)
-                    }
-                });
+        console.log("flag -> Disconectado");
+        dataJogadores.listaJogadores.forEach(element => {
+            if (element.socket.id == socket.id) {
+                removePlayer(element);
+                console.log("removeu jogador");
+                dataEcra.socket.emit("mostraJogadores", dataJogadores);
+                limiteJogadores--;
             }
         });
-        console.log('Cliente desconectado. Até breve!');
-        console.log("Verifica lista de player list  depois do pop " + playerList.length);
-    });
-});
+        
+    })
+    })
 
 //apaga player
-function removePlayer1(obj) {
-    let index = playerList.indexOf(obj);
-
+function removePlayer(obj) {
+    let index = dataJogadores.listaJogadores.indexOf(obj);
     if (index > -1) {
-        playerList.splice(index, 1);
+        dataJogadores.listaJogadores.splice(index, 1);
     }
 }
-
-function removePlayer2(obj) {
-    let index = infoJogadores.playerListNames.indexOf(obj);
-
-    if (index > -1) {
-        playerList.splice(index, 1);
-    }
-}
-
-
