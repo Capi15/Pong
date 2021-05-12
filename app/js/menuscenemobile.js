@@ -1,10 +1,15 @@
 class MenuSceneMobile extends Phaser.Scene {
     gameDiv = document.getElementById('game');
-    currPlayerName = "";
+    body = document.body;
+    currPlayerName = '';
     constructor() {
         super({ key: 'MenuSceneMobile' });
     }
     preload() {
+        //this.body.classList.add('forMobile');
+        this.gameCanvas = this.gameDiv.getElementsByTagName('canvas')[0];
+        //this.gameCanvas.classList.add('forMobile');
+        this.gameCanvas.classList.add('html');
         this.widthPos = this.sys.game.canvas.width / 2 - 200;
         this.heightPos = this.sys.game.canvas.height / 2 + 50;
         this.FN = document.createElement('input');
@@ -40,8 +45,9 @@ class MenuSceneMobile extends Phaser.Scene {
             )
             .setOrigin(0.5);
 
-        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-        
+        this.returnKey = this.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.ENTER
+        );
 
         this.returnKey.on('down', (event) => {
             this.name = this.FN;
@@ -55,10 +61,13 @@ class MenuSceneMobile extends Phaser.Scene {
                 nome: this.name.value,
                 isDesktop: false,
                 play: false,
-            }
+            };
             socket.emit('novoPlayer', info);
-            
-        this.name.value = '';
+
+            this.name.value = '';
+            this.FN.remove();
+            this.tag.remove();
+            this.div[0].remove();
         });
 
         this.buttonJogar = this.add
@@ -74,20 +83,10 @@ class MenuSceneMobile extends Phaser.Scene {
         this.buttonJogar.once(
             'pointerdown',
             function (pointer) {
-                this.FN.remove();
-                this.tag.remove();
-                this.div[0].remove();
                 console.log(this.currPlayerName);
                 this.scene.start('MobileScene');
             },
             this
         );
     }
-
-
-
-
-        
-      
-    
 }

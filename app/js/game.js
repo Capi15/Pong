@@ -7,7 +7,6 @@ let gameDiv = document.getElementById('game');
 let title = document.createElement('h1');
 gameBody.prepend(title);
 title.classList.add('text-center', 'mt-3');
- 
 
 console.log(title);
 
@@ -18,12 +17,18 @@ let isDesktopPlatform = true;
 
 if (!isMobile) {
     gameDiv.classList.add('deskBack');
-    title.textContent += 'Pong'
+    title.textContent += 'Pong';
     isDesktopPlatform = true;
 
     gameWidth = 1000;
     gameHeight = 600;
-    sceneArray = [BootScene, MenuSceneDesktop, DesktopScene, GameOverDesktop, BlockGame];
+    sceneArray = [
+        BootScene,
+        MenuSceneDesktop,
+        DesktopScene,
+        GameOverDesktop,
+        BlockGame,
+    ];
 } else {
     gameDiv.classList.add('mobileBack');
     isDesktopPlatform = false;
