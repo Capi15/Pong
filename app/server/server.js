@@ -45,40 +45,42 @@ io.on('connection', function (socket) {
         console.log('Nome do Player ' + info.nome);
         console.log('Player criado com o id ' + connectCounter + ' tem o adress ' + socket.id);
 
-        if(!info.isDesktop){
-            connectCounter++; 
+        if(!info.isDesktop){ 
             console.log(connectCounter);
             infoJogadores.num = connectCounter;
-            infoJogadores.playerListNames.push(info.nome);
+            infoJogadores.playerListNames.push({nome: info.nome, id: connectCounter});
             console.log("Envia dados do player para Ecra");
-            socket.emit('novoJogador', infoJogadores);
+            ecraPrincipal.emit('novoJogador', infoJogadores);
+            connectCounter++;
         }else if(!ecraPrincipalValida){
-            ecraPrincipal = socket.id;
+            ecraPrincipal = socket;
             ecraPrincipalValida = true;
             console.log("Ecra principal ativado");
+            connectCounter++;
         }else if (info.isDesktop && ecraPrincipalValida){
             console.log("Adeus noob");
             socket.emit('valida', ecraPrincipalValida);
         }        
     })
     
-    socket.on('disconnect', function (socket) {
-       /* playerList.forEach(element => {
-            if (element.info.) {
-                
+    socket.on('disconnect', function () {
+       playerList.forEach(element => {
+            if (element.socket.id === socket.id) {
+                infoJogadores.playerListNames.forEach(element2 => {
+                    console.log("teste if");
+                    console.log(element2.id + " -> " + element.id);
+                    if (element2.id === element.id) {
+                        element.pop();
+                        connectCounter--; 
+                        infoJogadores.num = connectCounter;
+                        element2.pop();
+                        console.log("Verifica lista de player list  depois do pop \n" + playerList);
+                        console.log("Verifica info depois do pop \n" + info)
+                    }
+                });
             }
-            
-        });*/
-        // if(!info.isDesktop){
-        //     connectCounter--;
-        //     console.log(connectCounter);
-        //     socket.emit('userCount', connectCounter);
-        //     console.log('Player desconectado. Até breve!');
-        // }else{
-            console.log('Cliente desconectado. Até breve!');
-        // }
-
-        
+        });
+        console.log('Cliente desconectado. Até breve!');
     });
 });
 
