@@ -51,8 +51,9 @@ io.on('connection', function (socket) {
             }
         }else if (!info.isDesktop) {
             limiteJogadores ++;
-            idJogador++
+            
             if (limiteJogadores < 7 && limiteJogadores > 0) {
+                idJogador++;
                 dataJogadores.listaJogadores = {
                     id: idJogador,
                     nome: info.nome, 
