@@ -16,7 +16,7 @@ console.log(isMobile);
 
 let isDesktopPlatform = true;
 
-if (isMobile) {
+if (!isMobile) {
     gameDiv.classList.add('deskBack');
     title.textContent += 'Pong'
     isDesktopPlatform = true;

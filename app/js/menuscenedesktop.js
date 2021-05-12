@@ -45,8 +45,9 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.stringLista = this.add.text(150, 200, 'Lista de Jogadores');
             var y = 250;
             for (let i = 0; i < infoJogadores.playerListNames.length; i++) {
-                gamingList[i]= infoJogadores.playerListNames[i];
-                this.stringListaNomes = this.add.text(150, y, infoJogadores.playerListNames[i]);
+                this.gamingList[i]= infoJogadores.playerListNames[i];
+                this.stringListaNomes = this.add.text(450, y, this.gamingList[i].id + "  ->  ");
+                this.stringListaNomes = this.add.text(460, y, "       " + this.gamingList[i].nome);
                 y += 30;
             }
         });
@@ -65,8 +66,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.initialTime = 90;
             // this.timedEvent.pause = true;
         }
-
-        this.totalPlayers = this.add.text(10, 10, 'A aguardar jogadores...  ' + this.noPlayers + '/6');
+        this.totalPlayers.setText('A aguardar jogadores...  ' + this.noPlayers + '/6');
 
     }
     
