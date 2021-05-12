@@ -15,8 +15,17 @@ class MobileScene extends Phaser.Scene {
 
         backgroundImage.setScale(scaleY).setScrollFactor(0);
 
+        
+    }
+
+    update() {
+        
+        
+    }
+
+    controls() {
         const aQuarter = this.cameras.main.width / 4
-        let rightClick = this.add.sprite(
+        this.rightClick = this.add.sprite(
             this.cameras.main.width/2  + aQuarter,
             this.cameras.main.height / 2,
             'arrowImg',
@@ -26,11 +35,11 @@ class MobileScene extends Phaser.Scene {
 
         this.rightClick.on('pointerdown',
         function (pointer) {
-            this.setScale(1.2);
+            this.rightClick.setScale(1.2);
         },
             this)
 
-        let leftClick = this.add.sprite(
+        this.leftClick = this.add.sprite(
             this.cameras.main.width/2 - aQuarter,
             this.cameras.main.height / 2,
             'arrowImg',
@@ -39,16 +48,22 @@ class MobileScene extends Phaser.Scene {
 
         this.leftClick.on('pointerdown',
         function (pointer) {
-            this.setScale(1.2);
+            this.leftClick.setScale(1.2);
         },
             this)
         
-        leftClick.setFlipX(-1)
+        this.leftClick.setFlipX(-1)
 
-        rightClick.onInputOut.add(this.outRight, this);
-        leftClick.onInputOut.add(this.outLeft, this);
-
-
-
+        this.rightClick.on('pointerup',
+        function (pointer) {
+            this.rightClick.setScale(1);
+        },
+            this)
+        
+        this.leftClick.on('pointerup',
+        function (pointer) {
+            this.leftClick.setScale(1);
+        },
+            this)
     }
 }
