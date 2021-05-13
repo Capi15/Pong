@@ -15,6 +15,9 @@ class BootScene extends Phaser.Scene {
     }
 
     create() {
+        window.addEventListener('resize', resize);
+        window.addEventListener("orientationchange", resize);
+        resize();
         // -- inicia uma nova Scene
         //this.scene.start('MenuScene');
         socket.on('valida', valida =>{

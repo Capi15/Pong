@@ -10,8 +10,8 @@ class MenuSceneMobile extends Phaser.Scene {
         this.gameCanvas = this.gameDiv.getElementsByTagName('canvas')[0];
         //this.gameCanvas.classList.add('forMobile');
         this.gameCanvas.classList.add('html');
-        this.widthPos = this.sys.game.canvas.width / 2 - 200;
-        this.heightPos = this.sys.game.canvas.height / 2 + 50;
+        this.widthPos = this.sys.game.canvas.width / 2 - 1/3;
+        this.heightPos = this.sys.game.canvas.height / 2 + 1/3;
         this.FN = document.createElement('input');
         this.FN.setAttribute('type', 'text');
         this.FN.setAttribute('name', 'FullName');

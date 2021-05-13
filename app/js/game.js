@@ -32,6 +32,7 @@ if (!isMobile) {
 } else {
     gameDiv.classList.add('mobileBack');
     isDesktopPlatform = false;
+    document.querySelector('h1.text-center.mt-3').remove();
 
     gameWidth = 500;
     gameHeight = 300;
@@ -72,3 +73,15 @@ var globalVariable = {
 };
 //exportação das configurações de jogo
 let game = new Phaser.Game(config);
+
+function resize() {
+    const canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
+    console.log(canvas);
+    canvas.width = width;
+    canvas.height = height;
+    window.requestAnimationFrame(()=>{canvas.removeAttribute('style')})
+}
+
+
+
+
