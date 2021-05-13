@@ -8,6 +8,7 @@ let limiteJogadores = 0;
 var data;
 playerList = [];
 listaJogadores = [];
+listaJogEcra = [];
 ecraPrincipal = null;
 ecraPrincipalValida = false;
 
@@ -35,6 +36,10 @@ dataJogadores = {
     listaJogadores,
 };
 
+dataJogEcra = {
+    listaJogEcra,
+};
+
 io.on('connection', function (socket) {
     //recebe info do Player e do Ecra Principal e cria um objecto na lista playerList
     socket.on('novoPlayer', function (info) {
@@ -57,7 +62,13 @@ io.on('connection', function (socket) {
                     play: info.play,
                     socket: socket
                 }
+                dataJogEcra = {
+                    id: idJogador,
+                    nome: info.nome, 
+                }
                 console.log("Joagaro numero: " + limiteJogadores + ". Socket ID " + socket.id);
+                console.log(dataEcra.socket);
+                
                 dataEcra.socket.emit("mostraJogadores", dataJogadores); 
             }else{
                 console.log("Numero de jogadores chegou ao limite");
