@@ -21,7 +21,7 @@ class BootScene extends Phaser.Scene {
         // -- inicia uma nova Scene
         //this.scene.start('MenuScene');
         socket.on('valida', valida =>{
-            console.log("adeus");
+            // console.log("adeus");
             this.scene.start('BlockGame');
             this.kick = true;
         });
@@ -29,11 +29,11 @@ class BootScene extends Phaser.Scene {
             if (globalVariable.isDesktop) {
                 if (!this.kick) {
                 this.scene.start('MenuSceneDesktop');
-                console.log('Desktop');
+                // console.log('Desktop');
                 }
             } else {
                 this.scene.start('MenuSceneMobile');
-                console.log('Mobile');
+                // console.log('Mobile');
             }
     }
 }

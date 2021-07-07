@@ -39,6 +39,7 @@ dataJogadores = {
 
 io.on('connection', function (socket) {
     SocketList.push(socket);
+    console.log('boas');
     socket.on('novoPlayer', function (info) {
         if (!isEcraPrincipal) {
             if (info.isDesktop) {

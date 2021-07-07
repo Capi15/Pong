@@ -10,8 +10,3 @@ socket.on('userCount', (connectCounter) => {
     data.newPlayer = true;
 });
 
-
-
-// socket.on('room_message', function (data) {
-//     socket.emit(playerInfo);
-// });

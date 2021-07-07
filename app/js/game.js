@@ -8,10 +8,7 @@ let title = document.createElement('h1');
 gameBody.prepend(title);
 title.classList.add('text-center', 'mt-3');
 
-console.log(title);
-
 let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-console.log(isMobile);
 
 let isDesktopPlatform = true;
 
