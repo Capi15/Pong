@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 const { Socket } = require('dgram');
 let idJogador = 0;
 let limiteJogadores = 6;
-let playerCount = 6;
+let playerCount = 0;
 var data;
 playerList = [];
 ecraPrincipal = null;
