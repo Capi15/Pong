@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         console.log('flag -> Disconectado');
-        console.log('boas');
+        console.log('boas teste');
         dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket == socket.id) {
                 removePlayer(element);
