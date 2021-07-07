@@ -4,7 +4,8 @@ const express = require('express');
 const socketIO = require('socket.io');
 const { Socket } = require('dgram');
 let idJogador = 0;
-let limiteJogadores = 0;
+let limiteJogadores = 6;
+let playerCount = 6;
 var data;
 playerList = [];
 ecraPrincipal = null;
@@ -37,7 +38,6 @@ dataJogadores = {
 
 io.on('connection', function (socket) {
     SocketList.push(socket);
-    console.log('boas');
     socket.on('novoPlayer', function (info) {
         if (!isEcraPrincipal) {
             if (info.isDesktop) {
@@ -48,8 +48,8 @@ io.on('connection', function (socket) {
                 ecraPrincipal = socket;
             }
         } else if (!info.isDesktop) {
-            limiteJogadores++;
-            if (limiteJogadores <= 7) {
+            playerCount++;
+            if (playerCount <= limiteJogadores) {
                 idJogador++;
                 dataJogadores.listaJogadores.push({
                     id: idJogador,
@@ -59,6 +59,7 @@ io.on('connection', function (socket) {
                     socket: socket.id,
                 });
                 SocketList.push({ socket: socket, id: idJogador });
+                ecraPrincipal.emit('playerCount', playerCount);
                 ecraPrincipal.emit(
                     'mostraJogadores',
                     dataJogadores.listaJogadores
@@ -73,8 +74,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        console.log('flag -> Disconectado');
-        console.log('boas teste');
         dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket == socket.id) {
                 removePlayer(element);
