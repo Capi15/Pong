@@ -26,16 +26,14 @@ server.listen(port, () => {
 });
 
 dataEcra = {
-    nome : null,
-    isDesktop : null,
-    socket : null,
+    nome: null,
+    isDesktop: null,
+    socket: null,
 };
 
 dataJogadores = {
     listaJogadores: [],
 };
-
-
 
 io.on('connection', function (socket) {
     SocketList.push(socket);
@@ -49,8 +47,8 @@ io.on('connection', function (socket) {
                 isEcraPrincipal = true;
                 ecraPrincipal = socket;
             }
-        }else if (!info.isDesktop) {
-            limiteJogadores ++;
+        } else if (!info.isDesktop) {
+            limiteJogadores++;
             if (limiteJogadores <= 7) {
                 idJogador++;
                 dataJogadores.listaJogadores.push({
@@ -58,31 +56,38 @@ io.on('connection', function (socket) {
                     nome: info.nome,
                     isDesktop: info.isDesktop,
                     play: info.play,
-                    socket: socket.id
+                    socket: socket.id,
                 });
-                SocketList.push({socket: socket, id: idJogador})
-                ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
+                SocketList.push({ socket: socket, id: idJogador });
+                ecraPrincipal.emit(
+                    'mostraJogadores',
+                    dataJogadores.listaJogadores
+                );
             } else {
-                console.log("Numero de jogadores chegou ao limite");
-                return;    
+                console.log('Numero de jogadores chegou ao limite');
+                return;
             }
-        }else if(info.isDesktop){
+        } else if (info.isDesktop) {
             socket.emit('valida', isEcraPrincipal);
         }
-    })
-        
+    });
+
     socket.on('disconnect', function () {
-        console.log("flag -> Disconectado");
-        dataJogadores.listaJogadores.forEach(element => {
+        console.log('flag -> Disconectado');
+        console.log('boas');
+        dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket == socket.id) {
                 removePlayer(element);
-                console.log("removeu jogador");
-                ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
+                console.log('removeu jogador');
+                ecraPrincipal.emit(
+                    'mostraJogadores',
+                    dataJogadores.listaJogadores
+                );
                 limiteJogadores--;
             }
         });
-    })
-    })
+    });
+});
 
 //apaga player
 function removePlayer(obj) {
