@@ -79,6 +79,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             );
         });
 
+        console.log('chegou aqui');
         socket.on('playerCount', (playerCount) => {
             console.log('Current player count: ' + playerCount);
         });
