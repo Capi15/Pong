@@ -78,7 +78,6 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket === socket.id) {
-                removePlayer(element);
                 removePlayer(element, dataJogadores.listaJogadores);
 
                 console.log('removeu jogador');
@@ -88,19 +87,26 @@ io.on('connection', function (socket) {
                 );
                 limiteJogadores--;
             }
-
-            SocketList.forEach((element) => {
-                if (element.socket.id === socket.id) {
-                    removePlayer(element, SocketList);
-                }
-            });
-            consoleLogListas();
         });
+
+        SocketList.forEach((element) => {
+            if (element.socket.id === socket.id) {
+                removePlayer2(element, SocketList);
+            }
+        });
+        consoleLogListas();
     });
 });
 
 //Elimina o Jogador da Lista pretendida com informação das sockets
 function removePlayer(obj, lista) {
+    let index = lista.indexOf(obj);
+    if (index > -1) {
+        lista.splice(index, 1);
+    }
+}
+
+function removePlayer2(obj, lista) {
     let index = lista.indexOf(obj);
     if (index > -1) {
         lista.splice(index, 1);
