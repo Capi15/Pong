@@ -56,13 +56,16 @@ io.on('connection', function (socket) {
                     play: info.play,
                     socket: socket.id,
                 });
-                SocketList.push({ socket: socket, id: idJogador });
-                ecraPrincipal.emit('playerCount', playerCount);
+                SocketList.push({ socket: socket, id: idJogador }); //========================================== Adiciona Socket que entrou + id definido na lista SocketList
+                ecraPrincipal.emit('playerCount', playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
                 ecraPrincipal.emit(
                     'mostraJogadores',
-                    dataJogadores.listaJogadores
+                    dataJogadores.listaJogadores //=========================== Envia Lista total de Jogadores para apresentação no Ecrã Principal
                 );
-                console.log('Mobile 65');
+                console.log(
+                    'Mobile 65 => idJogador ' +
+                        SocketList[SocketList.length - 1].id
+                );
             } else {
                 console.log('Numero de jogadores chegou ao limite');
                 return;
@@ -74,8 +77,10 @@ io.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         dataJogadores.listaJogadores.forEach((element) => {
-            if (element.socket == socket.id) {
+            if (element.socket === socket.id) {
                 removePlayer(element);
+                removePlayer(element, dataJogadores.listaJogadores);
+
                 console.log('removeu jogador');
                 ecraPrincipal.emit(
                     'mostraJogadores',
@@ -83,14 +88,34 @@ io.on('connection', function (socket) {
                 );
                 limiteJogadores--;
             }
+
+            SocketList.forEach((element) => {
+                if (element.socket.id === socket.id) {
+                    removePlayer(element, SocketList);
+                }
+            });
+            consoleLogListas();
         });
     });
 });
 
-//apaga player
-function removePlayer(obj) {
-    let index = dataJogadores.listaJogadores.indexOf(obj);
+//Elimina o Jogador da Lista pretendida com informação das sockets
+function removePlayer(obj, lista) {
+    let index = lista.indexOf(obj);
     if (index > -1) {
-        dataJogadores.listaJogadores.splice(index, 1);
+        lista.splice(index, 1);
     }
+}
+
+//Valida Lisas com Socket depois de eliminar
+function consoleLogListas() {
+    console.log('Lista jogadores => ');
+    dataJogadores.listaJogadores.foreach((element) => {
+        console.log(element + ' ,');
+    });
+
+    console.log('Lista do servidor => ');
+    SocketList.forEach((element) => {
+        console.log(element.idJogador + ',');
+    });
 }
