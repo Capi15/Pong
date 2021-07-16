@@ -1,30 +1,22 @@
+//conneção ao servidor;
 const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 const { Socket } = require('dgram');
-let idJogador = 0;
-let limiteJogadores = 6;
-let playerCount = 0;
-var data;
-playerList = [];
-ecraPrincipal = null;
-isEcraPrincipal = false;
-SocketList = [];
-
-const publicPath = path.join(__dirname, '/../');
-console.log(publicPath);
-
 const port = process.env.PORT || 3000;
-
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
+const publicPath = path.join(__dirname, '/../');
 
-app.use(express.static(publicPath));
-server.listen(port, () => {
-    console.log(`Server is up on port ${port}.`);
-});
+let idJogador = 0; //============== id do jogador
+let limiteJogadores = 6; //======== máximo de jogadores
+let playerCount = 0; //============ número de jogadores em espera
+// let playerList = [];
+let ecraPrincipal = null; //======= ecrá da página web
+let isEcraPrincipal = false; //==== verifica se está a ser acedido no browser
+let SocketList = []; //============ Lista dos sockets (jogadores[moboile] + browser)
 
 dataEcra = {
     nome: null,
@@ -36,9 +28,13 @@ dataJogadores = {
     listaJogadores: [],
 };
 
+app.use(express.static(publicPath));
+server.listen(port, () => {
+    console.log(`Server is up on port ${port}.`);
+});
+
 io.on('connection', function (socket) {
     SocketList.push(socket);
-    console.log('Entrou');
     socket.on('novoPlayer', function (info) {
         if (!isEcraPrincipal) {
             if (info.isDesktop) {
@@ -47,6 +43,7 @@ io.on('connection', function (socket) {
                 dataEcra.socket = socket.id;
                 isEcraPrincipal = true;
                 ecraPrincipal = socket;
+                console.log('Web 46');
             }
         } else if (!info.isDesktop) {
             playerCount++;
@@ -65,6 +62,7 @@ io.on('connection', function (socket) {
                     'mostraJogadores',
                     dataJogadores.listaJogadores
                 );
+                console.log('Mobile 65');
             } else {
                 console.log('Numero de jogadores chegou ao limite');
                 return;
@@ -75,7 +73,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        console.log('Saiu');
         dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket == socket.id) {
                 removePlayer(element);
