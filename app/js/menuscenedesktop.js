@@ -47,6 +47,15 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.stringAndroid = this.add.text(130, 150, 'Acesso android');
         this.add.sprite(200, 300, 'QrAndroid');
 
+        // ------------------------------  Texto Titulo Lista Jogadores  ------------------------------
+        this.stringLista = this.add.text(
+            450,
+            200,
+            '***  Lista de Jogadores  ***'
+        );
+        // ------------------------------  Texto com todos jogadores   ------------------------------
+        this.stringListaNomes = this.add.text(450, 250, ' Nenhum ');
+
         // ------------------------------ Var com info do Ecra principal + Emit para servidor  ------------------------------
         var info = {
             nome: 'EcraPrincipal',
@@ -58,13 +67,9 @@ class MenuSceneDesktop extends Phaser.Scene {
         socket.on('mostraJogadores', (listaJogadores) => {
             console.log(listaJogadores);
             this.noPlayers = listaJogadores.length;
-            this.stringLista = this.add.text(
-                450,
-                200,
-                '***  Lista de Jogadores  ***'
-            );
             var y = 250;
             let id = 0;
+            this.stringListaNomes = this.setText(' A atualizar...');
             for (let i = 0; i < listaJogadores.length; i++) {
                 this.stringListaNomes = this.add.text(
                     450,
@@ -74,13 +79,16 @@ class MenuSceneDesktop extends Phaser.Scene {
                 y += 20;
                 id = i;
             }
-            this.stringListaNomes.setText(
+            /*this.stringListaNomes.setText(
                 id + 1 + '  ->  ' + listaJogadores[id].nome
-            );
+            );*/
         });
 
-        console.log('chegou aqui');
+        console.log('L87');
         socket.on('playerCount', (playerCount) => {
+            this.totalPlayers = this.setText(
+                'Na Fila -> ' + playerCount + '/6'
+            );
             console.log('Current player count: ' + playerCount);
         });
     }

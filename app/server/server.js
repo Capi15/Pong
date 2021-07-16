@@ -49,6 +49,7 @@ io.on('connection', function (socket) {
             playerCount++;
             if (playerCount <= limiteJogadores) {
                 idJogador++;
+                //========================================== Adiciona Dispositivo á Lista
                 dataJogadores.listaJogadores.push({
                     id: idJogador,
                     nome: info.nome,
@@ -56,7 +57,11 @@ io.on('connection', function (socket) {
                     play: info.play,
                     socket: socket.id,
                 });
-                SocketList.push({ objSocket: socket, id: idJogador }); //========================================== Adiciona Socket que entrou + id definido na lista SocketList
+                //========================================== Adiciona Dispositivo á Lista
+                SocketList.push({
+                    objSocket: socket,
+                    id: idJogador,
+                });
                 ecraPrincipal.emit('playerCount', playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
                 ecraPrincipal.emit(
                     'mostraJogadores',
@@ -76,9 +81,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        console.log(SocketList.length);
         dataJogadores.listaJogadores.forEach((element) => {
-            if (element.objSocket.id === socket.id) {
+            if (element.id === socket.id) {
                 removePlayer(element, dataJogadores.listaJogadores);
 
                 console.log('removeu jogador');
@@ -91,7 +95,8 @@ io.on('connection', function (socket) {
         });
 
         SocketList.forEach((element) => {
-            if (element.socket.socket.id === socket.id) {
+            console.log('L98 -> ' + element);
+            if (element.objSocket.id === socket.id) {
                 removePlayer2(element, SocketList);
             }
         });
