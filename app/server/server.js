@@ -90,7 +90,7 @@ io.on('connection', function (socket) {
         });
 
         SocketList.forEach((element) => {
-            if (element.socket === socket.id) {
+            if (element.socket.socket.id === socket.id) {
                 removePlayer2(element, SocketList);
             }
         });
