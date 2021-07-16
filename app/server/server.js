@@ -38,6 +38,7 @@ dataJogadores = {
 
 io.on('connection', function (socket) {
     SocketList.push(socket);
+    console.log('Entrou');
     socket.on('novoPlayer', function (info) {
         if (!isEcraPrincipal) {
             if (info.isDesktop) {
@@ -74,6 +75,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
+        console.log('Saiu');
         dataJogadores.listaJogadores.forEach((element) => {
             if (element.socket == socket.id) {
                 removePlayer(element);
