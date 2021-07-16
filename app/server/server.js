@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
                     socket: socket.id,
                 });
                 SocketList.push({ socket: socket, id: idJogador });
-                ecraPrincipal.emit('playerCount', () => playerCount);
+                ecraPrincipal.emit('playerCount', playerCount);
                 ecraPrincipal.emit(
                     'mostraJogadores',
                     dataJogadores.listaJogadores
