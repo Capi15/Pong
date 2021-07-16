@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
                     play: info.play,
                     socket: socket.id,
                 });
-                SocketList.push({ socket: socket, id: idJogador }); //========================================== Adiciona Socket que entrou + id definido na lista SocketList
+                SocketList.push({ objSocket: socket, id: idJogador }); //========================================== Adiciona Socket que entrou + id definido na lista SocketList
                 ecraPrincipal.emit('playerCount', playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
                 ecraPrincipal.emit(
                     'mostraJogadores',
@@ -76,8 +76,9 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
+        console.log(SocketList.length);
         dataJogadores.listaJogadores.forEach((element) => {
-            if (element.socket === socket.id) {
+            if (element.objSocket.id === socket.id) {
                 removePlayer(element, dataJogadores.listaJogadores);
 
                 console.log('removeu jogador');
