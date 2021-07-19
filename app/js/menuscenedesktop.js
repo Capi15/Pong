@@ -90,7 +90,7 @@ class MenuSceneDesktop extends Phaser.Scene {
                 this.jogName +=
                     i + 1 + '  ->  ' + listaJogadores[i].nome + '\n';
             }
-            console.log('L78 -> Ciclo ' + i);
+            console.log(this.jogName);
             this.stringListaNomes = this.add.text(450, y, this.jogName);
             y += 20;
             id = i;
