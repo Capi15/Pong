@@ -152,8 +152,10 @@ io.on('connection', function (socket) {
                 }
             }
             //depois apaga os dados todos
+            if (!ecraPrincipal) {
+                ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+            }
 
-            ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
             playerGameArray.forEach((player) => {
                 SocketList.array.forEach((playerSocket) => {
                     if (player.id === playerSocket.id) {
