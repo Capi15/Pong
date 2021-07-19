@@ -34,7 +34,6 @@ server.listen(port, () => {
 });
 
 io.on('connection', function (socket) {
-    SocketList.push(socket);
     socket.on('novoPlayer', function (info) {
         if (!isEcraPrincipal) {
             if (info.isDesktop) {
@@ -63,6 +62,9 @@ io.on('connection', function (socket) {
                     objSocketId: socket.id,
                     id: idJogador,
                 });
+
+                consoleLogListas();
+
                 ecraPrincipal.emit('playerCount', playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
                 ecraPrincipal.emit(
                     'JogadorEntrou',
