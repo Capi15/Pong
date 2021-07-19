@@ -157,7 +157,7 @@ io.on('connection', function (socket) {
                 ecraPrincipal.emit('trocaEcraJogo', true); //=========================== Envia informação para troca de ecrã no DesckTop
             }
 
-            this.playerGameArray.forEach((player) => {
+            playerGameArray.forEach((player) => {
                 SocketList.array.forEach((playerSocket) => {
                     if (player.id === playerSocket.id) {
                         playerSocket.objSocket.emit('MostraComando');
