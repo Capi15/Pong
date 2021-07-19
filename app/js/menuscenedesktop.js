@@ -74,8 +74,8 @@ class MenuSceneDesktop extends Phaser.Scene {
             let id = 0;
             this.stringListaNomes.setText(' A atualizar...');
             listaJogadores.forEach((i) => {
-                console.log('L71 -> Ciclo ' + i);
-                this.stringListaNomes.add.Text(
+                console.log('L77 -> Ciclo ' + i);
+                this.stringListaNomes.add.text(
                     450,
                     y,
                     i + 1 + '  ->  ' + listaJogadores[i].nome
