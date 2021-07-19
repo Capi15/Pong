@@ -19,6 +19,7 @@ let isEcraPrincipal = false; //==== verifica se está a ser acedido no browser
 let SocketList = []; //============ Lista dos sockets (jogadores[moboile] + browser)
 let currentRound = 1;
 const NoOfRounds = 3;
+let playerGameArray;
 
 dataEcra = {
     nome: null,
@@ -120,7 +121,7 @@ io.on('connection', function (socket) {
             if (currentRound == 1) {
                 let sideBool = false; //====================================  Booliano para player esquerda e player direita
                 const maxNoPlayer = 2;
-                let playerGameArray = [maxNoPlayer];
+                playerGameArray = [maxNoPlayer];
                 if (dataJogadores.listaJogadores.length >= 2) {
                     //====================================  Verifica se ainda existem + de 2 jogadores na lista de espera
                     for (
@@ -156,7 +157,7 @@ io.on('connection', function (socket) {
                 ecraPrincipal.emit('trocaEcraJogo', true); //=========================== Envia informação para troca de ecrã no DesckTop
             }
 
-            playerGameArray.forEach((player) => {
+            this.playerGameArray.forEach((player) => {
                 SocketList.array.forEach((playerSocket) => {
                     if (player.id === playerSocket.id) {
                         playerSocket.objSocket.emit('MostraComando');
