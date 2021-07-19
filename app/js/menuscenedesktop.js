@@ -73,7 +73,6 @@ class MenuSceneDesktop extends Phaser.Scene {
             );
             var y = 250;
             let id = 0;
-            this.stringListaNomes.setText(' A atualizar...');
 
             // for (let i = 0; i < listaJogadores.length; i++) {
             //     console.log('L78 -> Ciclo ' + i);
@@ -93,7 +92,6 @@ class MenuSceneDesktop extends Phaser.Scene {
             console.log(this.jogName);
             this.stringListaNomes = this.add.text(450, y, this.jogName);
             y += 20;
-            id = i;
 
             //this.stringListaNomes.setText(        id + 1 + "  ->  " + listaJogadores[id].nome      );
         });
@@ -108,16 +106,14 @@ class MenuSceneDesktop extends Phaser.Scene {
             var y = 250;
             let id = 0;
             this.stringListaNomes.setText(' A atualizar...');
+            this.jogName = '';
             for (let i = 0; i < listaJogadores.length; i++) {
-                console.log('L100 -> Ciclo ' + i);
-                this.stringListaNomes = this.add.text(
-                    450,
-                    y,
-                    i + 1 + '  ->  ' + listaJogadores[i].nome
-                );
-                y += 20;
-                id = i;
+                this.jogName +=
+                    i + 1 + '  ->  ' + listaJogadores[i].nome + '\n';
             }
+            console.log(this.jogName);
+            this.stringListaNomes = this.add.text(450, y, this.jogName);
+            y += 20;
             //this.stringListaNomes.setText(        id + 1 + "  ->  " + listaJogadores[id].nome      );
         });
         //
