@@ -30,15 +30,15 @@ dataJogadores = {
     listaJogadores: [],
 };
 
-jogador = {
-  id: null,
-  playerData = {
-    'posX'  : null,
-    'posY'  : null,
-    'side'  : false,
-    'points': 0,
-}
-}
+// jogador = {
+//   id: null,
+//   playerData = {
+//     'posX'  : null,
+//     'posY'  : null,
+//     'side'  : false,
+//     'points': 0,
+// }
+// }
 
 app.use(express.static(publicPath));
 server.listen(port, () => {
@@ -131,50 +131,51 @@ function removePlayer2(obj, lista) {
 }
 
 socket.on('startGame', function () {
-    console.log("L134 -> startFirstGame");
-    
+    console.log('L134 -> startFirstGame');
+
     if (currentRound <= NoOfRounds) {
         if (currentRound == 1) {
             let sideBool = false; //====================================  Booliano para player esquerda e player direita
             const maxNoPlayer = 2;
             let playerGameArray = [maxNoPlayer];
-            if (dataJogadores.listaJogadores.length >= 2) { //====================================  Verifica se ainda existem + de 2 jogadores na lista de espera
+            if (dataJogadores.listaJogadores.length >= 2) {
+                //====================================  Verifica se ainda existem + de 2 jogadores na lista de espera
                 for (let i = 0; i < dataJogadores.listaJogadores.length; i++) {
-      if(i +1 <= maxNoPlayer){ //====================================   define os 2 jogadores iniciais 
-        dataJogadores.listaJogadores[i].play = true;
-        playerGameArray[i].push({ //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
-          id : dataJogadores.listaJogadores[i].id,
-          posY  : 0,
-          //side false representa o lado esquedo do campo, side true representa a direita
-          side  : sideBool, //==========================================   Primeiro defenido como false (troca na linha 149)
-          points: 0,
-        });
-        sideBoll = true; //==========================================   define o da direita como true
-      }else{
-        dataJogadores.listaJogadores[i].play = false;
-      }
-      // 
-        // while (playerGameArray <= maxNoPlayer)
-            
-        //     if ((maxNoPlayer % 2) = 0) playerData.side = true;
-        //     playerGameArray.push({ 'jogadorId' : element.id, 'playerData' : playerData});
-    }
-        }
-    }
-    //depois apaga os dados todos
+                    if (i + 1 <= maxNoPlayer) {
+                        //====================================   define os 2 jogadores iniciais
+                        dataJogadores.listaJogadores[i].play = true;
+                        playerGameArray[i].push({
+                            //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
+                            id: dataJogadores.listaJogadores[i].id,
+                            posY: 0,
+                            //side false representa o lado esquedo do campo, side true representa a direita
+                            side: sideBool, //==========================================   Primeiro defenido como false (troca na linha 149)
+                            points: 0,
+                        });
+                        sideBoll = true; //==========================================   define o da direita como true
+                    } else {
+                        dataJogadores.listaJogadores[i].play = false;
+                    }
+                    //
+                    // while (playerGameArray <= maxNoPlayer)
 
-    
-    ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
-    playerGameArray.forEach(player => {
-      SocketList.array.forEach(playerSocket => {
-        if (player.id === playerSocket.id) {
-          playerSocket.objSocket.emit('MostraComando');
+                    //     if ((maxNoPlayer % 2) = 0) playerData.side = true;
+                    //     playerGameArray.push({ 'jogadorId' : element.id, 'playerData' : playerData});
+                }
+            }
         }
-      });
-    });
+        //depois apaga os dados todos
+
+        ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+        playerGameArray.forEach((player) => {
+            SocketList.array.forEach((playerSocket) => {
+                if (player.id === playerSocket.id) {
+                    playerSocket.objSocket.emit('MostraComando');
+                }
+            });
+        });
     }
-  });
-        
+});
 
 //Valida Lisas com Socket depois de eliminar
 function consoleLogListas() {
