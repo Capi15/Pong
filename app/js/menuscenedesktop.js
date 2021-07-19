@@ -67,7 +67,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         socket.on('JogadorEntrou', (listaJogadores) => {
             console.log('L68');
             this.noPlayers = listaJogadores.length;
-            this.totalPlayers = this.setText(
+            this.totalPlayers.setText(
                 'A aguardar jogadores...  ' + this.noPlayers + '/6'
             );
             var y = 250;
@@ -89,7 +89,7 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         socket.on('JogadorSaiu', (listaJogadores) => {
             this.noPlayers = listaJogadores.length;
-            this.totalPlayers = this.setText(
+            this.totalPlayers.setText(
                 'A aguardar jogadores...  ' + this.noPlayers + '/6'
             );
             var y = 250;
@@ -109,13 +109,13 @@ class MenuSceneDesktop extends Phaser.Scene {
         });
         //
 
-        console.log('L87');
-        socket.on('playerCount', (playerCount) => {
-            this.totalPlayers = this.setText(
-                'Na Fila -> ' + playerCount + '/6'
-            );
-            console.log('Current player count: ' + playerCount);
-        });
+        console.log('L112');
+        // socket.on('playerCount', (playerCount) => {
+        //     this.totalPlayers = this.setText(
+        //         'Na Fila -> ' + playerCount + '/6'
+        //     );
+        //     console.log('Current player count: ' + playerCount);
+        // });
     }
     // ------------------------------  Update  ------------------------------
     update() {

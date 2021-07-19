@@ -64,8 +64,6 @@ io.on('connection', function (socket) {
                 });
 
                 consoleLogListas();
-
-                ecraPrincipal.emit('playerCount', playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
                 ecraPrincipal.emit(
                     'JogadorEntrou',
                     dataJogadores.listaJogadores //=========================== Envia Lista total de Jogadores para apresentação no Ecrã Principal
@@ -122,8 +120,8 @@ function removePlayer2(obj, lista) {
 
 //Valida Lisas com Socket depois de eliminar
 function consoleLogListas() {
+    console.log('Lista jogadores => ');
     if (dataJogadores.listaJogadores > 0) {
-        console.log('Lista jogadores => ');
         dataJogadores.listaJogadores.forEach((element) => {
             console.log(
                 'id Jogador ' +
@@ -137,16 +135,22 @@ function consoleLogListas() {
                     '\n'
             );
         });
+    } else {
+        console.log('Lista Vazia');
     }
 
     console.log('Lista do servidor => ');
-    SocketList.forEach((element) => {
-        console.log(
-            'Id socket -> ' +
-                element.objSocketId +
-                'Id jogo -> ' +
-                element.id +
-                '\n'
-        );
-    });
+    if (SocketList > 0) {
+        SocketList.forEach((element) => {
+            console.log(
+                'Id socket -> ' +
+                    element.objSocketId +
+                    ' | Id jogo -> ' +
+                    element.id +
+                    '\n'
+            );
+        });
+    } else {
+        console.log('Lista Vazia');
+    }
 }
