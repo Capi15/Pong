@@ -69,7 +69,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.noPlayers = listaJogadores.length;
             var y = 250;
             let id = 0;
-            this.stringListaNomes = this.setText(' A atualizar...');
+            this.stringListaNomes = this.addText(' A atualizar...');
             for (let i = 0; i < listaJogadores.length; i++) {
                 this.stringListaNomes = this.add.text(
                     450,
@@ -79,9 +79,9 @@ class MenuSceneDesktop extends Phaser.Scene {
                 y += 20;
                 id = i;
             }
-            /*this.stringListaNomes.setText(
+            this.stringListaNomes.setText(
                 id + 1 + '  ->  ' + listaJogadores[id].nome
-            );*/
+            );
         });
 
         console.log('L87');
