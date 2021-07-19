@@ -86,6 +86,7 @@ io.on("connection", function (socket) {
 
         console.log("removeu jogador");
         ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
+        console.log("L89 - mostrajogadores");
         limiteJogadores--;
       }
     });

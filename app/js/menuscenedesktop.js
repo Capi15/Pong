@@ -61,7 +61,7 @@ class MenuSceneDesktop extends Phaser.Scene {
     socket.on("mostraJogadores", (listaJogadores) => {
       console.log("L62");
       this.noPlayers = listaJogadores.length;
-      this.totalPlayers = this.setText(
+      this.totalPlayers = this.add.text(
         "A aguardar jogadores...  " + this.noPlayers + "/6"
       );
       var y = 250;
