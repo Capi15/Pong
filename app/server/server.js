@@ -82,7 +82,7 @@ io.on("connection", function (socket) {
   socket.on("disconnect", function () {
     dataJogadores.listaJogadores.forEach((element) => {
       console.log("L84 -> " + element.id);
-      if (element.id === socket.id) {
+      if (element.socket === socket.id) {
         removePlayer(element, dataJogadores.listaJogadores);
         console.log("removeu jogador");
         ecraPrincipal.emit("JogadorSaiu", dataJogadores.listaJogadores);
