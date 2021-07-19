@@ -45,9 +45,8 @@ io.on('connection', function (socket) {
                 console.log('Web 46');
             }
         } else if (!info.isDesktop) {
-            playerCount++;
             if (playerCount <= limiteJogadores) {
-                idJogador++;
+                playerCount++;
                 //========================================== Adiciona Dispositivo á Lista
                 dataJogadores.listaJogadores.push({
                     id: idJogador,
@@ -89,7 +88,7 @@ io.on('connection', function (socket) {
                 console.log('removeu jogador');
                 ecraPrincipal.emit('JogadorSaiu', dataJogadores.listaJogadores);
                 console.log('L89 - JogadorSaiu');
-                limiteJogadores--;
+                playerCount--;
             }
         });
 
@@ -120,8 +119,9 @@ function removePlayer2(obj, lista) {
 
 //Valida Lisas com Socket depois de eliminar
 function consoleLogListas() {
+    console.log('Jogadores total -> ' + playerCount);
     console.log('Lista jogadores => ');
-    if (dataJogadores.listaJogadores > 0) {
+    if (dataJogadores.listaJogadores.length > 0) {
         dataJogadores.listaJogadores.forEach((element) => {
             console.log(
                 'id Jogador ' +
@@ -140,7 +140,7 @@ function consoleLogListas() {
     }
 
     console.log('Lista do servidor => ');
-    if (SocketList > 0) {
+    if (SocketList.length > 0) {
         SocketList.forEach((element) => {
             console.log(
                 'Id socket -> ' +
