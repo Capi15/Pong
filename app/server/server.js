@@ -64,7 +64,7 @@ io.on("connection", function (socket) {
         });
         ecraPrincipal.emit("playerCount", playerCount); //============================================== Envia contagem de jogadores para o Ecrã Principal
         ecraPrincipal.emit(
-          "mostraJogadores",
+          "JogadorEntrou",
           dataJogadores.listaJogadores //=========================== Envia Lista total de Jogadores para apresentação no Ecrã Principal
         );
         console.log(
@@ -81,12 +81,12 @@ io.on("connection", function (socket) {
 
   socket.on("disconnect", function () {
     dataJogadores.listaJogadores.forEach((element) => {
+      console.log("L84 -> " + element.id);
       if (element.id === socket.id) {
         removePlayer(element, dataJogadores.listaJogadores);
-
         console.log("removeu jogador");
-        ecraPrincipal.emit("mostraJogadores", dataJogadores.listaJogadores);
-        console.log("L89 - mostrajogadores");
+        ecraPrincipal.emit("JogadorSaiu", dataJogadores.listaJogadores);
+        console.log("L89 - JogadorSaiu");
         limiteJogadores--;
       }
     });
