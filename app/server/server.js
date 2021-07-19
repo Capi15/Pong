@@ -90,6 +90,7 @@ io.on('connection', function (socket) {
                 removePlayer(element, dataJogadores.listaJogadores);
                 ecraPrincipal.emit('JogadorSaiu', dataJogadores.listaJogadores);
                 playerCount--;
+                idJogador--;
             }
         });
 
@@ -100,7 +101,6 @@ io.on('connection', function (socket) {
             }
         });
         consoleLogListas();
-        idJogador--;
     });
 });
 
