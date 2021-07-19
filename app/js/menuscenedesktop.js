@@ -54,7 +54,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             '***  Lista de Jogadores  ***'
         );
         // ------------------------------  Texto com todos jogadores   ------------------------------
-        this.stringListaNomes[0] = this.add.text(450, 250, ' Nenhum ');
+        this.stringListaNomes = this.add.text(450, 250, ' Nenhum ');
 
         // ------------------------------ Var com info do Ecra principal + Emit para servidor  ------------------------------
         var info = {
@@ -72,10 +72,10 @@ class MenuSceneDesktop extends Phaser.Scene {
             );
             var y = 250;
             let id = 0;
-            this.stringListaNomes[0].setText(' A atualizar...');
+            this.stringListaNomes.setText(' A atualizar...');
             for (let i = 0; i < listaJogadores.length; i++) {
                 console.log('L71 -> Ciclo ' + i);
-                this.stringListaNomes[i].add.Text(
+                this.stringListaNomes.add.Text(
                     450,
                     y,
                     i + 1 + '  ->  ' + listaJogadores[i].nome
