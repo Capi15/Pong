@@ -42,7 +42,6 @@ io.on('connection', function (socket) {
                 dataEcra.socket = socket.id;
                 isEcraPrincipal = true;
                 ecraPrincipal = socket;
-                console.log('Web 46');
             }
         } else if (!info.isDesktop) {
             if (playerCount <= limiteJogadores) {
@@ -67,10 +66,7 @@ io.on('connection', function (socket) {
                     'JogadorEntrou',
                     dataJogadores.listaJogadores //=========================== Envia Lista total de Jogadores para apresentação no Ecrã Principal
                 );
-                console.log(
-                    'Mobile 65 => idJogador ' +
-                        SocketList[SocketList.length - 1].id
-                );
+                idJogador++;
             } else {
                 console.log('Numero de jogadores chegou ao limite');
                 return;
@@ -84,10 +80,15 @@ io.on('connection', function (socket) {
         dataJogadores.listaJogadores.forEach((element) => {
             console.log('L84 -> ' + element.id);
             if (element.socket === socket.id) {
+                console.log(
+                    'Jogador com o id ' +
+                        element.id +
+                        ' socket -> ' +
+                        element.socket +
+                        ' saiu.'
+                );
                 removePlayer(element, dataJogadores.listaJogadores);
-                console.log('removeu jogador');
                 ecraPrincipal.emit('JogadorSaiu', dataJogadores.listaJogadores);
-                console.log('L89 - JogadorSaiu');
                 playerCount--;
             }
         });
@@ -99,6 +100,7 @@ io.on('connection', function (socket) {
             }
         });
         consoleLogListas();
+        idJogador--;
     });
 });
 
