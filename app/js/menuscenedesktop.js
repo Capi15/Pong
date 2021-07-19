@@ -73,7 +73,7 @@ class MenuSceneDesktop extends Phaser.Scene {
             var y = 250;
             let id = 0;
             this.stringListaNomes.setText(' A atualizar...');
-            for (let i = 0; i < listaJogadores.length; i++) {
+            listaJogadores.forEach((i) => {
                 console.log('L71 -> Ciclo ' + i);
                 this.stringListaNomes.add.Text(
                     450,
@@ -82,7 +82,7 @@ class MenuSceneDesktop extends Phaser.Scene {
                 );
                 y += 20;
                 id = i;
-            }
+            });
             //this.stringListaNomes.setText(        id + 1 + "  ->  " + listaJogadores[id].nome      );
         });
         //
