@@ -131,7 +131,7 @@ io.on('connection', function (socket) {
                         if (i + 1 <= maxNoPlayer) {
                             //====================================   define os 2 jogadores iniciais
                             dataJogadores.listaJogadores[i].play = true;
-                            playerGameArray[i].push({
+                            playerGameArray.push({
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
                                 id: dataJogadores.listaJogadores[i].id,
                                 posY: 0,
