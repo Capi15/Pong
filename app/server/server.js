@@ -158,7 +158,7 @@ io.on('connection', function (socket) {
             }
 
             playerGameArray.forEach((player) => {
-                SocketList.array.forEach((playerSocket) => {
+                SocketList.forEach((playerSocket) => {
                     if (player.id === playerSocket.id) {
                         playerSocket.objSocket.emit('MostraComando');
                     }
