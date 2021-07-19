@@ -120,7 +120,7 @@ function consoleLogListas() {
   console.log("Lista jogadores => ");
   if (dataJogadores.listaJogadores > 0) {
     dataJogadores.listaJogadores.forEach((element) => {
-      console.log(element + " ,");
+      console.log(element.toString() + " ,");
     });
   }
 

@@ -59,12 +59,16 @@ class MenuSceneDesktop extends Phaser.Scene {
 
     // ------------------------------  Receção info players atuais / Numero Total e Nomes  ------------------------------
     socket.on("mostraJogadores", (listaJogadores) => {
-      console.log(listaJogadores);
+      console.log("L62");
       this.noPlayers = listaJogadores.length;
+      this.totalPlayers = this.setText(
+        "A aguardar jogadores...  " + this.noPlayers + "/6"
+      );
       var y = 250;
       let id = 0;
-      this.stringListaNomes = this.setText(" A atualizar...");
+      //this.stringListaNomes = this.setText(" A atualizar...");
       for (let i = 0; i < listaJogadores.length; i++) {
+        console.log("L71 -> Ciclo " + i);
         this.stringListaNomes = this.add.text(
           450,
           y,
@@ -73,9 +77,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         y += 20;
         id = i;
       }
-      this.stringListaNomes.setText(
-        id + 1 + "  ->  " + listaJogadores[id].nome
-      );
+      //this.stringListaNomes.setText(        id + 1 + "  ->  " + listaJogadores[id].nome      );
     });
     //
 
