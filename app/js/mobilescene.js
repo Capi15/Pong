@@ -14,56 +14,62 @@ class MobileScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / backgroundImage.height;
 
         backgroundImage.setScale(scaleY).setScrollFactor(0);
-
-        
     }
 
-    update() {
-        
-        
-    }
+    update() {}
 
     controls() {
-        const aQuarter = this.cameras.main.width / 4
-        this.rightClick = this.add.sprite(
-            this.cameras.main.width/2  + aQuarter,
-            this.cameras.main.height / 2,
-            'arrowImg',
-            this.rightInput
-        ).setInteractive();
+        const aQuarter = this.cameras.main.width / 4;
+        this.rightClick = this.add
+            .sprite(
+                this.cameras.main.width / 2 + aQuarter,
+                this.cameras.main.height / 2,
+                'arrowImg',
+                this.rightInput
+            )
+            .setInteractive();
 
+        this.rightClick.on(
+            'pointerdown',
+            function (pointer) {
+                this.rightClick.setScale(1.2);
+            },
+            this
+        );
 
-        this.rightClick.on('pointerdown',
-        function (pointer) {
-            this.rightClick.setScale(1.2);
-        },
-            this)
+        this.leftClick = this.add
+            .sprite(
+                this.cameras.main.width / 2 - aQuarter,
+                this.cameras.main.height / 2,
+                'arrowImg',
+                this.leftInput
+            )
+            .setInteractive();
 
-        this.leftClick = this.add.sprite(
-            this.cameras.main.width/2 - aQuarter,
-            this.cameras.main.height / 2,
-            'arrowImg',
-            this.leftInput
-        ).setInteractive();
+        this.leftClick.on(
+            'pointerdown',
+            function (pointer) {
+                this.leftClick.setScale(1.2);
+            },
+            this
+        );
 
-        this.leftClick.on('pointerdown',
-        function (pointer) {
-            this.leftClick.setScale(1.2);
-        },
-            this)
-        
-        this.leftClick.setFlipX(-1)
+        this.leftClick.setFlipX(-1);
 
-        this.rightClick.on('pointerup',
-        function (pointer) {
-            this.rightClick.setScale(1);
-        },
-            this)
-        
-        this.leftClick.on('pointerup',
-        function (pointer) {
-            this.leftClick.setScale(1);
-        },
-            this)
+        this.rightClick.on(
+            'pointerup',
+            function (pointer) {
+                this.rightClick.setScale(1);
+            },
+            this
+        );
+
+        this.leftClick.on(
+            'pointerup',
+            function (pointer) {
+                this.leftClick.setScale(1);
+            },
+            this
+        );
     }
 }

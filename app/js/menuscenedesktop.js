@@ -102,22 +102,23 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.stringListaNomes = this.add.text(450, y, this.jogName);
             y += 20;
         });
+
+        socket.on('trocaEcraJogo', () => {
+            this.scene.start('DesktopScene');
+        });
     }
+
     // ------------------------------  Update  ------------------------------
     update() {
-        if (this.initialTime <= 0 && this.noPlayers >= 3) {
-            this.scene.start('DesktopScene');
-        } else if (this.noPlayers >= 7) {
-            this.scene.start('DesktopScene');
+        if (this.initialTime <= 0) {
+            if (noPlayers >= 2) {
+                socket.emit('startGame');
+            } else if (noPlayers < 2 || noPlayers == 0) {
+                this.initialTime = 90;
+            } else {
+                this.initialTime = 90;
+            }
         }
-
-        while (this.initialTime < 0) {
-            this.initialTime = 90;
-            // this.timedEvent.pause = true;
-        }
-        this.totalPlayers.setText(
-            'A aguardar jogadores...  ' + this.noPlayers + '/6'
-        );
     }
 
     formatTime(seconds) {

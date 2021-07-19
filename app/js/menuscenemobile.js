@@ -10,8 +10,8 @@ class MenuSceneMobile extends Phaser.Scene {
         this.gameCanvas = this.gameDiv.getElementsByTagName('canvas')[0];
         //this.gameCanvas.classList.add('forMobile');
         this.gameCanvas.classList.add('html');
-        this.widthPos = this.sys.game.canvas.width / 2 - 1/3;
-        this.heightPos = this.sys.game.canvas.height / 2 + 1/3;
+        this.widthPos = this.sys.game.canvas.width / 2 - 1 / 3;
+        this.heightPos = this.sys.game.canvas.height / 2 + 1 / 3;
         this.FN = document.createElement('input');
         this.FN.setAttribute('type', 'text');
         this.FN.setAttribute('name', 'FullName');
@@ -70,23 +70,27 @@ class MenuSceneMobile extends Phaser.Scene {
             this.div[0].remove();
         });
 
-        this.buttonJogar = this.add
-            .image(
-                this.game.canvas.width / 2,
-                this.game.canvas.height / 2 + 300,
-                'acceptButtonImg'
-            )
-            .setScale(0.3)
-            .setInteractive({ useHandCursor: true });
+        // this.buttonJogar = this.add
+        //     .image(
+        //         this.game.canvas.width / 2,
+        //         this.game.canvas.height / 2 + 300,
+        //         'acceptButtonImg'
+        //     )
+        //     .setScale(0.3)
+        //     .setInteractive({ useHandCursor: true });
 
         //click no butão jogar
-        this.buttonJogar.once(
-            'pointerdown',
-            function (pointer) {
-                console.log(this.currPlayerName);
-                this.scene.start('MobileScene');
-            },
-            this
-        );
+        // this.buttonJogar.once(
+        //     'pointerdown',
+        //     function (pointer) {
+        //         console.log(this.currPlayerName);
+        //         this.scene.start('MobileScene');
+        //     },
+        //     this
+        // );
+
+        socket.on('MostraComando', () => {
+            this.scene.start('MobileScene');
+        });
     }
 }
