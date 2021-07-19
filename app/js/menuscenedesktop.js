@@ -29,7 +29,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         );
 
         // ------------------------------  Texto inicio da partida / Timmer  ------------------------------
-        this.initialTime = 90;
+        this.initialTime = 30;
         this.timmerText = this.add.text(
             500,
             100,
@@ -111,9 +111,9 @@ class MenuSceneDesktop extends Phaser.Scene {
     // ------------------------------  Update  ------------------------------
     update() {
         if (this.initialTime <= 0) {
-            if (noPlayers >= 2) {
+            if (this.noPlayers >= 2) {
                 socket.emit('startGame');
-            } else if (noPlayers < 2 || noPlayers == 0) {
+            } else if (this.noPlayers < 2 || this.noPlayers == 0) {
                 this.initialTime = 90;
             } else {
                 this.initialTime = 90;
