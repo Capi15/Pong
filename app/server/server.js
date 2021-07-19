@@ -94,12 +94,12 @@ io.on('connection', function (socket) {
             }
         });
 
-        SocketList.forEach((element) => {
-            console.log('L98 -> ' + element);
-            if (element.objSocket.id === socket.id) {
-                removePlayer2(element, SocketList);
-            }
-        });
+        // SocketList.forEach((element) => {
+        //     console.log('L98 -> ' + element);
+        //     if (element.objSocket.id === socket.id) {
+        //         removePlayer2(element, SocketList);
+        //     }
+        // });
         consoleLogListas();
     });
 });
