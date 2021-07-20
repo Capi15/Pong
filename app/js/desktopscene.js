@@ -25,8 +25,8 @@ class DesktopScene extends Phaser.Scene {
     let VspeedBal = 5;
     let tamanho = 0.02;
 
-    VxBal = 0.1;
-    VyBal = 0.1;
+    this.VxBal = 0.1;
+    this.VyBal = 0.1;
 
     this.ballImage = this.add
       .sprite(
@@ -53,6 +53,7 @@ class DesktopScene extends Phaser.Scene {
     if (this.ballImage.x + tamanho <= this.sys.game.canvas.width) {
       this.VxBal += 0.1;
     }
+    //commit
   }
 
   // if ( (x - blob_radius < 0) | (x + blob_radius > width) ) {
