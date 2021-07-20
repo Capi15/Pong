@@ -15,8 +15,6 @@ class DesktopScene extends Phaser.Scene {
     // ballImage;
 
     setup() {
-        this.centerX = this.sys.game.canvas.width / 2;
-        this.centerY = this.sys.game.canvas.height / 2;
         frameRate(60);
         smooth();
         noCursor();
@@ -62,6 +60,8 @@ class DesktopScene extends Phaser.Scene {
     }
 
     create() {
+        this.centerX = this.sys.game.canvas.width / 2;
+        this.centerY = this.sys.game.canvas.height / 2;
         console.log('L7 DesktopScene Dentro');
 
         let { width, height } = this.sys.game.canvas;
