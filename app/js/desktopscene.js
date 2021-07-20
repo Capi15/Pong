@@ -20,14 +20,13 @@ class DesktopScene extends Phaser.Scene {
 
     backgroundImage.setScale(scaleY).setScrollFactor(0);
 
-    let XBal = this.sys.game.canvas.width / 2;
-    let YBal = this.sys.game.canvas.height / 2;
     let VxBal = 1;
     let VyBal = 1;
     let VspeedBal = 5;
+    let tamanho = 0.02;
 
-    VxBal = 0.01;
-    VyBal = 0.01;
+    VxBal = 0.1;
+    VyBal = 0.1;
 
     this.ballImage = this.add
       .sprite(
@@ -39,19 +38,22 @@ class DesktopScene extends Phaser.Scene {
   }
 
   update() {
-    // this.XBal += this.VxBal; //posBalVx * speedBal;
-    // this.YBal += this.VyBal; //posBalVy * speedBal;
-    this.ballImage.y += 0.1;
-    this.ballImage.x += 0.1;
+    this.ballImage.y += VyBal;
+    this.ballImage.x += VxBal;
+
+    if (this.ballImage.y + tamanho >= this.sys.game.canvas.height) {
+      this.VyBal -= 0.1;
+    }
+    if (this.ballImage.x + tamanho >= this.sys.game.canvas.width) {
+      this.VxBal -= 0.1;
+    }
+    if (this.ballImage.y + tamanho <= this.sys.game.canvas.height) {
+      this.VxBal += 0.1;
+    }
+    if (this.ballImage.x + tamanho <= this.sys.game.canvas.width) {
+      this.VxBal += 0.1;
+    }
   }
-
-  // x += vx*dt;
-  // y += vy*dt;
-
-  // if ( y + blob_radius > height ) {
-  //   //vx = ????;  // fix this!
-  //   //vy = ????;  // fix this!
-  // }
 
   // if ( (x - blob_radius < 0) | (x + blob_radius > width) ) {
   //    //vx = ????;  // fix this!
