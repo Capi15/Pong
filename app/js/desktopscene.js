@@ -30,7 +30,11 @@ class DesktopScene extends Phaser.Scene {
     VyBal = 0.01;
 
     this.ballImage = this.add
-      .sprite(XBal, YBal, "ballImg")
+      .sprite(
+        this.sys.game.canvas.width / 2,
+        this.sys.game.canvas.height / 2,
+        "ballImg"
+      )
       .setScale(0.02, 0.02);
   }
 
