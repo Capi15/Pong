@@ -1,9 +1,64 @@
 class DesktopScene extends Phaser.Scene {
+    perdeu = false;
+    bola;
+    VxBal = 1;
+    VyBal = 1;
+    centerX = this.sys.game.canvas.width / 2;
+    centerY = this.sys.game.canvas.height / 2;
+    VspeedBal = 5;
+    difCentro = 120;
+
     constructor() {
         super({ key: 'DesktopScene' });
     }
 
-    ballImage;
+    // ballImage;
+
+    setup() {
+        frameRate(60);
+        smooth();
+        noCursor();
+        this.initJogo();
+
+        //somFundo.loop();
+    }
+
+    initJogo() {
+        this.perdeu = false;
+        this.VxBal = 1;
+        this.VyBal = 1;
+        posX = width / 2 - difCentro;
+        posY = height / 2 - difCentro;
+        // -- desenhar os players
+        this.initPlayers();
+    }
+
+    initPlayers() {}
+
+    spawnBola() {
+        let randX = integerInRange(-50, 50);
+        let randY = integerInRange(-50, 50);
+        let dx = randX - this.centerX - this.difCentro;
+        let dy = randX - this.centerY - this.difCentro;
+
+        let angulo = atan2(dy, dx);
+
+        translate(this.centerX + difCentro, this.centerY + difCentro);
+        rotate(angulo);
+        bola = new Bola(
+            this.centerX + this.difCentro,
+            this.centerY + this.difCentro,
+            angulo,
+            this.VspeedBal
+        );
+
+        if (perdeu) {
+            initJogo();
+            perdeu = false;
+            loop();
+        }
+    }
+
     create() {
         console.log('L7 DesktopScene Dentro');
 
@@ -18,12 +73,9 @@ class DesktopScene extends Phaser.Scene {
         // let scaleX = this.cameras.main.width / backgroundImage.width;
         let scaleY = this.cameras.main.height / backgroundImage.height;
 
-        let VspeedBal = 5;
         backgroundImage.setScale(scaleY).setScrollFactor(0);
-        const centerX = this.sys.game.canvas.width / 2;
-        const centerY = this.sys.game.canvas.height / 2;
 
-        const bola = new Bola(centerX, centerY, -1, VspeedBal);
+        this.bola = new Bola(centerX, centerY, -1, VspeedBal);
 
         // let VxBal = 1;
         // let VyBal = 1;
@@ -42,23 +94,13 @@ class DesktopScene extends Phaser.Scene {
         //     .setScale(0.02, 0.02);
     }
 
-    update() {
-        // this.ballImage.y += VyBal;
-        // this.ballImage.x += VxBal;
-        // if (this.ballImage.y + tamanho >= this.sys.game.canvas.height) {
-        //     this.VyBal -= 0.1;
-        // }
-        // if (this.ballImage.x + tamanho >= this.sys.game.canvas.width) {
-        //     this.VxBal -= 0.1;
-        // }
-        // if (this.ballImage.y + tamanho <= this.sys.game.canvas.height) {
-        //     this.VxBal += 0.1;
-        // }
-        // if (this.ballImage.x + tamanho <= this.sys.game.canvas.width) {
-        //     this.VxBal += 0.1;
-        // }
-        //commit
+    draw() {
+        if (!this.perdeu) {
+            this.bola.moveBola();
+        }
     }
+
+    update() {}
 
     // if ( (x - blob_radius < 0) | (x + blob_radius > width) ) {
     //    //vx = ????;  // fix this!
