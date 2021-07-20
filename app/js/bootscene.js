@@ -28,7 +28,7 @@ class BootScene extends Phaser.Scene {
 
     if (globalVariable.isDesktop) {
       if (!this.kick) {
-        this.scene.start("DesktopScene"); // alterado para verificar o jogo no descktop. Voltar a meter ""MenuSceneDesktop"""
+        this.scene.start("MenuSceneDesktop"); // alterado para verificar o jogo no descktop. Voltar a meter ""MenuSceneDesktop"""
         // console.log('Desktop');
       }
     } else {

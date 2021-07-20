@@ -21,8 +21,8 @@ if (!isMobile) {
   gameHeight = 600;
   sceneArray = [
     BootScene,
-    DesktopScene,
     MenuSceneDesktop,
+    DesktopScene,
     GameOverDesktop,
     BlockGame,
   ];
