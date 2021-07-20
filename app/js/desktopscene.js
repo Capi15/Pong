@@ -3,8 +3,8 @@ class DesktopScene extends Phaser.Scene {
     bola;
     VxBal = 1;
     VyBal = 1;
-    centerX = this.sys.game.canvas.width / 2;
-    centerY = this.sys.game.canvas.height / 2;
+    centerX;
+    centerY;
     VspeedBal = 5;
     difCentro = 120;
 
@@ -15,6 +15,8 @@ class DesktopScene extends Phaser.Scene {
     // ballImage;
 
     setup() {
+        this.centerX = this.sys.game.canvas.width / 2;
+        this.centerY = this.sys.game.canvas.height / 2;
         frameRate(60);
         smooth();
         noCursor();
