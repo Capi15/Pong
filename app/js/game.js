@@ -22,7 +22,7 @@ if (!isMobile) {
   sceneArray = [
     BootScene,
     MenuSceneDesktop,
-    DesktopScene,
+    //DesktopScene,
     GameOverDesktop,
     BlockGame,
   ];
