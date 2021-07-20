@@ -38,8 +38,8 @@ class DesktopScene extends Phaser.Scene {
 
   update() {
     console.log("update");
-    XBal += 1; //posBalVx * speedBal;
-    YBal += 1; //posBalVy * speedBal;
+    this.XBal += 1; //posBalVx * speedBal;
+    this.YBal += 1; //posBalVy * speedBal;
   }
   // x += vx*dt;
   // y += vy*dt;
