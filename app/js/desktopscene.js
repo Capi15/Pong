@@ -3,6 +3,7 @@ class DesktopScene extends Phaser.Scene {
     super({ key: "DesktopScene" });
   }
 
+  ballImage;
   create() {
     console.log("L7 DesktopScene Dentro");
 
@@ -36,15 +37,13 @@ class DesktopScene extends Phaser.Scene {
     console.log("VxBal ->" + VxBal);
     console.log("VyBal ->" + VxBal);
 
-    const ballImage = this.add
-      .image(XBal, YBal, "ballImg")
-      .setScale(0.02, 0.02);
+    ballImage = this.add.image(XBal, YBal, "ballImg").setScale(0.02, 0.02);
   }
 
   update() {
     this.XBal += 1; //posBalVx * speedBal;
     this.YBal += 1; //posBalVy * speedBal;
-    this.ballImage.setPosition(this.XBal, this.YBal);
+    ballImage.setPosition(this.XBal, this.YBal);
   }
   // x += vx*dt;
   // y += vy*dt;
