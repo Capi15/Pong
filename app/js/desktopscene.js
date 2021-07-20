@@ -28,6 +28,11 @@ class DesktopScene extends Phaser.Scene {
     VxBal = Phaser.Math.Between(-5, 5);
     VyBal = Phaser.Math.Between(-5, 5);
 
+    while (VxBal == 0 || VyBal == 0) {
+      VxBal = Phaser.Math.Between(-5, 5);
+      VyBal = Phaser.Math.Between(-5, 5);
+    }
+
     console.log("VxBal ->" + VxBal);
     console.log("VyBal ->" + VxBal);
 
@@ -39,7 +44,7 @@ class DesktopScene extends Phaser.Scene {
   update() {
     this.XBal += 1; //posBalVx * speedBal;
     this.YBal += 1; //posBalVy * speedBal;
-    this.ballImage.setPosition(this.XBal, this.YBal);
+    this.ballImage.image.setPosition(this.XBal, this.YBal);
   }
   // x += vx*dt;
   // y += vy*dt;
