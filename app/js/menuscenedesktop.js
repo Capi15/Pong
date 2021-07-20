@@ -29,7 +29,7 @@ class MenuSceneDesktop extends Phaser.Scene {
     );
 
     // ------------------------------  Texto inicio da partida / Timmer  ------------------------------
-    this.initialTime = 10;
+    this.initialTime = 2;
     this.timmerText = this.add.text(
       500,
       100,
@@ -103,7 +103,6 @@ class MenuSceneDesktop extends Phaser.Scene {
   // ------------------------------  Update  ------------------------------
   update() {
     if (this.initialTime <= 0) {
-      console.log("L106 DesktopScene");
       this.scene.start("DesktopScene");
       // if (this.noPlayers >= 2) {
       //     //socket.emit('startGame');
