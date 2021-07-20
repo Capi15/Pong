@@ -29,13 +29,30 @@ class DesktopScene extends Phaser.Scene {
     VxBal = 0.1;
     VyBal = 0.1;
 
-    this.ballImage = this.add.image(XBal, YBal, "ballImg").setScale(0.02, 0.02);
+    this.ballImage = this.add
+      .sprite(XBal, YBal, "ballImg")
+      .setScale(0.02, 0.02);
+    upKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.UP);
+    downKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    leftKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
   }
 
   update() {
-    this.XBal += this.VxBal; //posBalVx * speedBal;
-    this.YBal += this.VyBal; //posBalVy * speedBal;
-    this.ballImage.setPosition(this.XBal, this.YBal);
+    // this.XBal += this.VxBal; //posBalVx * speedBal;
+    // this.YBal += this.VyBal; //posBalVy * speedBal;
+    // this.ballImage.setPosition(this.XBal, this.YBal);
+
+    if (upKey.isDown) {
+      this.ballImage.y -= 0.01;
+    } else if (downKey.isDown) {
+      this.ballImage.y += 0.01;
+    }
+    if (leftKey.isDown) {
+      this.ballImage.x -= 0.01;
+    } else if (rightKey.isDown) {
+      this.ballImage.x += 0.01;
+    }
   }
   // x += vx*dt;
   // y += vy*dt;
