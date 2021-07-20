@@ -28,16 +28,18 @@ class Bola {
         imageMode(CORNER);
 
         // -- verificar se a bola sai do canvas
-        if (this.x > width || this.x < 0 || this.y > height || this.y < 0) {
-            // -- se sim, remover a Bola
-            this.eliminaBola();
-        }
-    }
 
-    // -- eliminaBola()
-    eliminaBola() {
-        // -- esta função esta na classe principal
-        // -- remover Bola do array;
-        removeBola(this);
+        if (this.ballImage.y + tamanho >= height) {
+            this.y -= 0.1;
+        }
+        if (this.ballImage.x + tamanho >= width) {
+            this.x -= 0.1;
+        }
+        if (this.ballImage.y + tamanho <= height) {
+            this.y += 0.1;
+        }
+        if (this.ballImage.x + tamanho <= width) {
+            this.x += 0.1;
+        }
     }
 }
