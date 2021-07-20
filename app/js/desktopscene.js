@@ -24,4 +24,6 @@ class DesktopScene extends Phaser.Scene {
             )
             .setScale(0.02, 0.02);
     }
+
+    update() {}
 }
