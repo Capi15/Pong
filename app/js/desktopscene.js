@@ -4,17 +4,7 @@ class DesktopScene extends Phaser.Scene {
   }
 
   create() {
-    let XBal = this.sys.game.canvas.width / 2;
-    let YBal = this.sys.game.canvas.height / 2;
-    let VxBal = 0;
-    let VyBal = 0;
-    let VspeedBal = 5;
-
-    VxBal = Phaser.Math.Between(-5, 5);
-    VyBal = Phaser.Math.Between(-5, 5);
-
-    console.log("VxBal ->" + VxBal);
-    console.log("VyBal ->" + VxBal);
+    console.log("L7 DesktopScene Dentro");
 
     let { width, height } = this.sys.game.canvas;
     //adiciona uma imagem de fundo ao menu
@@ -28,12 +18,26 @@ class DesktopScene extends Phaser.Scene {
     let scaleY = this.cameras.main.height / backgroundImage.height;
 
     backgroundImage.setScale(scaleY).setScrollFactor(0);
+
+    let XBal = this.sys.game.canvas.width / 2;
+    let YBal = this.sys.game.canvas.height / 2;
+    let VxBal = 0;
+    let VyBal = 0;
+    let VspeedBal = 5;
+
+    VxBal = Phaser.Math.Between(-5, 5);
+    VyBal = Phaser.Math.Between(-5, 5);
+
+    console.log("VxBal ->" + VxBal);
+    console.log("VyBal ->" + VxBal);
+
     const ballImage = this.add
       .image(XBal, YBal, "ballImg")
       .setScale(0.02, 0.02);
   }
 
   update() {
+    console.log("update");
     XBal += 1; //posBalVx * speedBal;
     YBal += 1; //posBalVy * speedBal;
   }

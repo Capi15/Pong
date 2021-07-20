@@ -103,6 +103,7 @@ class MenuSceneDesktop extends Phaser.Scene {
   // ------------------------------  Update  ------------------------------
   update() {
     if (this.initialTime <= 0) {
+      console.log("L106 DesktopScene");
       this.scene.start("DesktopScene");
       // if (this.noPlayers >= 2) {
       //     //socket.emit('startGame');
