@@ -12,7 +12,7 @@ let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 let isDesktopPlatform = true;
 
-if (!isMobile) {
+if (isMobile) {
     gameDiv.classList.add('deskBack');
     title.textContent += 'Pong';
     isDesktopPlatform = true;
@@ -72,13 +72,13 @@ var globalVariable = {
 let game = new Phaser.Game(config);
 
 function resize() {
-    const canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
+    const canvas = game.canvas,
+        width = window.innerWidth,
+        height = window.innerHeight;
     console.log(canvas);
     canvas.width = width;
     canvas.height = height;
-    window.requestAnimationFrame(()=>{canvas.removeAttribute('style')})
+    window.requestAnimationFrame(() => {
+        canvas.removeAttribute('style');
+    });
 }
-
-
-
-
