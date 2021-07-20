@@ -53,6 +53,7 @@ class DesktopScene extends Phaser.Scene {
     if (this.ballImage.x + tamanho <= this.sys.game.canvas.width) {
       this.VxBal += 0.1;
     }
+    //commit
   }
 
   // if ( (x - blob_radius < 0) | (x + blob_radius > width) ) {
