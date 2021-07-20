@@ -22,8 +22,8 @@ class DesktopScene extends Phaser.Scene {
 
     let XBal = this.sys.game.canvas.width / 2;
     let YBal = this.sys.game.canvas.height / 2;
-    let VxBal = 0;
-    let VyBal = 0;
+    let VxBal = 1;
+    let VyBal = 1;
     let VspeedBal = 5;
 
     VxBal = 0.01;
@@ -39,9 +39,9 @@ class DesktopScene extends Phaser.Scene {
   }
 
   update() {
-    // this.XBal += this.VxBal; //posBalVx * speedBal;
-    // this.YBal += this.VyBal; //posBalVy * speedBal;
-    // this.ballImage.setPosition(this.XBal, this.YBal);
+    this.XBal += this.VxBal; //posBalVx * speedBal;
+    this.YBal += this.VyBal; //posBalVy * speedBal;
+    this.ballImage.setPosition(+this.VxBal, +this.VyBal);
   }
 
   // x += vx*dt;
