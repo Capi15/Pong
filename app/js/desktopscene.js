@@ -32,10 +32,10 @@ class DesktopScene extends Phaser.Scene {
     this.ballImage = this.add
       .sprite(XBal, YBal, "ballImg")
       .setScale(0.02, 0.02);
-    upKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.UP);
-    downKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    leftKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    rightKey = ballImage.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    upKey = this.ballImage.input.keyboard.addKey(Phaser.Keyboard.UP);
+    downKey = this.ballImage.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    leftKey = this.ballImage.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = this.ballImage.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
   }
 
   update() {
