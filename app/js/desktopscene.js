@@ -10,8 +10,8 @@ class DesktopScene extends Phaser.Scene {
     let VyBal = 0;
     let VspeedBal = 5;
 
-    var VxBal = Phaser.Math.Between(-5, 5);
-    var VyBal = Phaser.Math.Between(-5, 5);
+    VxBal = Phaser.Math.Between(-5, 5);
+    VyBal = Phaser.Math.Between(-5, 5);
 
     console.log("VxBal ->" + VxBal);
     console.log("VyBal ->" + VxBal);
