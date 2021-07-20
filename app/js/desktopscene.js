@@ -27,19 +27,19 @@ class DesktopScene extends Phaser.Scene {
         this.perdeu = false;
         this.VxBal = 1;
         this.VyBal = 1;
-        posX = width / 2 - difCentro;
-        posY = height / 2 - difCentro;
+        this.centerX = width / 2 - difCentro;
+        this.centerY = height / 2 - difCentro;
         // -- desenhar os players
-        this.initPlayers();
+        //this.initPlayers();
     }
 
-    initPlayers() {}
+    //initPlayers() {}
 
     spawnBola() {
         let randX = integerInRange(-50, 50);
         let randY = integerInRange(-50, 50);
         let dx = randX - this.centerX - this.difCentro;
-        let dy = randX - this.centerY - this.difCentro;
+        let dy = randY - this.centerY - this.difCentro;
 
         let angulo = atan2(dy, dx);
 
