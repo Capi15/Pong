@@ -37,13 +37,13 @@ class DesktopScene extends Phaser.Scene {
     console.log("VxBal ->" + VxBal);
     console.log("VyBal ->" + VxBal);
 
-    ballImage = this.add.image(XBal, YBal, "ballImg").setScale(0.02, 0.02);
+    this.ballImage = this.add.image(XBal, YBal, "ballImg").setScale(0.02, 0.02);
   }
 
   update() {
     this.XBal += 1; //posBalVx * speedBal;
     this.YBal += 1; //posBalVy * speedBal;
-    ballImage.setPosition(this.XBal, this.YBal);
+    this.ballImage.setPosition(this.XBal, this.YBal);
   }
   // x += vx*dt;
   // y += vy*dt;
