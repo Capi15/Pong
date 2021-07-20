@@ -29,16 +29,16 @@ class Bola {
 
         // -- verificar se a bola sai do canvas
 
-        if (this.ballImage.y + tamanho >= height) {
+        if (this.y >= height) {
             this.y -= 0.1;
         }
-        if (this.ballImage.x + tamanho >= width) {
+        if (this.x >= width) {
             this.x -= 0.1;
         }
-        if (this.ballImage.y + tamanho <= height) {
+        if (this.y <= height) {
             this.y += 0.1;
         }
-        if (this.ballImage.x + tamanho <= width) {
+        if (this.x <= width) {
             this.x += 0.1;
         }
     }
