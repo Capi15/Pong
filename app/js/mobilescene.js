@@ -14,6 +14,7 @@ class MobileScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / backgroundImage.height;
 
         backgroundImage.setScale(scaleY).setScrollFactor(0);
+        this.controls();
     }
 
     update() {}
