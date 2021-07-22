@@ -15,21 +15,24 @@ class DesktopScene extends Phaser.Scene {
     peX;
     peY;
     pontuacaoPe;
+    colidePe = false;
 
     //var jogaDireita
     pdJogador;
     pdX;
     pdY;
     pontuacaoPd;
+    colidePd = false;
 
     //var GameDescktopScene
     perdeu = false;
     width;
     height;
-    ronda = 0;
+    ronda = 1;
 
     //textos
     textoPontuacao;
+    textoRonda;
 
     constructor() {
         super({ key: 'DesktopScene' });
@@ -42,13 +45,11 @@ class DesktopScene extends Phaser.Scene {
         this.peX = (this.width * 2) / 10;
         this.pdX = (8 * this.width) / 10;
         //Define posição da bola no centro do jogo
-        this.posXBal = this.width / 2;
-        this.posYBal = this.height / 2;
 
         this.peY = this.posYBal;
         this.pdY = this.posYBal;
-
-        console.log('L7 DesktopScene Dentro');
+        this.posXBal = this.width / 2;
+        this.posYBal = this.height / 2;
 
         //adiciona uma imagem de fundo ao menu
         const backgroundImage = this.add.image(
@@ -61,31 +62,31 @@ class DesktopScene extends Phaser.Scene {
         this.bola = this.add
             .image(this.posXBal, this.posYBal, 'ballImg')
             .setScale(0.05);
+        //this.bola.setCircle(200);
 
         this.sizeB = this.bola.width * 0.05;
 
         //Cria Jogador 1
-        this.peJogador = this.add.rectangle(
-            this.peX,
-            this.peY,
-            10,
-            100,
-            0x6666ff
-        );
+        this.peJogador = this.add.image(this.peX, this.peY, 'pe').setScale(0.6);
+        // this.peJogador.body.setSize(15, 100);
 
         //Cria Jogador 2
-        this.pdJogador = this.add.rectangle(
-            this.pdX,
-            this.pdY,
-            10,
-            100,
-            0x6666ff
+        this.pdJogador = this.add.image(this.pdX, this.pdY, 'pd').setScale(0.6);
+
+        // //Teste collider Bola com players
+        //this.physics.add.collider(this.bola, this.peJogador, this.teste1());
+        //this.physics.add.collider(this.bola, this.pdJogador, this.teste2());
+
+        this.textoRonda = this.add.text(
+            50,
+            (this.height = this.sys.game.canvas.height - 30),
+            'Ronda -> ' + this.ronda + '/3'
         );
 
         this.textoPontuacao = this.add.text(
-            this.posXBal,
-            10,
-            'Ronda -> ' + this.ronda + '/3'
+            this.posXBal - 50,
+            40,
+            this.pontuacaoPe + ' / ' + this.pontuacaoPd
         );
 
         // let scaleX = this.cameras.main.width / backgroundImage.width;
@@ -112,6 +113,11 @@ class DesktopScene extends Phaser.Scene {
     }
 
     initJogo() {
+        this.pontuacaoPe = 0;
+        this.pontuacaoPd = 0;
+        this.posXBal = this.width / 2;
+        this.posYBal = this.height / 2;
+
         // this.textoPontuacao.setText('Ronda -> ' + ronda + '/3');
         this.textoPontuacao.setText(
             this.pontuacaoPe + ' / ' + this.pontuacaoPd
@@ -126,10 +132,40 @@ class DesktopScene extends Phaser.Scene {
         this.pdJogador.setY(this.pdY);
 
         //RetornaValores bola
+        // let randomMove = parseFloat(Phaser.Math.FloatBetween(0, this.sys.game.canvas.height));
+        let randX = parseFloat(
+            Phaser.Math.FloatBetween(
+                (2 / 5) * this.sys.game.canvas.height,
+                this.sys.game.canvas.height
+            ) / this.sys.game.canvas.height
+        );
+        let randY =
+            this.sys.game.canvas.height / this.sys.game.canvas.height - randX;
+
+        if (this.ronda > 1) {
+            //randX=
+            this.posVXBal = 3;
+            this.posVYBal = 0;
+        } else {
+            let randSignal = Phaser.Math.RND.between(0, 1);
+
+            if (randSignal === 0) {
+                this.posVXBal = randX * 3;
+                this.posVYBal = randY * 3;
+            } else {
+                this.posVXBal = -randX * 3;
+                this.posVYBal = -randY * 3;
+            }
+        }
+        console.log(this.posVXBal);
+        console.log(this.posVYBal);
+
         this.vSpeedBal = 0.3;
-        this.posVXBal = 3;
-        this.posVYBal = 3;
         this.bola.setPosition(this.posXBal, this.posYBal);
+    }
+
+    fimRonda() {
+        this.initJogo();
     }
 
     update() {
@@ -140,19 +176,39 @@ class DesktopScene extends Phaser.Scene {
     }
 
     verificaJogo() {
+        // if (this.physics.ArcadePhysicsCallback(this.bola, this.pdJogador)) {
+        //     console.log('Ativo colisão');
+        // }
+        // {
+        //
+        //     // this.posVXBal = -(this.posVXBal - this.vSpeedBal);
+        // }
         console.log(this.posVXBal);
+
         if (this.bola.x - this.sizeB / 2 >= this.pdJogador.x) {
+            //player esquerda
             this.posVXBal = -(this.posVXBal + this.vSpeedBal);
+            this.fimRonda();
         }
         if (this.bola.y >= this.height) {
             this.posVYBal = -this.posVYBal;
         }
         if (this.bola.x + this.sizeB / 2 <= this.peJogador.x) {
+            //player
             this.posVXBal = -(this.posVXBal - this.vSpeedBal);
+            this.fimRonda();
         }
         if (this.bola.y <= 0) {
             this.posVYBal = -this.posVYBal;
         }
+    }
+
+    teste1() {
+        console.log('Colisão Pe');
+    }
+
+    teste2() {
+        console.log('Colisão Pd');
     }
 
     //Informa as posições dos objectos
