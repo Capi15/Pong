@@ -8,9 +8,9 @@ class MobileScene extends Phaser.Scene {
         super({ key: 'MobileScene' });
     }
 
-    init(direita) {
-        this.jogadorEsquerda = !direita;
-    }
+    // init(direita) {
+    //     this.jogadorEsquerda = !direita;
+    // }
 
     create() {
         const backgroundImage = this.add.image(
