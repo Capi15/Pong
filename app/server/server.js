@@ -130,10 +130,6 @@ io.on('connection', function (socket) {
                     ) {
                         if (i + 1 <= maxNoPlayer) {
                             //====================================   define os 2 jogadores iniciais
-                            console.log(
-                                dataJogadores.listaJogadores[i].id +
-                                    '+++++++++++++'
-                            );
                             playerGameArray.push({
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
                                 id: dataJogadores.listaJogadores[i].id,
@@ -142,7 +138,7 @@ io.on('connection', function (socket) {
                                 side: sideBool, //==========================================   side false representa o lado esquedo do campo, side true representa a direita Primeiro defenido como false (troca na linha 149)
                                 points: 0,
                             });
-                            sideBoll = true; //==========================================   define o da direita como true
+                            sideBool = !sideBool; //==========================================   define o da direita como true
                         } else {
                             playerGameArray.push({
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
@@ -180,6 +176,18 @@ io.on('connection', function (socket) {
 
     socket.on('GameOver', () => {
         console.log('GameOver');
+    });
+
+    socket.on('moveJogadorCima', () => {
+        console.log(
+            '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+        );
+    });
+
+    socket.on('moveJogadorBaixo', () => {
+        console.log(
+            '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+        );
     });
 
     //Elimina o Jogador da Lista pretendida com informação das sockets

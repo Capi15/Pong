@@ -2,15 +2,14 @@ class MobileScene extends Phaser.Scene {
     changedOrientation = false;
     rightClick;
     leftClick;
-    jogadorEsquerda;
+    jogador;
 
     constructor() {
         super({ key: 'MobileScene' });
     }
 
-    init(direita) {
-        console.log('init -> ' + direita.toString());
-        this.jogadorEsquerda = !direita;
+    init(lado) {
+        this.jogador = lado.direita;
     }
 
     create() {
@@ -58,11 +57,10 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.rightClick.setScale(0.3);
-                    if (this.jogadorEsquerda) {
-                        socket.emit('moveJogadorPe');
-                    } else {
-                        socket.emit('moveJogadorPd');
-                    }
+                    console.log(
+                        '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+                    );
+                    socket.emit('moveJogadorBaixo', this.jogador);
                 },
                 this
             );
@@ -81,11 +79,10 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.leftClick.setScale(0.3);
-                    if (this.jogadorEsquerda) {
-                        socket.emit('moveJogadorPe');
-                    } else {
-                        socket.emit('moveJogadorPd');
-                    }
+                    console.log(
+                        '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                    );
+                    socket.emit('moveJogadorCima', this.jogador);
                 },
                 this
             );
@@ -125,11 +122,10 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.rightClick.setScale(0.3);
-                    if (this.jogadorEsquerda) {
-                        socket.emit('moveJogadorPe');
-                    } else {
-                        socket.emit('moveJogadorPd');
-                    }
+                    console.log(
+                        '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+                    );
+                    socket.emit('moveJogadorBaixo', this.jogador);
                 },
                 this
             );
@@ -148,11 +144,10 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.leftClick.setScale(0.3);
-                    if (this.jogadorEsquerda) {
-                        socket.emit('moveJogadorPe');
-                    } else {
-                        socket.emit('moveJogadorPd');
-                    }
+                    console.log(
+                        '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+                    );
+                    socket.emit('moveJogadorCima', this.jogador);
                 },
                 this
             );

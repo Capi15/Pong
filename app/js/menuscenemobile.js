@@ -110,7 +110,7 @@ class MenuSceneMobile extends Phaser.Scene {
         );
 
         socket.on('MostraComando', (direita) => {
-            this.scene.start('MobileScene', direita);
+            this.scene.start('MobileScene', { direita: direita });
         });
 
         socket.on('SalaDeEspera', () => {
