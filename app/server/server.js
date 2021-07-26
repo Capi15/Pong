@@ -145,12 +145,8 @@ io.on('connection', function (socket) {
                 }
             }
             playerGameArray.forEach((player) => {
-                console.log('Aqui caralho! 8=============================D  1');
-
                 SocketList.forEach((element) => {
-                    console.log(
-                        'Aqui caralho! 8=============================D'
-                    );
+                    console.log(dataJogadores.listaJogadores[i].id + '(.Y.)');
                     console.log(
                         'player.id -> ' +
                             player.id +
