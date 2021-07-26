@@ -152,10 +152,6 @@ io.on('connection', function (socket) {
                     }
                 }
             }
-            //depois apaga os dados todos
-            if (ecraPrincipal != null) {
-                ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
-            }
 
             playerGameArray.forEach((player) => {
                 SocketList.forEach((playerSocket) => {
@@ -166,6 +162,10 @@ io.on('connection', function (socket) {
                     }
                 });
             });
+            //depois apaga os dados todos
+            if (ecraPrincipal != null) {
+                ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+            }
         }
     });
 });

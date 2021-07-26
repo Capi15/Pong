@@ -24,7 +24,8 @@ class BootScene extends Phaser.Scene {
         //this.scene.start('MenuScene');
         socket.on('valida', (valida) => {
             // console.log("adeus");
-            this.scene.start('BlockGame');
+            // this.scene.start('BlockGame');
+            window.location.href = 'http://www.google.com';
             this.kick = true;
         });
 
