@@ -154,13 +154,13 @@ io.on('connection', function (socket) {
             }
 
             playerGameArray.forEach((player) => {
-                SocketList.forEach((playerSocket) => {
-                    if (player.id === playerSocket.id) {
+                SocketList.forEach((element) => {
+                    if (player.id === element.id) {
                         console.log('L159 -> MostraComando');
-                        playerSocket.objSocket.emit('MostraComando');
+                        element.objSocket.emit('MostraComando');
                     } else {
                         console.log('L162 -> MostraComando');
-                        SocketList.objSocket.emit('SalaDeEspera');
+                        element.objSocket.emit('SalaDeEspera');
                     }
                 });
             });
