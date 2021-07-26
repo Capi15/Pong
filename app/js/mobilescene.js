@@ -8,11 +8,10 @@ class MobileScene extends Phaser.Scene {
         super({ key: 'MobileScene' });
     }
 
-    // init(direita) {
-    //     this.jogadorEsquerda = !direita;
-    // }
-
-    //
+    init(direita) {
+        console.log('init -> ' + direita.toString());
+        this.jogadorEsquerda = !direita;
+    }
 
     create() {
         const backgroundImage = this.add.image(
@@ -28,7 +27,7 @@ class MobileScene extends Phaser.Scene {
         window.addEventListener('orientationchange', () => {
             this.changedOrientation = true;
         });
-        // this.controls();
+        this.controls();
     }
 
     update() {

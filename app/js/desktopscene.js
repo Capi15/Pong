@@ -89,8 +89,10 @@ class DesktopScene extends Phaser.Scene {
         this.textoRonda = this.add.text(
             50,
             (this.height = this.sys.game.canvas.height - 30),
-            'Ronda -> ' + this.ronda + '/3'
+            'Ronda -> ' + this.ronda + '/5'
         );
+        this.pontuacaoPe = 0;
+        this.pontuacaoPd = 0;
 
         this.textoPontuacao = this.add.text(
             this.posXBal - 50,
@@ -125,8 +127,6 @@ class DesktopScene extends Phaser.Scene {
         // setInterval(()=>{ this.passeBola = false); }, 50);
         this.passeBola = false;
         this.passaForca = false;
-        this.pontuacaoPe = 0;
-        this.pontuacaoPd = 0;
         this.posXBal = this.width / 2;
         this.posYBal = this.height / 2;
 
@@ -193,9 +193,41 @@ class DesktopScene extends Phaser.Scene {
             //perdeu equerda
             this.perdeuEsquerda = true;
         }
-        if (this.ronda < 3) {
+        if (this.ronda < 6) {
             this.ronda++;
+            this.initJogo();
         }
+
+        if (this.pontuacaoPd === 3 || this.pontuacaoPe === 3) {
+            this.perdeu = true;
+            this.textoFinalJogo = this.add.text(
+                this.width / 2,
+                this.height / 2,
+                ''
+            );
+            if (this.pontuacaoPd > this.pontuacaoPe) {
+                this.textoFinalJogo.setText('Jogador da direita ganhou!!');
+            } else {
+                // this.textoFinalJogo.setText("Jogador " + + " venceu!")
+                this.textoFinalJogo.setText('Jogador da esquerda venceu!');
+            }
+            this.awaitForStart();
+        }
+    }
+
+    awaitForStart() {
+        this.timedEvent = this.time.addEvent({
+            delay: 10000,
+            callback: this.startAgain,
+            callbackScope: this,
+            loop: false,
+        });
+    }
+
+    newGame() {
+        this.pontuacaoPe = 0;
+        this.pontuacaoPd = 0;
+        this.ronda = 1;
         this.initJogo();
     }
 
@@ -204,6 +236,11 @@ class DesktopScene extends Phaser.Scene {
             this.moveTudo();
             this.verificaJogo();
         }
+    }
+
+    startAgain() {
+        socket.emit('GameOver');
+        // newGame();
     }
 
     verificaJogo() {
@@ -240,6 +277,8 @@ class DesktopScene extends Phaser.Scene {
         if (this.bola.x - this.sizeB / 2 >= this.pdJogador.x) {
             //player esquerda
             this.posVXBal = -(this.posVXBal + this.vSpeedBal);
+            this.textoRonda.setText('Ronda -> ' + this.ronda + '/5');
+            this.pontuacaoPe++;
             this.fimRonda();
         }
         if (this.bola.y >= this.height) {
@@ -248,19 +287,13 @@ class DesktopScene extends Phaser.Scene {
         if (this.bola.x + this.sizeB / 2 <= this.peJogador.x) {
             //player
             this.posVXBal = -(this.posVXBal - this.vSpeedBal);
+            this.textoRonda.setText('Ronda -> ' + this.ronda + '/5');
+            this.pontuacaoPd++;
             this.fimRonda();
         }
         if (this.bola.y <= 0) {
             this.posVYBal = -this.posVYBal;
         }
-    }
-
-    teste1() {
-        console.log('Colisão Pe');
-    }
-
-    teste2() {
-        console.log('Colisão Pd');
     }
 
     //Informa as posições dos objectos

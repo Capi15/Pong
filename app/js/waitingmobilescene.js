@@ -21,12 +21,11 @@ class WaitingMobileScene extends Phaser.Scene {
         window.addEventListener('orientationchange', () => {
             this.changedOrientation = true;
         });
-        this.controls();
 
         this.WaintingText = this.add.text(
             this.cameras.main.width / 2,
             this.cameras.main.height / 2,
-            ''
+            'Sala de Espera'
         );
 
         socket.on('SalaDeEspera', () => {

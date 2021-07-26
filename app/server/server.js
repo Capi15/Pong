@@ -130,7 +130,6 @@ io.on('connection', function (socket) {
                     ) {
                         if (i + 1 <= maxNoPlayer) {
                             //====================================   define os 2 jogadores iniciais
-                            dataJogadores.listaJogadores[i].play = true;
                             console.log(
                                 dataJogadores.listaJogadores[i].id +
                                     '+++++++++++++'
@@ -138,89 +137,101 @@ io.on('connection', function (socket) {
                             playerGameArray.push({
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
                                 id: dataJogadores.listaJogadores[i].id,
+                                play: true,
                                 posY: 0,
                                 side: sideBool, //==========================================   side false representa o lado esquedo do campo, side true representa a direita Primeiro defenido como false (troca na linha 149)
                                 points: 0,
                             });
                             sideBoll = true; //==========================================   define o da direita como true
                         } else {
-                            dataJogadores.listaJogadores[i].play = false;
+                            playerGameArray.push({
+                                //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
+                                id: dataJogadores.listaJogadores[i].id,
+                                play: false,
+                                posY: 0,
+                                side: sideBool, //==========================================   side false representa o lado esquedo do campo, side true representa a direita Primeiro defenido como false (troca na linha 149)
+                                points: 0,
+                            });
                         }
                     }
                 }
             }
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
-                    console.log(
-                        'player.id -> ' +
-                            player.id +
-                            'element.id -> ' +
-                            element.id
-                    );
-                    if (player.id == element.id) {
-                        element.objSocket.emit('MostraComando', player.side);
-                    } else {
-                        element.objSocket.emit('SalaDeEspera');
+                    if (player.id === element.id) {
+                        if (player.play) {
+                            element.objSocket.emit(
+                                'MostraComando',
+                                player.side
+                            );
+                        } else {
+                            element.objSocket.emit('SalaDeEspera');
+                        }
                     }
                 });
+
+                //depois apaga os dados todos
+                if (ecraPrincipal != null) {
+                    ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+                }
             });
-            //depois apaga os dados todos
-            if (ecraPrincipal != null) {
-                ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
-            }
         }
     });
+
+    socket.on('GameOver', () => {
+        console.log('GameOver');
+    });
+
+    //Elimina o Jogador da Lista pretendida com informação das sockets
+    function removePlayer(obj, lista) {
+        let index = lista.indexOf(obj);
+        if (index > -1) {
+            lista.splice(index, 1);
+        }
+    }
+
+    function removePlayer2(obj, lista) {
+        let index = lista.indexOf(obj);
+        if (index > -1) {
+            lista.splice(index, 1);
+        }
+    }
+
+    //Valida Listas com Socket depois de eliminar
+    function consoleLogListas() {
+        console.log('Jogadores total -> ' + playerCount);
+        console.log('Lista jogadores => ');
+        if (dataJogadores.listaJogadores.length > 0) {
+            dataJogadores.listaJogadores.forEach((element) => {
+                console.log(
+                    'id Jogador ' +
+                        element.id +
+                        ', nome ' +
+                        element.nome +
+                        ', play ' +
+                        element.play +
+                        ', socket id ' +
+                        element.socket +
+                        '\n'
+                );
+            });
+        } else {
+            console.log('Lista Vazia');
+        }
+
+        console.log('Lista do servidor => ');
+        if (SocketList.length > 0) {
+            SocketList.forEach((element) => {
+                console.log(
+                    'Id socket -> ' +
+                        element.objSocketId +
+                        ' | Id jogo -> ' +
+                        element.id +
+                        '\n'
+                );
+            });
+        } else {
+            console.log('Lista Vazia');
+        }
+    }
 });
-
-//Elimina o Jogador da Lista pretendida com informação das sockets
-function removePlayer(obj, lista) {
-    let index = lista.indexOf(obj);
-    if (index > -1) {
-        lista.splice(index, 1);
-    }
-}
-
-function removePlayer2(obj, lista) {
-    let index = lista.indexOf(obj);
-    if (index > -1) {
-        lista.splice(index, 1);
-    }
-}
-
-//Valida Listas com Socket depois de eliminar
-function consoleLogListas() {
-    console.log('Jogadores total -> ' + playerCount);
-    console.log('Lista jogadores => ');
-    if (dataJogadores.listaJogadores.length > 0) {
-        dataJogadores.listaJogadores.forEach((element) => {
-            console.log(
-                'id Jogador ' +
-                    element.id +
-                    ', nome ' +
-                    element.nome +
-                    ', play ' +
-                    element.play +
-                    ', socket id ' +
-                    element.socket +
-                    '\n'
-            );
-        });
-    } else {
-        console.log('Lista Vazia');
-    }
-
-    console.log('Lista do servidor => ');
-    if (SocketList.length > 0) {
-        SocketList.forEach((element) => {
-            console.log(
-                'Id socket -> ' +
-                    element.objSocketId +
-                    ' | Id jogo -> ' +
-                    element.id +
-                    '\n'
-            );
-        });
-    } else {
-        console.log('Lista Vazia');
-    }
-}
