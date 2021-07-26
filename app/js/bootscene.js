@@ -25,7 +25,8 @@ class BootScene extends Phaser.Scene {
         socket.on('valida', (valida) => {
             // console.log("adeus");
             // this.scene.start('BlockGame');
-            window.location.href = 'http://www.google.com';
+            window.location.href =
+                'https://i0.wp.com/www.fbtb.net/wp-content/uploads/2017/11/gandalf.gif?fit=1180%2C488&ssl=1';
             this.kick = true;
         });
 
