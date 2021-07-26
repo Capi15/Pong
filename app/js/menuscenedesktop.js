@@ -112,13 +112,11 @@ class MenuSceneDesktop extends Phaser.Scene {
     update() {
         if (this.initialTime <= 0) {
             this.scene.start('DesktopScene');
-            // if (this.noPlayers >= 2) {
-            //     //socket.emit('startGame');
-            //     console.log('L116 -> Aqui');
-            // } else {
-            //     this.initialTime = 90;
-            //     console.log('L116 -> Ali');
-            // }
+            if (this.noPlayers >= 2) {
+                socket.emit('startGame');
+            } else {
+                this.initialTime = 90;
+            }
         }
     }
 
