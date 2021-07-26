@@ -39,6 +39,7 @@ if (!isMobile) {
         InstructionsScene,
         MobileScene,
         GameOverMobile,
+        WaitingMobileScene,
     ];
 }
 

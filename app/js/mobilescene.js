@@ -2,6 +2,7 @@ class MobileScene extends Phaser.Scene {
     changedOrientation = false;
     rightClick;
     leftClick;
+
     constructor() {
         super({ key: 'MobileScene' });
     }
@@ -34,19 +35,21 @@ class MobileScene extends Phaser.Scene {
     controls() {
         if (window.innerHeight > window.innerWidth) {
             //portrait
-            const aSixth = this.cameras.main.width / 6;
+            const aThird = this.cameras.main.width / 3;
             this.rightClick = this.add
                 .sprite(
-                    this.cameras.main.width / 2 + aSixth,
-                    this.cameras.main.height / 2,
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 - aThird,
                     'arrowImg',
                     this.rightInput
                 )
                 .setInteractive()
                 .setScale(0.2);
 
+            this.rightClick.angle = -90;
+
             this.rightClick.on(
-                'pointerdown',
+                'gameobjectdown',
                 function (pointer) {
                     this.rightClick.setScale(0.3);
                 },
@@ -55,8 +58,8 @@ class MobileScene extends Phaser.Scene {
 
             this.leftClick = this.add
                 .sprite(
-                    this.cameras.main.width / 2 - aSixth,
-                    this.cameras.main.height / 2,
+                    this.cameras.main.width / 2,
+                    this.cameras.main.height / 2 + aThird,
                     'arrowImg',
                     this.leftInput
                 )
@@ -64,7 +67,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerdown',
+                'gameobjectdown',
                 function (pointer) {
                     this.leftClick.setScale(0.3);
                 },
@@ -74,15 +77,16 @@ class MobileScene extends Phaser.Scene {
             this.leftClick.setFlipX(-1);
 
             this.rightClick.on(
-                'pointerup',
+                'gameobjectup',
                 function (pointer) {
                     this.rightClick.setScale(0.2);
                 },
                 this
             );
+            this.leftClick.angle = -90;
 
             this.leftClick.on(
-                'pointerup',
+                'gameobjectup',
                 function (pointer) {
                     this.leftClick.setScale(0.2);
                 },
