@@ -134,7 +134,7 @@ class MobileScene extends Phaser.Scene {
             this.rightClick.angle = -90;
 
             this.rightClick.on(
-                'gameobjectdown',
+                this.input.activePointer.isDown,
                 function (pointer) {
                     this.rightClick.setScale(0.3);
                 },
@@ -152,7 +152,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'gameobjectdown',
+                this.input.activePointer.isDown,
                 function (pointer) {
                     this.leftClick.setScale(0.3);
                 },
@@ -162,7 +162,7 @@ class MobileScene extends Phaser.Scene {
             this.leftClick.setFlipX(-1);
 
             this.rightClick.on(
-                'gameobjectup',
+                this.input.activePointer.isUp,
                 function (pointer) {
                     this.rightClick.setScale(0.2);
                 },
@@ -171,7 +171,7 @@ class MobileScene extends Phaser.Scene {
             this.leftClick.angle = -90;
 
             this.leftClick.on(
-                'gameobjectup',
+                this.input.activePointer.isUp,
                 function (pointer) {
                     this.leftClick.setScale(0.2);
                 },
@@ -191,7 +191,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.rightClick.on(
-                'pointerdown',
+                this.input.activePointer.isDown,
                 function (pointer) {
                     this.rightClick.setScale(0.3);
                 },
@@ -209,7 +209,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerdown',
+                this.input.activePointer.isDown,
                 function (pointer) {
                     this.leftClick.setScale(0.3);
                 },
@@ -219,7 +219,7 @@ class MobileScene extends Phaser.Scene {
             this.leftClick.setFlipX(-1);
 
             this.rightClick.on(
-                'pointerup',
+                this.input.activePointer.isUp,
                 function (pointer) {
                     this.rightClick.setScale(0.2);
                 },
@@ -227,7 +227,7 @@ class MobileScene extends Phaser.Scene {
             );
 
             this.leftClick.on(
-                'pointerup',
+                this.input.activePointer.isDown,
                 function (pointer) {
                     this.leftClick.setScale(0.2);
                 },
