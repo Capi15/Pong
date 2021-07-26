@@ -154,6 +154,12 @@ io.on('connection', function (socket) {
 
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
+                    console.log(
+                        'player.id -> ' +
+                            player.id +
+                            'element.id -> ' +
+                            element.id
+                    );
                     if (player.id == element.id) {
                         console.log('L159 -> MostraComando');
                         element.objSocket.emit('MostraComando');
