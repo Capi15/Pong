@@ -26,7 +26,7 @@ class MobileScene extends Phaser.Scene {
         window.addEventListener('orientationchange', () => {
             this.changedOrientation = true;
         });
-        this.controls();
+        // this.controls();
     }
 
     update() {
