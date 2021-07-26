@@ -41,6 +41,11 @@ class MenuSceneMobile extends Phaser.Scene {
     }
 
     create() {
+        socket.on('playerToCkick', () => {
+            window.location.href =
+                'https://i0.wp.com/www.fbtb.net/wp-content/uploads/2017/11/gandalf.gif?fit=1180%2C488&ssl=1';
+        });
+
         this.canvasWidth = this.sys.game.canvas.width;
         this.canvasHeight = this.sys.game.canvas.height;
         this.message = this.add

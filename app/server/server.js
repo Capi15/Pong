@@ -57,8 +57,8 @@ io.on('connection', function (socket) {
                 ecraPrincipal = socket;
             }
         } else if (!info.isDesktop) {
+            playerCount++;
             if (playerCount <= limiteJogadores) {
-                playerCount++;
                 //========================================== Adiciona Dispositivo á Lista
                 dataJogadores.listaJogadores.push({
                     id: idJogador,
@@ -81,8 +81,7 @@ io.on('connection', function (socket) {
                 );
                 idJogador++;
             } else {
-                console.log('Numero de jogadores chegou ao limite');
-                return;
+                socket.emit('playerToCkick');
             }
         } else if (info.isDesktop) {
             socket.emit('valida', isEcraPrincipal);
@@ -155,7 +154,7 @@ io.on('connection', function (socket) {
 
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
-                    if (player.id === element.id) {
+                    if (player.id == element.id) {
                         console.log('L159 -> MostraComando');
                         element.objSocket.emit('MostraComando');
                     } else {
