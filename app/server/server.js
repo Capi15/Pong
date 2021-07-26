@@ -158,10 +158,8 @@ io.on('connection', function (socket) {
                             element.id
                     );
                     if (player.id == element.id) {
-                        console.log('L159 -> MostraComando');
-                        element.objSocket.emit('MostraComando');
+                        element.objSocket.emit('MostraComando', player.side);
                     } else {
-                        console.log('L162 -> MostraComando');
                         element.objSocket.emit('SalaDeEspera');
                     }
                 });

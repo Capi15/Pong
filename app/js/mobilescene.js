@@ -2,9 +2,14 @@ class MobileScene extends Phaser.Scene {
     changedOrientation = false;
     rightClick;
     leftClick;
+    jogadorEsquerda;
 
     constructor() {
         super({ key: 'MobileScene' });
+    }
+
+    init(direita) {
+        this.jogadorEsquerda = !direita;
     }
 
     create() {
@@ -52,7 +57,7 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.rightClick.setScale(0.3);
-                    if (jogadorEsquerda) {
+                    if (this.jogadorEsquerda) {
                         socket.emit('moveJogadorPe');
                     } else {
                         socket.emit('moveJogadorPd');
@@ -75,7 +80,7 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.leftClick.setScale(0.3);
-                    if (jogadorEsquerda) {
+                    if (this.jogadorEsquerda) {
                         socket.emit('moveJogadorPe');
                     } else {
                         socket.emit('moveJogadorPd');
@@ -119,7 +124,7 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.rightClick.setScale(0.3);
-                    if (jogadorEsquerda) {
+                    if (this.jogadorEsquerda) {
                         socket.emit('moveJogadorPe');
                     } else {
                         socket.emit('moveJogadorPd');
@@ -142,7 +147,7 @@ class MobileScene extends Phaser.Scene {
                 'pointerdown',
                 () => {
                     this.leftClick.setScale(0.3);
-                    if (jogadorEsquerda) {
+                    if (this.jogadorEsquerda) {
                         socket.emit('moveJogadorPe');
                     } else {
                         socket.emit('moveJogadorPd');
