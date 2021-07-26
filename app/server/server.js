@@ -162,6 +162,7 @@ io.on('connection', function (socket) {
                     if (player.id === playerSocket.id) {
                         playerSocket.objSocket.emit('MostraComando');
                     } else {
+                        SocketList.objSocket.emit('SalaDeEspera');
                     }
                 });
             });
