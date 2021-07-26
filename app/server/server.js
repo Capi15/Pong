@@ -19,7 +19,7 @@ let isEcraPrincipal = false; //==== verifica se está a ser acedido no browser
 let SocketList = []; //============ Lista dos sockets (jogadores[moboile] + browser)
 let currentRound = 1;
 const NoOfRounds = 3;
-let playerGameArray = [2];
+let playerGameArray = [];
 
 dataEcra = {
     nome: null,
@@ -152,15 +152,18 @@ io.on('connection', function (socket) {
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
                     console.log(
-                        'player.id -> ' + player + 'element.id -> ' + element.id
+                        'player.id -> ' +
+                            player.id +
+                            'element.id -> ' +
+                            element.id
                     );
-                    // if (player.id == element.id) {
-                    //     console.log('L159 -> MostraComando');
-                    //     element.objSocket.emit('MostraComando');
-                    // } else {
-                    //     console.log('L162 -> MostraComando');
-                    //     element.objSocket.emit('SalaDeEspera');
-                    // }
+                    if (player.id == element.id) {
+                        console.log('L159 -> MostraComando');
+                        element.objSocket.emit('MostraComando');
+                    } else {
+                        console.log('L162 -> MostraComando');
+                        element.objSocket.emit('SalaDeEspera');
+                    }
                 });
             });
             //depois apaga os dados todos
