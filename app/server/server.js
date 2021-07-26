@@ -19,7 +19,7 @@ let isEcraPrincipal = false; //==== verifica se está a ser acedido no browser
 let SocketList = []; //============ Lista dos sockets (jogadores[moboile] + browser)
 let currentRound = 1;
 const NoOfRounds = 3;
-let playerGameArray;
+let playerGameArray = [2];
 
 dataEcra = {
     nome: null,
@@ -120,8 +120,7 @@ io.on('connection', function (socket) {
             if (currentRound == 1) {
                 let sideBool = false; //====================================  Booliano para player esquerda e player direita
                 const maxNoPlayer = 2;
-                playerGameArray = [maxNoPlayer];
-                if (dataJogadores.listaJogadores.length >= 2) {
+                if (dataJogadores.listaJogadores.length >= maxNoPlayer) {
                     //====================================  Verifica se ainda existem + de 2 jogadores na lista de espera
                     for (
                         let i = 0;
@@ -135,38 +134,34 @@ io.on('connection', function (socket) {
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
                                 id: dataJogadores.listaJogadores[i].id,
                                 posY: 0,
-                                //side false representa o lado esquedo do campo, side true representa a direita
-                                side: sideBool, //==========================================   Primeiro defenido como false (troca na linha 149)
+                                side: sideBool, //==========================================   side false representa o lado esquedo do campo, side true representa a direita Primeiro defenido como false (troca na linha 149)
                                 points: 0,
                             });
                             sideBoll = true; //==========================================   define o da direita como true
                         } else {
                             dataJogadores.listaJogadores[i].play = false;
                         }
-                        //
-                        // while (playerGameArray <= maxNoPlayer)
-
-                        //     if ((maxNoPlayer % 2) = 0) playerData.side = true;
-                        //     playerGameArray.push({ 'jogadorId' : element.id, 'playerData' : playerData});
                     }
                 }
             }
-
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
+                    console.log(
+                        'Aqui caralho! 8=============================D'
+                    );
                     console.log(
                         'player.id -> ' +
                             player.id +
                             'element.id -> ' +
                             element.id
                     );
-                    if (player.id == element.id) {
-                        console.log('L159 -> MostraComando');
-                        element.objSocket.emit('MostraComando');
-                    } else {
-                        console.log('L162 -> MostraComando');
-                        element.objSocket.emit('SalaDeEspera');
-                    }
+                    // if (player.id == element.id) {
+                    //     console.log('L159 -> MostraComando');
+                    //     element.objSocket.emit('MostraComando');
+                    // } else {
+                    //     console.log('L162 -> MostraComando');
+                    //     element.objSocket.emit('SalaDeEspera');
+                    // }
                 });
             });
             //depois apaga os dados todos
