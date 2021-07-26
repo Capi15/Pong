@@ -12,6 +12,8 @@ class MobileScene extends Phaser.Scene {
     //     this.jogadorEsquerda = !direita;
     // }
 
+    //
+
     create() {
         const backgroundImage = this.add.image(
             this.cameras.main.width / 2,
