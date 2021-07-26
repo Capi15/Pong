@@ -110,6 +110,11 @@ class MenuSceneDesktop extends Phaser.Scene {
 
     // ------------------------------  Update  ------------------------------
     update() {
+        if (this.noPlayers >= 6) {
+            this.scene.start('DesktopScene');
+            socket.emit('startGame');
+        }
+
         if (this.initialTime <= 0) {
             this.scene.start('DesktopScene');
             if (this.noPlayers >= 2) {

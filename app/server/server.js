@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
                     id: idJogador,
                 });
 
-                consoleLogListas();
+                // consoleLogListas();
                 ecraPrincipal.emit(
                     'JogadorEntrou',
                     dataJogadores.listaJogadores //=========================== Envia Lista total de Jogadores para apresentação no Ecrã Principal
@@ -111,16 +111,17 @@ io.on('connection', function (socket) {
                 removePlayer2(element, SocketList);
             }
         });
-        consoleLogListas();
+        // consoleLogListas();
     });
     socket.on('startGame', function () {
-        console.log('L134 -> startFirstGame');
-
         if (currentRound <= NoOfRounds) {
             if (currentRound == 1) {
                 let sideBool = false; //====================================  Booliano para player esquerda e player direita
                 const maxNoPlayer = 2;
                 if (dataJogadores.listaJogadores.length >= maxNoPlayer) {
+                    console.log(
+                        'arrayLength' + dataJogadores.listaJogadores.length
+                    );
                     //====================================  Verifica se ainda existem + de 2 jogadores na lista de espera
                     for (
                         let i = 0;
@@ -130,6 +131,10 @@ io.on('connection', function (socket) {
                         if (i + 1 <= maxNoPlayer) {
                             //====================================   define os 2 jogadores iniciais
                             dataJogadores.listaJogadores[i].play = true;
+                            console.log(
+                                dataJogadores.listaJogadores[i].id +
+                                    '+++++++++++++'
+                            );
                             playerGameArray.push({
                                 //=================================   adiciona no array "playerGameArray" os 2 jogadores a jogar primeiro
                                 id: dataJogadores.listaJogadores[i].id,
