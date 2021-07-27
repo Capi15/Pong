@@ -25,6 +25,7 @@ class DesktopScene extends Phaser.Scene {
     colidePd = false;
 
     //var GameDescktopScene
+    jogadorSize = 0;
     perdeu = false;
     width;
     height;
@@ -86,6 +87,8 @@ class DesktopScene extends Phaser.Scene {
             .image(this.pdX, this.pdY, 'pd')
             .setScale(0.6);
 
+        this.jogadorSize = (this.pdJogador.size * 0.6) / 2;
+
         this.textoRonda = this.add.text(
             50,
             (this.height = this.sys.game.canvas.height - 30),
@@ -107,16 +110,24 @@ class DesktopScene extends Phaser.Scene {
 
         //Alterar a informação com o que vem do servidor
         socket.on('CimaJogadorE', () => {
-            this.peY++;
+            if (this.peY + this.jogadorSize <= this.height) {
+                this.peY += 3;
+            }
         });
         socket.on('BaixoJogadorE', () => {
-            this.peY--;
+            if (this.peY - this.jogadorSize >= 0) {
+                this.peY -= 3;
+            }
         });
         socket.on('CimaJogadorD', () => {
-            this.pdY++;
+            if (this.pdY + this.jogadorSize <= this.height) {
+                this.pdY += 3;
+            }
         });
         socket.on('BaixoJogadorD', () => {
-            this.pdY--;
+            if (this.pdY - this.jogadorSize >= 0) {
+                this.pdY -= 3;
+            }
         });
 
         socket.on('moveJogadorPd', (data) => {

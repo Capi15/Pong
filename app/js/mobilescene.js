@@ -54,7 +54,7 @@ class MobileScene extends Phaser.Scene {
             this.rightClick.angle = -90;
 
             this.rightClick.on(
-                'pointerover',
+                'pointermove',
                 () => {
                     this.rightClick.setScale(0.3);
                     socket.emit('moveJogadorBaixo', this.jogador);
@@ -73,7 +73,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerover',
+                'pointermove',
                 () => {
                     this.leftClick.setScale(0.3);
                     socket.emit('moveJogadorCima', this.jogador);
@@ -113,7 +113,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.rightClick.on(
-                'pointerover',
+                'pointermove',
                 () => {
                     this.rightClick.setScale(0.3);
                     socket.emit('moveJogadorBaixo', this.jogador);
@@ -132,7 +132,7 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerover',
+                'pointermove',
                 () => {
                     this.leftClick.setScale(0.3);
                     socket.emit('moveJogadorCima', this.jogador);
