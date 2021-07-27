@@ -266,8 +266,8 @@ class DesktopScene extends Phaser.Scene {
     verificaJogo() {
         this.peLimiteCima = this.peJogador.displayHeight / 2;
         this.peLimiteBaixo = this.peJogador.displayHeight * 2;
-        console.log('peLimiteBaixo -> ' + peLimiteBaixo);
-        console.log('peLimiteCima -> ' + peLimiteCima);
+        console.log('peLimiteBaixo -> ' + this.peLimiteBaixo);
+        console.log('peLimiteCima -> ' + this.peLimiteCima);
         this.pdLimiteCima = this.pdJogador.displayHeight / 2;
         this.pdLimiteBaixo = this.pdJogador.displayHeight * 2;
 
