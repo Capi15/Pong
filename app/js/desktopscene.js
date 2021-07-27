@@ -93,7 +93,7 @@ class DesktopScene extends Phaser.Scene {
 
         this.textoRonda = this.add.text(
             50,
-            (this.height = this.sys.game.canvas.height - 30),
+            this.height - 30,
             'Ronda -> ' + this.ronda + '/5'
         );
         this.pontuacaoPe = 0;
