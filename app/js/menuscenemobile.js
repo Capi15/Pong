@@ -116,6 +116,10 @@ class MenuSceneMobile extends Phaser.Scene {
         socket.on('SalaDeEspera', () => {
             this.scene.start('WaitingMobileScene');
         });
+
+        socket.on('SalaDeEspera', () => {
+            this.scene.start('WaitingMobileScene');
+        });
     }
 
     update() {

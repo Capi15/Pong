@@ -20,7 +20,8 @@ let SocketList = []; //============ Lista dos sockets (jogadores[moboile] + brow
 let currentRound = 1;
 const NoOfRounds = 3;
 let playerGameArray = [];
-
+const maxNoPlayer = 2;
+let JogoADecorrer = false;
 dataEcra = {
     nome: null,
     isDesktop: null,
@@ -91,35 +92,123 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function () {
-        dataJogadores.listaJogadores.forEach((element) => {
-            console.log('L84 -> ' + element.id);
-            if (element.socket === socket.id) {
-                console.log(
-                    'Jogador com o id ' +
-                        element.id +
-                        ' socket -> ' +
-                        element.socket +
-                        ' saiu.'
-                );
-                removePlayer(element, dataJogadores.listaJogadores);
-                ecraPrincipal.emit('JogadorSaiu', dataJogadores.listaJogadores);
-                playerCount--;
+        if (JogoADecorrer) {
+            console.log('Saiu a meio do jogo');
+            let jogadorSaiu;
+            let jogadorVenceu;
+            const arrayJ = dataJogadores.listaJogadores;
+            const arrayG = playerGameArray;
+            const arrayS = SocketList;
+            for (let i = 0; i < arrayJ.length; i++) {
+                if (arrayG[i].play) {
+                    if (arrayJ.socket.id !== socket.id) {
+                        ecraPrincipal.emit(
+                            'JogadorSaiuAMeioDoJogo',
+                            arrayG[i].nome
+                        );
+                    }
+                    removePlayer(arrayJ[i], arrayJ);
+                    removePlayer(arrayG[i], arrayG);
+                    removePlayer(arrayS[i], arrayS);
+                    playerCount--;
+                }
             }
-        });
+        } else {
+            dataJogadores.listaJogadores.forEach((element) => {
+                console.log('L84 -> ' + element.id);
+                if (element.socket === socket.id) {
+                    console.log(
+                        'Jogador com o id ' +
+                            element.id +
+                            ' socket -> ' +
+                            element.socket +
+                            ' saiu.'
+                    );
+                    removePlayer(element, dataJogadores.listaJogadores);
+                    ecraPrincipal.emit(
+                        'JogadorSaiu',
+                        dataJogadores.listaJogadores
+                    );
+                    playerCount--;
+                }
+            });
 
-        SocketList.forEach((element) => {
-            console.log('L98 -> ' + element);
-            if (element.objSocketId === socket.id) {
-                removePlayer2(element, SocketList);
-            }
-        });
+            SocketList.forEach((element) => {
+                console.log('L98 -> ' + element);
+                if (element.objSocketId === socket.id) {
+                    removePlayer2(element, SocketList);
+                }
+            });
+        }
         // consoleLogListas();
     });
-    socket.on('startGame', function () {
+    socket.on('startGame', atualizaJogadores());
+
+    socket.on('GameOver', () => {
+        JogoADecorrer = false;
+        if (SocketList.length >= 2) {
+            for (let i = SocketList.length - 1; i >= 0; i--) {
+                console.log(' comprimento do array -> ' + SocketList.length);
+                if (
+                    playerGameArray[i].play === true &&
+                    playerGameArray[i].id === SocketList[i].id
+                ) {
+                    console.log(
+                        'removeu player i-> ' +
+                            i +
+                            ' |  playerGameArray[i].id -> ' +
+                            playerGameArray[i].id +
+                            ' | SocketList[i].id -> ' +
+                            SocketList[i].id
+                    );
+                    SocketList[i].objSocket.emit('ForaDeJogo');
+                    removePlayer(playerGameArray[i], playerGameArray);
+                    removePlayer(SocketList[i], SocketList);
+                    console.log(
+                        ' comprimento do array dentro do for -> ' +
+                            SocketList.length
+                    );
+                }
+            }
+            if (SocketList.length < 1) {
+                console.log('Sem jogadores');
+                dataJogadores.listaJogadores.forEach((element) => {
+                    removePlayer(element, dataJogadores.listaJogadores);
+                });
+                ecraPrincipal.emit('NovoEcraJogo');
+            } else {
+                ecraPrincipal.emit('ProximaPartida');
+            }
+        }
+    });
+
+    socket.on('startNextRound', () => {
+        console.log('startNextRound');
+        currentRound++;
+        atualizaJogadores();
+    });
+
+    socket.on('moveJogadorCima', (jogador) => {
+        if (!jogador) {
+            ecraPrincipal.emit('CimaJogadorE');
+        } else {
+            ecraPrincipal.emit('CimaJogadorD');
+        }
+    });
+
+    socket.on('moveJogadorBaixo', (jogador) => {
+        if (!jogador) {
+            ecraPrincipal.emit('BaixoJogadorE');
+        } else {
+            ecraPrincipal.emit('BaixoJogadorD');
+        }
+    });
+
+    function atualizaJogadores() {
+        console.log('teste');
         if (currentRound <= NoOfRounds) {
-            if (currentRound == 1) {
+            if (currentRound === 1) {
                 let sideBool = false; //====================================  Booliano para player esquerda e player direita
-                const maxNoPlayer = 2;
                 if (dataJogadores.listaJogadores.length >= maxNoPlayer) {
                     console.log(
                         'arrayLength' + dataJogadores.listaJogadores.length
@@ -153,6 +242,28 @@ io.on('connection', function (socket) {
                         }
                     }
                 }
+            } else if (currentRound === 2) {
+                //outras condições
+                let sideBool = false; //====================================  Booliano para player esquerda e player direita
+                for (let i = 0; i < playerGameArray; i++) {
+                    if (i + 1 <= maxNoPlayer) {
+                        playerGameArray[i].play = true;
+                        playerGameArray[i].side = sideBool;
+                        sideBool = !sideBool;
+                        if (
+                            SocketList[i].objSocketId ===
+                                playerGameArray[i].id &&
+                            playerGameArray[i].play
+                        ) {
+                            SocketList[i].objSocket.emit(
+                                'MostraComando',
+                                playerGameArray[i].side
+                            );
+                        }
+                    }
+                }
+            } else {
+                currentRound == 1;
             }
             playerGameArray.forEach((player) => {
                 SocketList.forEach((element) => {
@@ -174,60 +285,8 @@ io.on('connection', function (socket) {
                 }
             });
         }
-    });
-
-    socket.on('GameOver', () => {
-        if (SocketList.length >= 2) {
-            for (let i = SocketList.length - 1; i >= 0; i--) {
-                console.log(' comprimento do array -> ' + SocketList.length);
-                if (
-                    playerGameArray[i].play === true &&
-                    playerGameArray[i].id === SocketList[i].id
-                ) {
-                    console.log(
-                        'removeu player i-> ' +
-                            i +
-                            ' |  playerGameArray[i].id -> ' +
-                            playerGameArray[i].id +
-                            ' | SocketList[i].id -> ' +
-                            SocketList[i].id
-                    );
-                    SocketList[i].objSocket.emit('ForaDeJogo');
-                    removePlayer(playerGameArray[i], playerGameArray);
-                    removePlayer(SocketList[i], SocketList);
-                    console.log(
-                        ' comprimento do array dentro do for -> ' +
-                            SocketList.length
-                    );
-                }
-            }
-            if (SocketList.length < 1) {
-                console.log('Sem jogadores');
-                dataJogadores.listaJogadores.forEach((element) => {
-                    removePlayer(element, dataJogadores.listaJogadores);
-                });
-                ecraPrincipal.emit('NovoEcraJogo');
-            } else {
-                console.log('Ainda tem jogadores');
-            }
-        }
-    });
-
-    socket.on('moveJogadorCima', (jogador) => {
-        if (!jogador) {
-            ecraPrincipal.emit('CimaJogadorE');
-        } else {
-            ecraPrincipal.emit('CimaJogadorD');
-        }
-    });
-
-    socket.on('moveJogadorBaixo', (jogador) => {
-        if (!jogador) {
-            ecraPrincipal.emit('BaixoJogadorE');
-        } else {
-            ecraPrincipal.emit('BaixoJogadorD');
-        }
-    });
+        JogoADecorrer = true;
+    }
 
     //Elimina o Jogador da Lista pretendida com informação das sockets
     function removePlayer(obj, lista) {

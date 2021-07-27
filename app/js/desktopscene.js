@@ -25,6 +25,7 @@ class DesktopScene extends Phaser.Scene {
     colidePd = false;
 
     //var GameDescktopScene
+    initialTime = 10;
     backgroundImage;
     perdeu = false;
     width;
@@ -39,6 +40,7 @@ class DesktopScene extends Phaser.Scene {
     //textos
     textoPontuacao;
     textoRonda;
+    timmerText;
 
     constructor() {
         super({ key: 'DesktopScene' });
@@ -99,6 +101,12 @@ class DesktopScene extends Phaser.Scene {
             40,
             this.pontuacaoPe + ' / ' + this.pontuacaoPd
         );
+        this.vencedorText = this.add.text(
+            this.width / 2,
+            this.height / 2 - 30,
+            ''
+        );
+        this.timmerText = this.add.text(this.width / 2, this.height / 2, '');
 
         // let scaleX = this.cameras.main.width / backgroundImage.width;
         let scaleY = this.cameras.main.height / this.backgroundImage.height;
@@ -146,10 +154,22 @@ class DesktopScene extends Phaser.Scene {
         socket.on('NovoEcraJogo', () => {
             this.scene.start('MenuSceneDesktop');
         });
+
+        socket.on('ProximaPartida', () => {
+            this.awaitNextRound();
+            this.startNextRound();
+        });
+
+        socket.on('JogadorSaiuAMeioDoJogo', (nome) => {
+            this.vencedorText.setText('o Jogador ' + nome + ' venceu o jogo!');
+            this.awaitNextRound();
+        });
     }
 
     initJogo() {
         // setInterval(()=>{ this.passeBola = false); }, 50);
+        this.timmerText.setText('');
+        this.vencedorText.setText('');
         this.passeBola = false;
         this.passaForca = false;
         this.posXBal = this.width / 2;
@@ -206,6 +226,7 @@ class DesktopScene extends Phaser.Scene {
 
         this.vSpeedBal = 1;
         this.bola.setPosition(this.posXBal, this.posYBal);
+        this.initialTime = 10;
     }
 
     fimRonda() {
@@ -247,6 +268,24 @@ class DesktopScene extends Phaser.Scene {
         });
     }
 
+    awaitNextRound() {
+        this.timedEvent = this.time.addEvent({
+            delay: 1000,
+            callback: this.onEvent,
+            callbackScope: this,
+            loop: false,
+        });
+    }
+
+    onEvent() {
+        this.initialTime -= 1; // One second
+        this.timmerText.setText(
+            'Novo jogo iniciará em ' +
+                this.formatTime(this.initialTime) +
+                ' segundos'
+        );
+    }
+
     newGame() {
         this.pontuacaoPe = 0;
         this.pontuacaoPd = 0;
@@ -258,12 +297,19 @@ class DesktopScene extends Phaser.Scene {
         if (!this.perdeu) {
             this.moveTudo();
             this.verificaJogo();
+        } else if (this.initialTime) {
+            this.perdeu = false;
+            this.newGame();
         }
     }
 
     startAgain() {
         socket.emit('GameOver');
         // newGame();
+    }
+
+    startNextRound() {
+        socket.emit('startNextRound');
     }
 
     verificaJogo() {
