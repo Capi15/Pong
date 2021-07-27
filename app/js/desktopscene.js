@@ -16,8 +16,6 @@ class DesktopScene extends Phaser.Scene {
     peY;
     pontuacaoPe;
     colidePe = false;
-    peLimiteCima = 0;
-    peLimiteBaixo = 0;
 
     //var jogaDireita
     pdJogador;
@@ -25,11 +23,9 @@ class DesktopScene extends Phaser.Scene {
     pdY;
     pontuacaoPd;
     colidePd = false;
-    pdLimiteCima = 0;
-    pdLimiteBaixo = 0;
 
     //var GameDescktopScene
-
+    backgroundImage;
     perdeu = false;
     width;
     height;
@@ -37,7 +33,6 @@ class DesktopScene extends Phaser.Scene {
     perdeuEsquerda = true;
     passeBola = false;
     passaForca = false;
-
     collisionPe;
     collisionPd;
 
@@ -66,7 +61,7 @@ class DesktopScene extends Phaser.Scene {
         this.posYBal = this.height / 2;
 
         //adiciona uma imagem de fundo ao menu
-        const backgroundImage = this.physics.add.image(
+        this.backgroundImage = this.physics.add.image(
             this.posXBal,
             this.posYBal,
             'backgroundImg'
@@ -105,34 +100,37 @@ class DesktopScene extends Phaser.Scene {
             this.pontuacaoPe + ' / ' + this.pontuacaoPd
         );
 
-        this.peLimiteCima = this.peJogador.displayHeight / 2;
-        this.peLimiteBaixo = this.peJogador.displayHeight * 2;
-        this.pdLimiteCima = this.pdJogador.displayHeight / 2;
-        this.pdLimiteBaixo = this.pdJogador.displayHeight * 2;
-
         // let scaleX = this.cameras.main.width / backgroundImage.width;
-        let scaleY = this.cameras.main.height / backgroundImage.height;
-        backgroundImage.setScale(scaleY).setScrollFactor(0);
+        let scaleY = this.cameras.main.height / this.backgroundImage.height;
+        this.backgroundImage.setScale(scaleY).setScrollFactor(0);
         this.initJogo();
+
+        const canvas = this.sys.canvas.height;
 
         //Alterar a informação com o que vem do servidor
         socket.on('CimaJogadorE', () => {
-            if (this.peJogador.y + this.peLimiteBaixo <= this.height) {
+            if (
+                this.peJogador.y + this.peJogador.displayHeight / 2 <=
+                this.height
+            ) {
                 this.peY += 10;
             }
         });
         socket.on('BaixoJogadorE', () => {
-            if (this.peY - this.peLimiteCima >= 0) {
+            if (this.peY - this.peJogador.displayHeight / 2 >= 0) {
                 this.peY -= 10;
             }
         });
         socket.on('CimaJogadorD', () => {
-            if (this.pdJogador.y + this.pdLimiteBaixo <= this.height) {
+            if (
+                this.pdJogador.y + this.pdJogador.displayHeight / 2 <=
+                this.height
+            ) {
                 this.pdY += 10;
             }
         });
         socket.on('BaixoJogadorD', () => {
-            if (this.pdY - this.pdLimiteCima >= 0) {
+            if (this.pdY - this.peJogador.displayHeight / 2 >= 0) {
                 this.pdY -= 10;
             }
         });
@@ -143,6 +141,10 @@ class DesktopScene extends Phaser.Scene {
             } else {
                 this.pdY--;
             }
+        });
+
+        socket.on('NovoEcraJogo', () => {
+            this.scene.start('MenuSceneDesktop');
         });
     }
 
@@ -318,9 +320,9 @@ class DesktopScene extends Phaser.Scene {
 
     //Informa as posições dos objectos
     moveTudo() {
-        // this.posXBal += this.posVXBal;
-        // this.posYBal += this.posVYBal;
-        // this.bola.setPosition(this.posXBal, this.posYBal);
+        this.posXBal += this.posVXBal;
+        this.posYBal += this.posVYBal;
+        this.bola.setPosition(this.posXBal, this.posYBal);
         this.peJogador.setY(this.peY);
         this.pdJogador.setY(this.pdY);
     }

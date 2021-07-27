@@ -84,7 +84,9 @@ io.on('connection', function (socket) {
                 socket.emit('playerToCkick');
             }
         } else if (info.isDesktop) {
-            socket.emit('valida', isEcraPrincipal);
+            if (!(socket === ecraPrincipal)) {
+                socket.emit('valida', isEcraPrincipal);
+            }
         }
     });
 
@@ -175,7 +177,40 @@ io.on('connection', function (socket) {
     });
 
     socket.on('GameOver', () => {
-        console.log('GameOver');
+        if (SocketList.length >= 2) {
+            for (let i = SocketList.length - 1; i >= 0; i--) {
+                console.log(' comprimento do array -> ' + SocketList.length);
+                if (
+                    playerGameArray[i].play === true &&
+                    playerGameArray[i].id === SocketList[i].id
+                ) {
+                    console.log(
+                        'removeu player i-> ' +
+                            i +
+                            ' |  playerGameArray[i].id -> ' +
+                            playerGameArray[i].id +
+                            ' | SocketList[i].id -> ' +
+                            SocketList[i].id
+                    );
+                    SocketList[i].objSocket.emit('ForaDeJogo');
+                    removePlayer(playerGameArray[i], playerGameArray);
+                    removePlayer(SocketList[i], SocketList);
+                    console.log(
+                        ' comprimento do array dentro do for -> ' +
+                            SocketList.length
+                    );
+                }
+            }
+            if (SocketList.length < 1) {
+                console.log('Sem jogadores');
+                dataJogadores.listaJogadores.forEach((element) => {
+                    removePlayer(element, dataJogadores.listaJogadores);
+                });
+                ecraPrincipal.emit('NovoEcraJogo');
+            } else {
+                console.log('Ainda tem jogadores');
+            }
+        }
     });
 
     socket.on('moveJogadorCima', (jogador) => {

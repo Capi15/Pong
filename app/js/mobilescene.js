@@ -3,6 +3,7 @@ class MobileScene extends Phaser.Scene {
     rightClick;
     leftClick;
     jogador;
+    updated = false;
 
     constructor() {
         super({ key: 'MobileScene' });
@@ -27,6 +28,10 @@ class MobileScene extends Phaser.Scene {
             this.changedOrientation = true;
         });
         this.controls();
+        socket.on('ForaDeJogo', () => {
+            window.location.href =
+                'https://i0.wp.com/www.fbtb.net/wp-content/uploads/2017/11/gandalf.gif?fit=1180%2C488&ssl=1';
+        });
     }
 
     update() {
@@ -80,7 +85,6 @@ class MobileScene extends Phaser.Scene {
                 },
                 this
             );
-
             this.leftClick.setFlipX(-1);
 
             this.rightClick.on(

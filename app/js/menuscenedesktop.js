@@ -71,6 +71,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         };
         socket.emit('novoPlayer', info);
 
+        const style = { font: 'bold 32px Arial', fill: '#fff' };
         // ------------------------------  Receção info players atuais / Numero Total e Nomes  ------------------------------
         socket.on('JogadorEntrou', (listaJogadores) => {
             console.log('L68');
@@ -129,9 +130,9 @@ class MenuSceneDesktop extends Phaser.Scene {
         }
 
         if (this.initialTime <= 0) {
-            this.scene.start('DesktopScene');
             if (this.noPlayers >= 2) {
                 socket.emit('startGame');
+                this.scene.start('DesktopScene');
             } else {
                 this.initialTime = 90;
             }
