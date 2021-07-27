@@ -52,20 +52,24 @@ class MenuSceneDesktop extends Phaser.Scene {
         });
 
         // ------------------------------  QR code Dispositivo Movel  ------------------------------
-        this.stringAndroid = this.add.text(130, 150, 'Acesso android');
+        this.stringAndroid = this.add.text(
+            this.sys.canvas.width / 2 - 370,
+            150,
+            'Acesso android'
+        );
         this.add
-            .sprite(this.sys.canvas.width / 2 - 150, 500, 'QrAndroid')
+            .sprite(this.sys.canvas.width / 2 - 350, 500, 'QrAndroid')
             .setScale(2);
 
         // ------------------------------  Texto Titulo Lista Jogadores  ------------------------------
         this.stringLista = this.add.text(
-            this.sys.canvas.width / 2 + 150,
+            this.sys.canvas.width / 2 + 50,
             200,
             '***  Lista de Jogadores  ***'
         );
         // ------------------------------  Texto com todos jogadores   ------------------------------
         this.stringListaNomes = this.add.text(
-            this.sys.canvas.width / 2 + 150,
+            this.sys.canvas.width / 2 + 50,
             250,
             ' Nenhum '
         );
@@ -77,7 +81,6 @@ class MenuSceneDesktop extends Phaser.Scene {
         };
         socket.emit('novoPlayer', info);
 
-        const style = { font: 'bold 32px Arial', fill: '#fff' };
         // ------------------------------  Receção info players atuais / Numero Total e Nomes  ------------------------------
         socket.on('JogadorEntrou', (listaJogadores) => {
             console.log('L68');
@@ -101,7 +104,11 @@ class MenuSceneDesktop extends Phaser.Scene {
                     i + 1 + '  ->  ' + listaJogadores[i].nome + '\n';
             }
             console.log(this.jogName);
-            this.stringListaNomes = this.add.text(450, y, this.jogName);
+            this.stringListaNomes = this.add.text(
+                this.sys.canvas.width / 2 + 50,
+                y,
+                this.jogName
+            );
             y += 20;
         });
 
@@ -119,7 +126,11 @@ class MenuSceneDesktop extends Phaser.Scene {
                     i + 1 + '  ->  ' + listaJogadores[i].nome + '\n';
             }
             console.log(this.jogName);
-            this.stringListaNomes = this.add.text(450, y, this.jogName);
+            this.stringListaNomes = this.add.text(
+                this.sys.canvas.width / 2 + 50,
+                y,
+                this.jogName
+            );
             y += 20;
         });
 
@@ -130,7 +141,7 @@ class MenuSceneDesktop extends Phaser.Scene {
 
     // ------------------------------  Update  ------------------------------
     update() {
-        if (this.noPlayers >= 6) {
+        if (this.noPlayers == 6) {
             this.scene.start('DesktopScene');
             socket.emit('startGame');
         }

@@ -90,25 +90,6 @@ class MenuSceneMobile extends Phaser.Scene {
             this.div[0].remove();
         });
 
-        this.buttonJogar = this.add
-            .image(
-                this.game.canvas.width / 2,
-                this.game.canvas.height / 2 + 300,
-                'acceptButtonImg'
-            )
-            .setScale(0.3)
-            .setInteractive({ useHandCursor: true });
-
-        //click no butão jogar
-        this.buttonJogar.once(
-            'pointerdown',
-            function (pointer) {
-                console.log(this.currPlayerName);
-                this.scene.start('MobileScene');
-            },
-            this
-        );
-
         socket.on('MostraComando', (direita) => {
             this.scene.start('MobileScene', { direita: direita });
         });
