@@ -111,22 +111,22 @@ class DesktopScene extends Phaser.Scene {
         //Alterar a informação com o que vem do servidor
         socket.on('CimaJogadorE', () => {
             if (this.peY + this.jogadorSize <= this.height) {
-                this.peY += 3;
+                this.peY += 10;
             }
         });
         socket.on('BaixoJogadorE', () => {
             if (this.peY - this.jogadorSize >= 0) {
-                this.peY -= 3;
+                this.peY -= 10;
             }
         });
         socket.on('CimaJogadorD', () => {
             if (this.pdY + this.jogadorSize <= this.height) {
-                this.pdY += 3;
+                this.pdY += 10;
             }
         });
         socket.on('BaixoJogadorD', () => {
             if (this.pdY - this.jogadorSize >= 0) {
-                this.pdY -= 3;
+                this.pdY -= 10;
             }
         });
 
