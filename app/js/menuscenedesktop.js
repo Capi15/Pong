@@ -54,18 +54,18 @@ class MenuSceneDesktop extends Phaser.Scene {
         // ------------------------------  QR code Dispositivo Movel  ------------------------------
         this.stringAndroid = this.add.text(130, 150, 'Acesso android');
         this.add
-            .sprite(this.sys.canvas.width - 150, 500, 'QrAndroid')
+            .sprite(this.sys.canvas.width / 2 - 150, 500, 'QrAndroid')
             .setScale(2);
 
         // ------------------------------  Texto Titulo Lista Jogadores  ------------------------------
         this.stringLista = this.add.text(
-            this.sys.canvas.width + 150,
+            this.sys.canvas.width / 2 + 150,
             200,
             '***  Lista de Jogadores  ***'
         );
         // ------------------------------  Texto com todos jogadores   ------------------------------
         this.stringListaNomes = this.add.text(
-            this.sys.canvas.width + 150,
+            this.sys.canvas.width / 2 + 150,
             250,
             ' Nenhum '
         );
