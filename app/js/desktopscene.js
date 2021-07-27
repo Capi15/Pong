@@ -107,6 +107,10 @@ class DesktopScene extends Phaser.Scene {
 
         // let scaleX = this.cameras.main.width / backgroundImage.width;
         let scaleY = this.cameras.main.height / backgroundImage.height;
+        console.log('this.cameras.main.height -> ' + this.cameras.main.height);
+        console.log(
+            'this.sys.game.canvas.height -> ' + this.sys.game.canvas.height
+        );
         backgroundImage.setScale(scaleY).setScrollFactor(0);
         this.initJogo();
 
@@ -262,6 +266,8 @@ class DesktopScene extends Phaser.Scene {
     verificaJogo() {
         this.peLimiteCima = this.peJogador.displayHeight / 2;
         this.peLimiteBaixo = this.peJogador.displayHeight * 2;
+        console.log('peLimiteBaixo -> ' + peLimiteBaixo);
+        console.log('peLimiteCima -> ' + peLimiteCima);
         this.pdLimiteCima = this.pdJogador.displayHeight / 2;
         this.pdLimiteBaixo = this.pdJogador.displayHeight * 2;
 
