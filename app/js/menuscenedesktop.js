@@ -36,7 +36,7 @@ class MenuSceneDesktop extends Phaser.Scene {
         );
 
         // ------------------------------  Texto inicio da partida / Timmer  ------------------------------
-        this.initialTime = 7;
+        this.initialTime = 40;
         this.timmerText = this.add.text(
             500,
             100,
