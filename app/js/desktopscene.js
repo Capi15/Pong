@@ -105,18 +105,19 @@ class DesktopScene extends Phaser.Scene {
             this.pontuacaoPe + ' / ' + this.pontuacaoPd
         );
 
+        this.peLimiteCima = this.peJogador.displayHeight / 2;
+        this.peLimiteBaixo = this.peJogador.displayHeight * 2;
+        this.pdLimiteCima = this.pdJogador.displayHeight / 2;
+        this.pdLimiteBaixo = this.pdJogador.displayHeight * 2;
+
         // let scaleX = this.cameras.main.width / backgroundImage.width;
         let scaleY = this.cameras.main.height / backgroundImage.height;
-        console.log('this.cameras.main.height -> ' + this.cameras.main.height);
-        console.log(
-            'this.sys.game.canvas.height -> ' + this.sys.game.canvas.height
-        );
         backgroundImage.setScale(scaleY).setScrollFactor(0);
         this.initJogo();
 
         //Alterar a informação com o que vem do servidor
         socket.on('CimaJogadorE', () => {
-            if (this.peY + this.peLimiteBaixo <= this.cameras.main.height) {
+            if (this.peJogador.y + this.peLimiteBaixo <= this.height) {
                 this.peY += 10;
             }
         });
@@ -126,7 +127,7 @@ class DesktopScene extends Phaser.Scene {
             }
         });
         socket.on('CimaJogadorD', () => {
-            if (this.pdY + this.pdLimiteBaixo <= this.cameras.main.height) {
+            if (this.pdJogador.y + this.pdLimiteBaixo <= this.height) {
                 this.pdY += 10;
             }
         });
@@ -264,13 +265,6 @@ class DesktopScene extends Phaser.Scene {
     }
 
     verificaJogo() {
-        this.peLimiteCima = this.peJogador.displayHeight / 2;
-        this.peLimiteBaixo = this.peJogador.displayHeight * 2;
-        console.log('peLimiteBaixo -> ' + this.peLimiteBaixo);
-        console.log('peLimiteCima -> ' + this.peLimiteCima);
-        this.pdLimiteCima = this.pdJogador.displayHeight / 2;
-        this.pdLimiteBaixo = this.pdJogador.displayHeight * 2;
-
         //Verifica colisao bola
         if (!this.passeBola) {
             if (this.physics.collide(this.bola, this.peJogador)) {
