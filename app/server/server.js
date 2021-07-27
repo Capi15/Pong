@@ -178,16 +178,20 @@ io.on('connection', function (socket) {
         console.log('GameOver');
     });
 
-    socket.on('moveJogadorCima', () => {
-        console.log(
-            '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-        );
+    socket.on('moveJogadorCima', (jogador) => {
+        if (!jogador) {
+            ecraPrincipal.emit('CimaJogadorE');
+        } else {
+            ecraPrincipal.emit('CimaJogadorD');
+        }
     });
 
-    socket.on('moveJogadorBaixo', () => {
-        console.log(
-            '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-        );
+    socket.on('moveJogadorBaixo', (jogador) => {
+        if (!jogador) {
+            ecraPrincipal.emit('BaixoJogadorE');
+        } else {
+            ecraPrincipal.emit('BaixoJogadorD');
+        }
     });
 
     //Elimina o Jogador da Lista pretendida com informação das sockets

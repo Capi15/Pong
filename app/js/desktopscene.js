@@ -106,12 +106,17 @@ class DesktopScene extends Phaser.Scene {
         this.initJogo();
 
         //Alterar a informação com o que vem do servidor
-        socket.on('moveJogadorPe', (data) => {
-            if (data) {
-                this.peY++;
-            } else {
-                this.peY--;
-            }
+        socket.on('CimaJogadorE', () => {
+            this.peY++;
+        });
+        socket.on('BaixoJogadorE', () => {
+            this.peY--;
+        });
+        socket.on('CimaJogadorD', () => {
+            this.pdY++;
+        });
+        socket.on('BaixoJogadorD', () => {
+            this.pdY--;
         });
 
         socket.on('moveJogadorPd', (data) => {
@@ -303,5 +308,7 @@ class DesktopScene extends Phaser.Scene {
         //this.peJogador.setY(this.peX);
         //this.pdJogador.setY(this.pdX);
         this.bola.setPosition(this.posXBal, this.posYBal);
+        this.peJogador.setY(this.peY);
+        this.pdJogador.setY(this.pdY);
     }
 }

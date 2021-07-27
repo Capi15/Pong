@@ -54,12 +54,9 @@ class MobileScene extends Phaser.Scene {
             this.rightClick.angle = -90;
 
             this.rightClick.on(
-                'pointerdown',
+                'pointerover',
                 () => {
                     this.rightClick.setScale(0.3);
-                    console.log(
-                        '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-                    );
                     socket.emit('moveJogadorBaixo', this.jogador);
                 },
                 this
@@ -76,12 +73,9 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerdown',
+                'pointerover',
                 () => {
                     this.leftClick.setScale(0.3);
-                    console.log(
-                        '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-                    );
                     socket.emit('moveJogadorCima', this.jogador);
                 },
                 this
@@ -119,12 +113,9 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.rightClick.on(
-                'pointerdown',
+                'pointerover',
                 () => {
                     this.rightClick.setScale(0.3);
-                    console.log(
-                        '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-                    );
                     socket.emit('moveJogadorBaixo', this.jogador);
                 },
                 this
@@ -141,12 +132,9 @@ class MobileScene extends Phaser.Scene {
                 .setScale(0.2);
 
             this.leftClick.on(
-                'pointerdown',
+                'pointerover',
                 () => {
                     this.leftClick.setScale(0.3);
-                    console.log(
-                        '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-                    );
                     socket.emit('moveJogadorCima', this.jogador);
                 },
                 this
