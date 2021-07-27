@@ -12,7 +12,8 @@ class MenuSceneDesktop extends Phaser.Scene {
     total = 0;
     noConn = 1;
     jogName = '';
-
+    width;
+    height;
     constructor() {
         super({ key: 'MenuSceneDesktop' });
     }
@@ -25,11 +26,17 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.totalPlayers = this.add.text(
             10,
             10,
-            'A aguardar jogadores...  ' + this.noPlayers + '/6'
+            'A aguardar jogadores...  ' + this.noPlayers + '/6',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+                // fontStyle: 'regular',
+                fontFamily: 'roboto',
+            }
         );
 
         // ------------------------------  Texto inicio da partida / Timmer  ------------------------------
-        this.initialTime = 50;
+        this.initialTime = 7;
         this.timmerText = this.add.text(
             500,
             100,
@@ -46,7 +53,7 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         // ------------------------------  QR code Dispositivo Movel  ------------------------------
         this.stringAndroid = this.add.text(130, 150, 'Acesso android');
-        this.add.sprite(200, 300, 'QrAndroid');
+        this.add.sprite(200, 300, 'QrAndroid').setScale(2);
 
         // ------------------------------  Texto Titulo Lista Jogadores  ------------------------------
         this.stringLista = this.add.text(
@@ -69,7 +76,13 @@ class MenuSceneDesktop extends Phaser.Scene {
             console.log('L68');
             this.noPlayers = listaJogadores.length;
             this.totalPlayers.setText(
-                'A aguardar jogadores...  ' + this.noPlayers + '/6'
+                'A aguardar jogadores...  ' + this.noPlayers + '/6',
+                {
+                    color: '#FFFFFF',
+                    fontSize: 40,
+                    fontStyle: 'bold',
+                    fontFamily: 'Roboto',
+                }
             );
             var y = 250;
             let id = 0;
