@@ -53,16 +53,22 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         // ------------------------------  QR code Dispositivo Movel  ------------------------------
         this.stringAndroid = this.add.text(130, 150, 'Acesso android');
-        this.add.sprite(200, 300, 'QrAndroid').setScale(2);
+        this.add
+            .sprite(this.sys.canvas.width - 150, 500, 'QrAndroid')
+            .setScale(2);
 
         // ------------------------------  Texto Titulo Lista Jogadores  ------------------------------
         this.stringLista = this.add.text(
-            450,
+            this.sys.canvas.width + 150,
             200,
             '***  Lista de Jogadores  ***'
         );
         // ------------------------------  Texto com todos jogadores   ------------------------------
-        this.stringListaNomes = this.add.text(450, 250, ' Nenhum ');
+        this.stringListaNomes = this.add.text(
+            this.sys.canvas.width + 150,
+            250,
+            ' Nenhum '
+        );
 
         // ------------------------------ Var com info do Ecra principal + Emit para servidor  ------------------------------
         var info = {
@@ -134,7 +140,7 @@ class MenuSceneDesktop extends Phaser.Scene {
                 socket.emit('startGame');
                 this.scene.start('DesktopScene');
             } else {
-                this.initialTime = 90;
+                this.initialTime = 30;
             }
         }
     }

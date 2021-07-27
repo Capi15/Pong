@@ -148,6 +148,7 @@ io.on('connection', function (socket) {
 
     socket.on('GameOver', () => {
         JogoADecorrer = false;
+        console.log('GameOver');
         if (SocketList.length >= 2) {
             for (let i = SocketList.length - 1; i >= 0; i--) {
                 console.log(' comprimento do array -> ' + SocketList.length);
@@ -166,13 +167,17 @@ io.on('connection', function (socket) {
                     SocketList[i].objSocket.emit('ForaDeJogo');
                     removePlayer(playerGameArray[i], playerGameArray);
                     removePlayer(SocketList[i], SocketList);
+                    remocePlayer(
+                        dataJogadores.listaJogadores[i],
+                        dataJogadores.listaJogadores
+                    );
                     console.log(
                         ' comprimento do array dentro do for -> ' +
                             SocketList.length
                     );
                 }
             }
-            if (SocketList.length < 1) {
+            if (SocketList.length <= 1) {
                 console.log('Sem jogadores');
                 dataJogadores.listaJogadores.forEach((element) => {
                     removePlayer(element, dataJogadores.listaJogadores);
@@ -265,6 +270,22 @@ io.on('connection', function (socket) {
                     }
                 }
             } else {
+                let sideBool = false; //====================================  Booliano para player esquerda e player direita
+                for (let i = 0; i < playerGameArray; i++) {
+                    playerGameArray[i].play = true;
+                    playerGameArray[i].side = sideBool;
+                    sideBool = !sideBool;
+                    if (
+                        SocketList[i].objSocketId === playerGameArray[i].id &&
+                        playerGameArray[i].play
+                    ) {
+                        SocketList[i].objSocket.emit(
+                            'MostraComando',
+                            playerGameArray[i].side
+                        );
+                    }
+                }
+
                 currentRound == 1;
             }
             playerGameArray.forEach((player) => {

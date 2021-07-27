@@ -161,6 +161,7 @@ class DesktopScene extends Phaser.Scene {
         });
 
         socket.on('JogadorSaiuAMeioDoJogo', (nome) => {
+            this.perdeu = true;
             this.vencedorText.setText('o Jogador ' + nome + ' venceu o jogo!');
             this.awaitNextRound();
         });
@@ -321,16 +322,12 @@ class DesktopScene extends Phaser.Scene {
                     this.posVXBal = -(this.posVXBal - this.vSpeedBal);
                     this.passaForca = true;
                 }
-                // this.collisionPe.active = false;
-                // this.posVXBal = this.bola.setBounce(1, 1);
             } else if (this.physics.collide(this.bola, this.pdJogador)) {
                 this.passeBola = true;
                 if (!this.passaForca) {
                     this.posVXBal = -(this.posVXBal + this.vSpeedBal);
                     this.passaForca = true;
                 }
-                // this.collisionPd.active = false;
-                // this.posVXBal = -(this.posVXBal + this.vSpeedBal);
             } else if (
                 !this.physics.collide(this.bola, this.pdJogador) &&
                 !this.physics.collide(this.bola, this.peJogador)
@@ -339,7 +336,6 @@ class DesktopScene extends Phaser.Scene {
             }
         } else {
             this.passeBola = false;
-            // this.posVXBal = -(this.posVXBal + this.vSpeedBal);
         }
 
         if (this.bola.x - this.sizeB / 2 >= this.pdJogador.x) {
