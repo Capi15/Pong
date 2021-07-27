@@ -142,7 +142,9 @@ io.on('connection', function (socket) {
         }
         // consoleLogListas();
     });
-    socket.on('startGame', atualizaJogadores());
+    socket.on('startGame', () => {
+        atualizaJogadores();
+    });
 
     socket.on('GameOver', () => {
         JogoADecorrer = false;
