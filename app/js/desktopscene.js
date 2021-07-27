@@ -178,7 +178,7 @@ class DesktopScene extends Phaser.Scene {
         );
         let randY =
             this.sys.game.canvas.height / this.sys.game.canvas.height - randX;
-        let intensidade = 6;
+        let intensidade = 10;
 
         if (this.ronda > 1) {
             if (this.perdeuEsquerda) {
@@ -204,7 +204,7 @@ class DesktopScene extends Phaser.Scene {
             }
         }
 
-        this.vSpeedBal = 0.3;
+        this.vSpeedBal = 1;
         this.bola.setPosition(this.posXBal, this.posYBal);
     }
 
