@@ -93,19 +93,19 @@ class DesktopScene extends Phaser.Scene {
             .setScale(0.6);
 
         this.textoRonda = this.add.text(
-            this.posXBal - 50,
+            50,
             60,
             'Ronda -> ' + this.ronda + '/5',
             {
                 color: '#FFFFFF',
-                fontSize: 50,
+                fontSize: 40,
             }
         );
         this.pontuacaoPe = 0;
         this.pontuacaoPd = 0;
 
         this.textoPontuacao = this.add.text(
-            this.posXBal - 50,
+            this.width - 200,
             40,
             this.pontuacaoPe + '            ' + this.pontuacaoPd,
             {
@@ -114,7 +114,7 @@ class DesktopScene extends Phaser.Scene {
             }
         );
         this.vencedorText = this.add.text(
-            this.width / 2 - 150,
+            this.width / 2 - 250,
             this.height / 2 - 100,
             '',
             {
@@ -123,7 +123,7 @@ class DesktopScene extends Phaser.Scene {
             }
         );
         this.proximoJogoInitText = this.add.text(
-            this.width / 2,
+            this.width / 2 - 250,
             this.height / 2,
             '',
             {

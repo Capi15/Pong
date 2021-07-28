@@ -150,36 +150,27 @@ io.on('connection', function (socket) {
         JogoADecorrer = false;
         console.log('GameOver');
         if (SocketList.length >= 2) {
-            for (let i = SocketList.length; i >= 0; i--) {
-                console.log(' comprimento do array -> ' + SocketList.length);
+            for (let i = SocketList.length - 1; i >= 0; i--) {
+                console.log(' -> ' + i);
+                console.log(' pgArray -> ' + playerGameArray[i].play);
                 if (
-                    playerGameArray[i].play === true &&
+                    playerGameArray[i].play &&
                     playerGameArray[i].id === SocketList[i].id
                 ) {
-                    console.log(
-                        'removeu player -> ' +
-                            dataJogadores.listaJogadores[i].nome +
-                            ' |  playerGameArray[i].id -> ' +
-                            playerGameArray[i].id +
-                            ' | SocketList[i].id -> ' +
-                            SocketList[i].id
-                    );
                     SocketList[i].objSocket.emit('ForaDeJogo');
+                    console.log('socket i -> ' + SocketList[i].objSocket);
                     removePlayer(playerGameArray[i], playerGameArray);
                     removePlayer(SocketList[i], SocketList);
                     removePlayer(
                         dataJogadores.listaJogadores[i],
                         dataJogadores.listaJogadores
                     );
-                    console.log(
-                        ' comprimento do array dentro do for -> ' +
-                            SocketList.length
-                    );
                 }
             }
             if (SocketList.length < 2) {
                 console.log('Sem jogadores');
                 for (let i = 0; i < SocketList.length; i++) {
+                    SocketList[i].objSocket.emit('ForaDeJogo');
                     removePlayer(playerGameArray[i], playerGameArray);
                     removePlayer(SocketList[i], SocketList);
                     removePlayer(
