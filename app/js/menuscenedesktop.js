@@ -119,7 +119,11 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.stringListaNomes = this.add.text(
                 this.sys.canvas.width / 2 + 50,
                 y,
-                this.jogName
+                this.jogName,
+                {
+                    color: '#FFFFFF',
+                    fontSize: 25,
+                }
             );
             y += 20;
         });
@@ -141,7 +145,11 @@ class MenuSceneDesktop extends Phaser.Scene {
             this.stringListaNomes = this.add.text(
                 this.sys.canvas.width / 2 + 50,
                 y,
-                this.jogName
+                this.jogName,
+                {
+                    color: '#FFFFFF',
+                    fontSize: 25,
+                }
             );
             y += 20;
         });
