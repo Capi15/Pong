@@ -30,8 +30,6 @@ class MenuSceneDesktop extends Phaser.Scene {
             {
                 color: '#FFFFFF',
                 fontSize: 25,
-                // fontStyle: 'regular',
-                fontFamily: 'roboto',
             }
         );
 
@@ -42,7 +40,11 @@ class MenuSceneDesktop extends Phaser.Scene {
             100,
             'O jogo iniciará em ' +
                 this.formatTime(this.initialTime) +
-                ' segundos'
+                ' segundos',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+            }
         );
         this.timedEvent = this.time.addEvent({
             delay: 1000,
@@ -53,9 +55,13 @@ class MenuSceneDesktop extends Phaser.Scene {
 
         // ------------------------------  QR code Dispositivo Movel  ------------------------------
         this.stringAndroid = this.add.text(
-            this.sys.canvas.width / 2 - 370,
+            this.sys.canvas.width / 3 - 30,
             150,
-            'Acesso android'
+            'Acesso android',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+            }
         );
         this.add
             .sprite(this.sys.canvas.width / 2 - 350, 500, 'QrAndroid')
@@ -65,13 +71,21 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.stringLista = this.add.text(
             this.sys.canvas.width / 2 + 50,
             200,
-            '***  Lista de Jogadores  ***'
+            '***  Lista de Jogadores  ***',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+            }
         );
         // ------------------------------  Texto com todos jogadores   ------------------------------
         this.stringListaNomes = this.add.text(
             this.sys.canvas.width / 2 + 50,
             250,
-            ' Nenhum '
+            ' Nenhum ',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+            }
         );
 
         // ------------------------------ Var com info do Ecra principal + Emit para servidor  ------------------------------
@@ -86,13 +100,11 @@ class MenuSceneDesktop extends Phaser.Scene {
             console.log('L68');
             this.noPlayers = listaJogadores.length;
             this.totalPlayers.setText(
-                'A aguardar jogadores...  ' + this.noPlayers + '/6',
-                {
-                    color: '#FFFFFF',
-                    fontSize: 40,
-                    fontStyle: 'bold',
-                    fontFamily: 'Roboto',
-                }
+                'A aguardar jogadores...  ' + this.noPlayers + '/6'
+                // {
+                //     color: '#FFFFFF',
+                //     fontSize: 20,
+                // }
             );
             var y = 250;
             let id = 0;
@@ -133,17 +145,13 @@ class MenuSceneDesktop extends Phaser.Scene {
             );
             y += 20;
         });
-
-        socket.on('trocaEcraJogo', () => {
-            this.scene.start('DesktopScene');
-        });
     }
 
     // ------------------------------  Update  ------------------------------
     update() {
         if (this.noPlayers == 6) {
-            this.scene.start('DesktopScene');
             socket.emit('startGame');
+            this.scene.start('DesktopScene');
         }
 
         if (this.initialTime <= 0) {
@@ -168,7 +176,11 @@ class MenuSceneDesktop extends Phaser.Scene {
         this.timmerText.setText(
             'O jogo iniciará em ' +
                 this.formatTime(this.initialTime) +
-                ' segundos'
+                ' segundos',
+            {
+                color: '#FFFFFF',
+                fontSize: 25,
+            }
         );
     }
 }

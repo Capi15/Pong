@@ -23,7 +23,7 @@ class WaitingMobileScene extends Phaser.Scene {
         });
 
         this.WaintingText = this.add.text(
-            this.cameras.main.width / 2,
+            this.cameras.main.width / 2 - 100,
             this.cameras.main.height / 2,
             'Sala de Espera'
         );

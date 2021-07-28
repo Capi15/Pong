@@ -101,7 +101,7 @@ io.on('connection', function (socket) {
             const arrayS = SocketList;
             for (let i = 0; i < arrayJ.length; i++) {
                 if (arrayG[i].play) {
-                    if (arrayJ.socket.id !== socket.id) {
+                    if (arrayJ.socket !== socket.id) {
                         ecraPrincipal.emit(
                             'JogadorSaiuAMeioDoJogo',
                             arrayG[i].nome
@@ -150,15 +150,15 @@ io.on('connection', function (socket) {
         JogoADecorrer = false;
         console.log('GameOver');
         if (SocketList.length >= 2) {
-            for (let i = SocketList.length - 1; i >= 0; i--) {
+            for (let i = SocketList.length; i >= 0; i--) {
                 console.log(' comprimento do array -> ' + SocketList.length);
                 if (
                     playerGameArray[i].play === true &&
                     playerGameArray[i].id === SocketList[i].id
                 ) {
                     console.log(
-                        'removeu player i-> ' +
-                            i +
+                        'removeu player -> ' +
+                            dataJogadores.listaJogadores[i].nome +
                             ' |  playerGameArray[i].id -> ' +
                             playerGameArray[i].id +
                             ' | SocketList[i].id -> ' +
@@ -167,7 +167,7 @@ io.on('connection', function (socket) {
                     SocketList[i].objSocket.emit('ForaDeJogo');
                     removePlayer(playerGameArray[i], playerGameArray);
                     removePlayer(SocketList[i], SocketList);
-                    remocePlayer(
+                    removePlayer(
                         dataJogadores.listaJogadores[i],
                         dataJogadores.listaJogadores
                     );
@@ -177,22 +177,27 @@ io.on('connection', function (socket) {
                     );
                 }
             }
-            if (SocketList.length <= 1) {
+            if (SocketList.length < 2) {
                 console.log('Sem jogadores');
-                dataJogadores.listaJogadores.forEach((element) => {
-                    removePlayer(element, dataJogadores.listaJogadores);
-                });
+                for (let i = 0; i < SocketList.length; i++) {
+                    removePlayer(playerGameArray[i], playerGameArray);
+                    removePlayer(SocketList[i], SocketList);
+                    removePlayer(
+                        dataJogadores.listaJogadores[i],
+                        dataJogadores.listaJogadores
+                    );
+                }
                 ecraPrincipal.emit('NovoEcraJogo');
             } else {
-                ecraPrincipal.emit('ProximaPartida');
+                currentRound++;
+                atualizaJogadores();
             }
         }
     });
 
     socket.on('startNextRound', () => {
-        console.log('startNextRound');
-        currentRound++;
-        atualizaJogadores();
+        // currentRound++;
+        // atualizaJogadores();
     });
 
     socket.on('moveJogadorCima', (jogador) => {
@@ -212,7 +217,6 @@ io.on('connection', function (socket) {
     });
 
     function atualizaJogadores() {
-        console.log('teste');
         if (currentRound <= NoOfRounds) {
             if (currentRound === 1) {
                 let sideBool = false; //====================================  Booliano para player esquerda e player direita
@@ -288,25 +292,37 @@ io.on('connection', function (socket) {
 
                 currentRound == 1;
             }
-            playerGameArray.forEach((player) => {
-                SocketList.forEach((element) => {
-                    if (player.id === element.id) {
-                        if (player.play) {
-                            element.objSocket.emit(
-                                'MostraComando',
-                                player.side
-                            );
-                        } else {
-                            element.objSocket.emit('SalaDeEspera');
-                        }
-                    }
-                });
 
-                //depois apaga os dados todos
-                if (ecraPrincipal != null) {
-                    ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+            for (let i = 0; i < playerGameArray.length; i++) {
+                if (playerGameArray[i].play) {
+                    SocketList[i].objSocket.emit(
+                        'MostraComando',
+                        playerGameArray[i].side
+                    );
+                } else {
+                    SocketList[i].objSocket.emit('SalaDeEspera');
                 }
-            });
+            }
+
+            // playerGameArray.forEach((player) => {
+            //     SocketList.forEach((element) => {
+            //         if (player.id === element.id) {
+            //             if (player.play) {
+            //                 element.objSocket.emit(
+            //                     'MostraComando',
+            //                     player.side
+            //                 );
+            //             } else {
+            //                 element.objSocket.emit('SalaDeEspera');
+            //             }
+            //         }
+            //     });
+
+            //     //depois apaga os dados todos
+            //     if (ecraPrincipal != null) {
+            //         ecraPrincipal.emit('trocaEcraJogo'); //=========================== Envia informação para troca de ecrã no DesckTop
+            //     }
+            // });
         }
         JogoADecorrer = true;
     }
